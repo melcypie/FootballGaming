@@ -10,5 +10,6 @@
 
 int main(){
 	printf("%d\n", checkProfile());
+	clearProfile();
 	return (EXIT_SUCCESS);
 }
