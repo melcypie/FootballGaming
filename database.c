@@ -6,10 +6,12 @@
 *		getPlayers: get the list of player from a destination and put it into struct. argument: the address of pointer that will assign to the first player. return number of player that can get.
 *		getTeamsProfile : Send profile destination address to getTeams
 *		getTeamsDatabase: Send Database destination address to getTeams
-*		saveTeamsProfile: Save current Teams data into profile. return 1 if succeedsucceed and 0 if not
-*		savePlayersProfile: Save current players data into profile. return 1 if successed and 0 if not
-*		getGames : get the game list. Arguman pointer to pointer. return number of games if successed. 0 or not
-*		saveGames : Save games list into profile. return 1 if succeed or 0 if not.
+*		saveTeamsProfile: Save current Teams data into profile. return 1 if succeed and 0 if not
+*		savePlayersProfile: Save current players data into profile. return 1 if succeed and 0 if not
+*		getGames : get the game list. Arguman pointer to pointer. return number of games if succeed. 0 if not
+*		saveGamesProfile : Save games list into profile. return 1 if succeed or 0 if not.
+*		getNatayej : get the natayej list. Arguman pointer to pointer. return number of natayej if succeed. 0 if not
+*		saveNatayejProfile : Save the Natayej list into profile. return 1 if succeed or 0 if not
 */
 #include "dataStruct.h"
 #include <stdio.h>
@@ -122,6 +124,13 @@ int getGames(game_t **games){
 	for(line = 0; fgets(data,100,fp) != NULL; line++);
 	line--;
 	*games = (game_t *)(calloc(line, sizeof(game_t))); //allocate the games in ram
+	fclose(fp);
+	fp = NULL;
+	//reOpen file to save data in a struct
+	fp = fopen(destination, "r");
+	if(fp == NULL){
+		return 0;
+	}
 	int i = 1;
 	fgets(data,100,fp); //exclude first line
 	while(fgets(data,100,fp) != NULL){ //save each line in data variable
@@ -139,7 +148,61 @@ int getGames(game_t **games){
 	fp = NULL;
 	return line;
 }
-int saveGames(game_t *games, int size){
+int getNatayej(natayej_t **natayej){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database" DS "profile" DS "natayej";
+	fp = fopen(destination, "r");
+	if(fp == NULL){
+		return 0;
+	}
+	char data[100];
+	//count lines
+	int line;
+	for(line = 0; fgets(data,100,fp) != NULL; line++);
+	line--;
+	*natayej = (natayej_t *)(calloc(line, sizeof(natayej_t))); //allocate the games in ram
+	fclose(fp);
+	fp = NULL;
+	//reOpen file to save data in a struct
+	fp = fopen(destination, "r");
+	if(fp == NULL){
+		return 0;
+	}
+	int i = 1;
+	fgets(data,100,fp); //exclude first line
+	while(fgets(data,100,fp) != NULL){ //save each line in data variable
+		char gameid[3], team1goal[3], team2goal[3]; //some string to put data in
+		sscanf(data, "%[^:]:%[^:]:%[^:]", gameid, team1goal, team2goal); //scan data with : seprator
+		char *ptr = NULL;
+		(*natayej + i - 1)->gameid = strtol(gameid,&ptr,10); //save gameid into struct
+		(*natayej + i - 1)->team1goal = strtol(team1goal,&ptr,10); //save team1goal into struct
+		(*natayej + i - 1)->team2goal = strtol(team2goal,&ptr,10); //save team2goal into struct
+		i++;
+	}
+	fclose(fp);
+	fp = NULL;
+	return line;
+}
+int saveNatayejProfile(natayej_t *natayej, int size){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database" DS "profile" DS "natayej";
+	fp = fopen(destination, "w");
+	if(fp == NULL){
+		return 0;
+	}
+	char data[100] = "gameid:team1goal:team2goal"; //first row
+	for(int i = 0; i < size; i++){ //save each line in file
+		fprintf(fp, "%s\n", data);
+		sprintf(data, "%d:%d:%d", (natayej + i)->gameid, (natayej + i)->team1goal, (natayej + i)->team2goal);
+	}
+	fprintf(fp, "%s\n", data); //save the last line
+	fclose(fp);
+	fp = NULL;
+	return 1;
+}
+int saveGamesProfile(game_t *games, int size){
 	//Open file
 	FILE *fp = NULL;
 	char destination[] = "Database" DS "profile" DS "games";

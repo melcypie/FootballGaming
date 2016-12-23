@@ -5,4 +5,6 @@ int getPlayersDatabase(player_t **players);
 int saveTeamsProfile(team_t *teams,int size);
 int savePlayersProfile(player_t *players, int size);
 int getGames(game_t **games);
-int saveGames(game_t *games, int size);
+int saveGamesProfile(game_t *games, int size);
+int getNatayej(natayej_t **natayej);
+int saveNatayejProfile(natayej_t *natayej, int size);
