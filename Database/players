@@ -12,8 +12,8 @@ id:teamid:name:lastname:goal:position:skill:amadegi:khastegi:rouhiye:khoshunat
 11:1:Omid:AliShah:0:2:70:70:10:90:10
 12:1:Ramin:Rezaeian:0:3:65:90:10:90:40
 13:1:Ali:AliPour:0:1:65:65:10:80:20
-14:1:Bouzhidar:Radoshouvich:0:4:60:90:10:90:50
-15:1:Ahmad:Nour O Lahi:0:2:59:60:30:90:50
+14:1:Bouzhidar:Radoshouvich:0:4:60:90:10:90:30
+15:1:Ahmad:Nour O Lahi:0:2:59:60:30:90:30
 16:1:Veladimir:Perimouf:0:1:58:60:20:50:10
 17:1:Sadegh:Moharami:0:3:50:50:20:70:10
 18:1:Olexi:Pulianski:0:3:50:80:10:100:10
@@ -90,5 +90,27 @@ id:teamid:name:lastname:goal:position:skill:amadegi:khastegi:rouhiye:khoshunat
 89:5:esmaEl:sharifat:0:1:69:69:5:68:6
 90:5:mehrdad:jamaati:0:3:60:60:10:60:10
 91:5:ahmad:abdolah zade:0:2:53:55:12:53:9
-
+92:5:mahmud:motlaghzade:0:2:50:50:10:50:10
+93:5:bahram:rashidfarokhi:0:2:45:47:11:55:8
+94:5:surush:saEdi:0:3:45:45:11:40:13
+95:5:sina:moridi:0:2:40:40:10:44:10
+96:5:milad:badraghe:0:2:36:35:3:30:7
+97:5:milad:pakparvar:0:2:30:30:12:50:12
+98:5:mehrdad:tahmasebi:0:4:21:30:2:41:10
+99:5:mojtaba:najarian:0:1:20:20:10:30:10
+100:5:bahman:jahan tigh:0:1:21:19:10:35:11
+101:6:gadvin:mansha:0:1:90:95:10:90:12
+102:6:amirhoseyn:sadeghi:0:3:90:90:11:90:10
+103:6:rahman:ahmadi:0:4:87:88:12:88:5
+104:6:morteza:aghakhan:0:1:85:85:10:85:10
+105:6:mahdi:shiri:0:3:84:82:12:80:12
+106:6:siavash:yazdani moghaddam:0:3:80:80:10:80:11
+107:6:mohammdsadegh:barani:0:2:76:76:11:76:11
+108:6:abolfazl:ebrahimi:0:2:74:74:10:49:5
+109:6:siamak:nemati:0:2:71:70:14:67:12
+110:6:leon:hayraptian:0:3:69:68:10:60:10
+111:6:ali:hamudi:0:3:65:65:20:60:30
+112:6:mahan:rahmani:0:2:64:63:18:62:18
+113:6:arman:ghasemi:0:2:60:60:12:65:14
+114:6:sajjad:ashuri:0:2:
 
