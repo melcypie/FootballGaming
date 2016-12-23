@@ -1,0 +1,1 @@
+team_t *getTeams(team_t *teams);

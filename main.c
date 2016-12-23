@@ -7,9 +7,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "profile.h"
+#include "utilities.h"
+#include "dataStruct.h"
+#include "database.h"
 
 int main(){
-	printf("%d\n", checkProfile());
-	clearProfile();
+	team_t teams[16];
+	getTeams(teams);
 	return (EXIT_SUCCESS);
 }
