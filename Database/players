@@ -1,21 +1,21 @@
 id:teamid:name:lastname:goal:position:skill:amadegi:khastegi:rouhiye:khoshunat
-1:1:Hossein:Mahini:0:3:100:100:20:80:10
-2:1:Seyyed Jalal:Hosseini:0:3:90:90:20:80:20
-3:1:Mohsen:Rabi Khah:0:3:90:90:20:80:10
-4:1:Vahid:Amiri:0:2:89:89:25:75:10
-5:1:Mohammad:Ansari:0:3:85:85:20:80:20
-6:1:Mahdi:Taromi:0:1:85:85:30:70:20
-7:1:Kamal O din:Kamyabi Nia:0:2:80:80:20:70:30
-8:1:Mohsen:Mosalman:0:2:75:75:30:70:20
-9:1:Alireza:Biranvand:0:4:70:70:30:70:10
+1:1:Hossein:Mahini:0:3:100:100:10:80:10
+2:1:Seyyed Jalal:Hosseini:0:3:90:90:10:80:20
+3:1:Mohsen:Rabi Khah:0:3:90:90:10:80:10
+4:1:Vahid:Amiri:0:2:89:89:15:75:10
+5:1:Mohammad:Ansari:0:3:85:85:10:80:20
+6:1:Mahdi:Taromi:0:1:85:85:10:70:20
+7:1:Kamal O din:Kamyabi Nia:0:2:80:80:10:70:30
+8:1:Mohsen:Mosalman:0:2:75:75:10:70:20
+9:1:Alireza:Biranvand:0:4:70:70:10:70:10
 10:1:Farshad:Ahmad Zade:0:2:70:70:10:90:20
 11:1:Omid:AliShah:0:2:70:70:10:90:10
 12:1:Ramin:Rezaeian:0:3:65:90:10:90:40
 13:1:Ali:AliPour:0:1:65:65:10:80:20
 14:1:Bouzhidar:Radoshouvich:0:4:60:90:10:90:30
-15:1:Ahmad:Nour O Lahi:0:2:59:60:30:90:30
-16:1:Veladimir:Perimouf:0:1:58:60:20:50:10
-17:1:Sadegh:Moharami:0:3:50:50:20:70:10
+15:1:Ahmad:Nour O Lahi:0:2:59:60:10:90:30
+16:1:Veladimir:Perimouf:0:1:58:60:10:50:10
+17:1:Sadegh:Moharami:0:3:50:50:10:70:10
 18:1:Olexi:Pulianski:0:3:50:80:10:100:10
 19:1:Mohammad:Aram Tab:0:3:50:90:10:90:5
 20:1:Reza:KeremlaChab:0:1:50:60:10:90:5
@@ -112,5 +112,11 @@ id:teamid:name:lastname:goal:position:skill:amadegi:khastegi:rouhiye:khoshunat
 111:6:ali:hamudi:0:3:65:65:20:60:30
 112:6:mahan:rahmani:0:2:64:63:18:62:18
 113:6:arman:ghasemi:0:2:60:60:12:65:14
-114:6:sajjad:ashuri:0:2:
+114:6:sajjad:ashuri:0:2:56:56:15:53:24
+115:6:shahyar:moghanlu:0:3:50:50:16:40:15
+116:6:halison:santus:0:3:42:40:12:30:15
+117:6:bahador:abdi:0:2:30:38:16:35:10
+118:6:arash:borhani:0:1:31:30:10:36:8
+119:6:faraz:amam ali:0:1:30:26:18:39:19
+120:6:peyman:ranjbari:0:1:21:21:21:21:21
 
