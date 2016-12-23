@@ -72,10 +72,17 @@ int clearProfile(void){
 	return 1;
 }
 
-int saveProfile(team_t *teams, int team_size){
-	if(saveTeamsProfile(teams,team_size) == 0){
+int saveProfile(team_t *teams, int team_size, player_t *players, int player_size){
+	char destination[] = "Database" DS "profile" DS "empty";//remove empty file
+	int ret = remove(destination);
+    if(ret != 0){
+       	return 0;
+    }
+	if(saveTeamsProfile(teams,team_size) == 0){ //Save teams
 		return 0;
 	}
-
+	if(savePlayersProfile(players, player_size) == 0){ //save players
+		return 0;
+	}
 	return 1;
 }

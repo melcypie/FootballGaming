@@ -1,17 +1,17 @@
-id:name:isPlayer:money
-1:Perspolis:0:500000
-2:Teraktor:0:440000
-3:Zobahan:0:430000
-4:Naft Tehran:0:420000
-5:Foolad:0:400000
-6:Peykan:0:400000
-7:Esteghlal:0:350000
-8:Sepahan:0:320000
-9:Gostaresh Foolad:0:300000
-10:Sanate Nafte Abadan:0:250000
-11:Esteghlal Khozestan:0:250000
-12:Padide:0:200000
-13:Siah Jamegan:0:200000
-14:Saypa:0:100000
-15:Saba:0:100000
-16:PLAYER:1:100000
+id:name:isPlayer:money:0:0:0:0
+1:Perspolis:0:500000:0:0:0:0
+2:Teraktor:0:440000:0:0:0:0
+3:Zobahan:0:430000:0:0:0:0
+4:Naft Tehran:0:420000:0:0:0:0
+5:Foolad:0:400000:0:0:0:0
+6:Peykan:0:400000:0:0:0:0
+7:Esteghlal:0:350000:0:0:0:0
+8:Sepahan:0:320000:0:0:0:0
+9:Gostaresh Foolad:0:300000:0:0:0:0
+10:Sanate Nafte Abadan:0:250000:0:0:0:0
+11:Esteghlal Khozestan:0:250000:0:0:0:0
+12:Padide:0:200000:0:0:0:0
+13:Siah Jamegan:0:200000:0:0:0:0
+14:Saypa:0:100000:0:0:0:0
+15:Saba:0:100000:0:0:0:0
+16:PLAYER:1:100000:0:0:0:0
