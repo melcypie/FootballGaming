@@ -2,12 +2,14 @@
 * Author : Mahdi Alikhasi
 * Description: working with database. get data and save data.
 * Functions::
-*		getTeams: get the teams from destination (Arguman) and save it to team_t data structure. return NULL if faild. return pointer if successed.
+*		getTeams: get the teams from destination (Arguman) and save it to team_t data structure. return NULL if faild. return pointer if succeed.
 *		getPlayers: get the list of player from a destination and put it into struct. argument: the address of pointer that will assign to the first player. return number of player that can get.
 *		getTeamsProfile : Send profile destination address to getTeams
 *		getTeamsDatabase: Send Database destination address to getTeams
-*		saveTeamsProfile: Save current Teams data into profile. return 1 if successed and 0 if not
+*		saveTeamsProfile: Save current Teams data into profile. return 1 if succeedsucceed and 0 if not
 *		savePlayersProfile: Save current players data into profile. return 1 if successed and 0 if not
+*		getGames : get the game list. Arguman pointer to pointer. return number of games if successed. 0 or not
+*		saveGames : Save games list into profile. return 1 if succeed or 0 if not.
 */
 #include "dataStruct.h"
 #include <stdio.h>
@@ -105,6 +107,55 @@ int getPlayersProfile(player_t **players){
 int getPlayersDatabase(player_t **players){
 	char destination[] = "Database" DS "players";
 	return getPlayers(players, destination);
+}
+int getGames(game_t **games){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database" DS "profile" DS "games";
+	fp = fopen(destination, "r");
+	if(fp == NULL){
+		return 0;
+	}
+	char data[100];
+	//count lines
+	int line;
+	for(line = 0; fgets(data,100,fp) != NULL; line++);
+	line--;
+	*games = (game_t *)(calloc(line, sizeof(game_t))); //allocate the games in ram
+	int i = 1;
+	fgets(data,100,fp); //exclude first line
+	while(fgets(data,100,fp) != NULL){ //save each line in data variable
+		char id[3], idteam1[3], idteam2[3], raftorbargasht[3], week[4]; //some string to put data in
+		sscanf(data, "%[^:]:%[^:]:%[^:]:%[^:]:%[^:]", id, idteam1, idteam2, raftorbargasht, week); //scan data with : seprator
+		char *ptr = NULL;
+		(*games + i - 1)->id = strtol(id,&ptr,10); //save id into struct
+		(*games + i - 1)->team1id = strtol(idteam1,&ptr,10); //save idteam1 into struct
+		(*games + i - 1)->team2id = strtol(idteam2,&ptr,10); //save idteam2 into struct
+		(*games + i - 1)->raftorbargasht = strtol(raftorbargasht,&ptr,10); //save raftorbargasht into struct
+		(*games + i - 1)->week = strtol(week,&ptr,10); //save week zade into struct
+		i++;
+	}
+	fclose(fp);
+	fp = NULL;
+	return line;
+}
+int saveGames(game_t *games, int size){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database" DS "profile" DS "games";
+	fp = fopen(destination, "w");
+	if(fp == NULL){
+		return 0;
+	}
+	char data[100] = "id:team1id:team2id:raftorbargasht:week"; //first row
+	for(int i = 0; i < size; i++){ //save each line in file
+		fprintf(fp, "%s\n", data);
+		sprintf(data, "%d:%d:%d:%d:%d", (games + i)->id, (games + i)->team1id, (games + i)->team2id, (games + i)->raftorbargasht, (games + i)->week);
+	}
+	fprintf(fp, "%s\n", data); //save the last line
+	fclose(fp);
+	fp = NULL;
+	return 1;
 }
 int saveTeamsProfile(team_t *teams,int size){
 	//Open file
