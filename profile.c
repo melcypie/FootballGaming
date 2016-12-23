@@ -7,9 +7,13 @@
 *		clearProfile: Clear all saved data. Return 1 if successfully cleared. Return 0 if not.
 *		saveProfile: save current data into profile directory. return 1 if successfully saved. 0 if not.
 */
+
+#include "dataStruct.h"
+#include "database.h"
 #include <stdio.h>
 #include <dirent.h>
 #include <string.h>
+#include "profile.h"
 
 //make seprator base on OS
 #ifdef __linux__ 
@@ -68,6 +72,10 @@ int clearProfile(void){
 	return 1;
 }
 
-int saveProfile(){
+int saveProfile(team_t *teams, int team_size){
+	if(saveTeamsProfile(teams,team_size) == 0){
+		return 0;
+	}
 
+	return 1;
 }

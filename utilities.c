@@ -4,7 +4,9 @@
 * Functions::
 *		clearPage: clear the entire page using shell built in functions
 */
+#include "dataStruct.h"
 #include <stdlib.h>
+#include "utilities.h"
 
 void clearPage(){
 	#ifdef __linux__ 
