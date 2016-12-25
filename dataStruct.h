@@ -1,6 +1,16 @@
 //I use include guards to avoid twice defenition and errors
 #ifndef DATA_H
 #define DATA_H
+	#ifdef __linux__ 
+	    #define BLUE "\x1b[34m"
+		#define RESET "\x1b[0m"
+	#elif _WIN32
+	    #define BLUE ""
+		#define RESET ""
+	#else
+		#define BLUE "\x1b[34m"
+		#define RESET "\x1b[0m"
+	#endif
 
 struct team {
     int id;
@@ -12,7 +22,16 @@ struct team {
     int khorde;
     int count;
 };
-
+enum teamField{
+    teamID = 1,
+    teamNAME,
+    teamISPLAYER,
+    teamMONEY,
+    teamSCORE,
+    teamZADE,
+    teamKHORDE,
+    teamCOUNT	
+};
 struct game {
 	int id;
 	int team1id;
@@ -44,6 +63,21 @@ struct player{
 	int khastegi;
 	int rouhiye;
 	int khoshunat;
+	int sum;
+};
+enum playerField{
+	playerID = 1,
+	playerTEAMID,
+	playerNAME,
+	playerLASTNAME,
+	playerGOAL,
+	playerPOSITION,
+	playerSKILL,
+	playerAMADEGI,
+	playerKHASTEGI,
+	playerROUHIYE,
+	playerKHOSHUNAT,
+	playerSUM
 };
 typedef struct team team_t;
 typedef struct game game_t;
