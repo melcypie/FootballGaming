@@ -192,6 +192,39 @@ void bubbleTeams(team_t *teams, int size, int type){
 		}
 	}
 }
+void bubbleTeamsLeague(team_t *teams, int size){
+	for(int i = 0; i < size; i++){
+		for(int j = 0; j < size; j++){
+			if((teams + j)->score < (teams + j + 1)->score){
+				team_t tmp;
+				tmp = teams[j];
+				teams[j] = teams[j+1];
+				teams[j+1] = tmp;
+			}else if((teams + j)->score == (teams + j + 1)->score){
+				if((teams + j)->zade < (teams + j + 1)->zade){
+					team_t tmp;
+					tmp = teams[j];
+					teams[j] = teams[j+1];
+					teams[j+1] = tmp;
+				}else if((teams + j)->zade == (teams + j + 1)->zade){
+					if((teams + j)->khorde > (teams + j + 1)->khorde){
+						team_t tmp;
+						tmp = teams[j];
+						teams[j] = teams[j+1];
+						teams[j+1] = tmp;
+					}else if((teams + j)->khorde == (teams + j + 1)->khorde){
+						if((teams + j)->id > (teams + j + 1)->id){
+							team_t tmp;
+							tmp = teams[j];
+							teams[j] = teams[j+1];
+							teams[j+1] = tmp;
+						}
+					}
+				}
+			}
+		}
+	}
+}
 void clearPage(){
 	#ifdef __linux__ 
 		printf("\033[H\033[J");
@@ -304,8 +337,15 @@ void printAllTeamsList(team_t *teams, int size){
 	}
 	printf(BLUE "+----+--------------------+\n" RESET);
 }
-void printLeagueData(){
-
+void printLeagueData(team_t *teams, int size){
+	bubbleTeamsLeague(teams, 16);
+	printf(BLUE "+----+--------------------+\n" RESET);
+	printf(BLUE "|" RESET "%4s" BLUE "|" RESET "%20s" BLUE "|" RESET "\n", "id","Name");
+	for(int i = 0; i < size; i++){
+		printf(BLUE "+----+--------------------+\n" RESET);
+		printf(BLUE "|" RESET "%4d" BLUE "|" RESET "%20s" BLUE "|" RESET "\n", (teams + i)->id, (teams + i)->name);
+	}
+	printf(BLUE "+----+--------------------+\n" RESET);
 }
 void printGameGoals(){
 
