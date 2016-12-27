@@ -12,7 +12,7 @@
 #include "utilities.h"
 
 int main(){
-	welcomeFootball();
+	//welcomeFootball();
 	team_t teams[16];
 	getTeamsDatabase(teams);
 	player_t *players;
