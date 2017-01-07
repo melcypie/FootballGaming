@@ -55,7 +55,6 @@ struct player{
 	int id;
 	int teamid;
 	char name[50];
-	char lastname[50];
 	int goal;
 	int position;
 	int skill;
@@ -63,13 +62,14 @@ struct player{
 	int khastegi;
 	int rouhiye;
 	int khoshunat;
+	int sen;
+	int shomare;
 	int sum;
 };
 enum playerField{
 	playerID = 1,
 	playerTEAMID,
 	playerNAME,
-	playerLASTNAME,
 	playerGOAL,
 	playerPOSITION,
 	playerSKILL,
