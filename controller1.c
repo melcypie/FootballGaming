@@ -1,7 +1,10 @@
 /*
 * Author : Pegah Khorasani
 * Description: 
-* Functions::
+* Functions:: 
+		start: 2 halt bara ye bazi vujud dard, bazi az avval shuru shavd ya kheyr! in tabe shuru e bazi ra az 2 halat Ntekhab mikond
+		selectProfileTeam: karbar az 16 ta teame mujud yeki ra be delkhah Ntekhab miknd
+		
 *		
 */
 #include "dataStruct.h"
@@ -77,6 +80,15 @@ void start(){ //sakhte profile
 		}
 	}	
 }
+
+
+
+
+void playerGameCC ( int id1 , int id2 , int *goal1 , int goal2 ) {
+	sum = 
+}
+
+
 
 
 
