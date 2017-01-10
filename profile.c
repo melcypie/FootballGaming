@@ -87,7 +87,7 @@ int saveProfile(team_t *teams, int team_size, player_t *players, int player_size
 	if(saveGamesProfile(games, game_size) == 0){ //save players
 		return 0;
 	}
-	if(saveNatayejProfile(natayej, natayej_size) == 0){
+	if(saveAllNatayejProfile(natayej, natayej_size) == 0){
 		return 0;
 	}
 	return 1;

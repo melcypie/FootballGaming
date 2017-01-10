@@ -36,7 +36,6 @@ struct game {
 	int id;
 	int team1id;
 	int team2id;
-	int raftorbargasht;
 	int week;
 };
 

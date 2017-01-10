@@ -15,5 +15,6 @@
 
 int main(){
 	start();
+	clearProfile();
 	return (EXIT_SUCCESS);
 }

@@ -4,13 +4,17 @@
 * Functions::
 *		getPlayersProfile: get the list of player from saved profile and put it into struct. argument: the address of pointer that will assign to the first player. return number of player that can get.
 *		getTeamsProfile : Get team list from saved Profile. return pointer to team_t (the first of array)
-*		createTeamsProfile: 
+*		createTeamsProfile: get the team list from default database and save it to profile directory.
+*		createPlayersProfile: get the default player list from default database and save it in the profile directory.
 *		saveTeamsProfile: Save current Teams data into profile. return 1 if succeed and 0 if not
 *		savePlayersProfile: Save current players data into profile. return 1 if succeed and 0 if not
 *		getGames : get the game list. Arguman pointer to pointer. return number of games if succeed. 0 if not
 *		saveGamesProfile : Save games list into profile. return 1 if succeed or 0 if not.
 *		getNatayej : get the natayej list. Arguman pointer to pointer. return number of natayej if succeed. 0 if not
-*		saveNatayejProfile : Save the Natayej list into profile. return 1 if succeed or 0 if not
+*		saveAllNatayejProfile : Save the Natayej list into profile. return 1 if succeed or 0 if not
+*		addNatayejProfile : apppend an aaray of natayej to the end of Natayej file on profile directory
+*		removeEmptyFile: Remove the 'empty' file from profile directory
+*		createProfile : if there is not a profile file on profile directory, create one.
 */
 #include "dataStruct.h"
 #include <stdio.h>
@@ -58,13 +62,7 @@ int getPlayersProfile(player_t **players){
 	for(line = 0; fgets(data,100,fp) != NULL; line++);
 	line--;
 	*players = (player_t *)(calloc(line, sizeof(player_t))); //allocate the players in ram
-	fclose(fp);
-	fp = NULL;
-	//reOpen file to save data in a struct
-	fp = fopen(destination, "r");
-	if(fp == NULL){
-		return 0;
-	}
+	rewind(fp);
 	fgets(data,100,fp); //exclude first line
 	for(int i = 0;fgets(data,100,fp) != NULL;i++){ //save each line in data variable
 		char id[3], sen[3], shomare[3], teamid[3], goal[4], position[2], skill[4], amadegi[4], khastegi[4], rouhiye[4], khoshunat[4]; //some string to put data in
@@ -151,13 +149,7 @@ int createPlayersProfile(void){
 		for(line = 0; fgets(data,100,fp) != NULL; line++);
 		player_t *players = NULL;
 		players = (player_t *)(calloc(line, sizeof(player_t))); //allocate the players in ram
-		fclose(fp);
-		fp = NULL;
-		//reOpen file to save data in a struct
-		fp = fopen(destination, "r");
-		if(fp == NULL){
-			return 0;
-		}
+		rewind(fp);
 		for(int j = 0;fgets(data,100,fp) != NULL;j++, player_id++){ //save each line in data variable
 			char sen[3], shomare[3], position[2]; //some string to put data in
 			sscanf(data, "%[^,],%[^,],%[^:]:%[^,]", shomare, (players + j)->name, sen, position); //scan data with : seprator
@@ -206,13 +198,7 @@ int getGames(game_t **games){
 	for(line = 0; fgets(data,100,fp) != NULL; line++);
 	line--;
 	*games = (game_t *)(calloc(line, sizeof(game_t))); //allocate the games in ram
-	fclose(fp);
-	fp = NULL;
-	//reOpen file to save data in a struct
-	fp = fopen(destination, "r");
-	if(fp == NULL){
-		return 0;
-	}
+	rewind(fp);
 	int i = 1;
 	fgets(data,100,fp); //exclude first line
 	while(fgets(data,100,fp) != NULL){ //save each line in data variable
@@ -222,7 +208,6 @@ int getGames(game_t **games){
 		(*games + i - 1)->id = strtol(id,&ptr,10); //save id into struct
 		(*games + i - 1)->team1id = strtol(idteam1,&ptr,10); //save idteam1 into struct
 		(*games + i - 1)->team2id = strtol(idteam2,&ptr,10); //save idteam2 into struct
-		(*games + i - 1)->raftorbargasht = strtol(raftorbargasht,&ptr,10); //save raftorbargasht into struct
 		(*games + i - 1)->week = strtol(week,&ptr,10); //save week zade into struct
 		i++;
 	}
@@ -244,13 +229,7 @@ int getNatayej(natayej_t **natayej){
 	for(line = 0; fgets(data,100,fp) != NULL; line++);
 	line--;
 	*natayej = (natayej_t *)(calloc(line, sizeof(natayej_t))); //allocate the games in ram
-	fclose(fp);
-	fp = NULL;
-	//reOpen file to save data in a struct
-	fp = fopen(destination, "r");
-	if(fp == NULL){
-		return 0;
-	}
+	rewind(fp);
 	int i = 1;
 	fgets(data,100,fp); //exclude first line
 	while(fgets(data,100,fp) != NULL){ //save each line in data variable
@@ -266,7 +245,7 @@ int getNatayej(natayej_t **natayej){
 	fp = NULL;
 	return line;
 }
-int saveNatayejProfile(natayej_t *natayej, int size){
+int saveAllNatayejProfile(natayej_t *natayej, int size){
 	//Open file
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/natayej";
@@ -274,10 +253,10 @@ int saveNatayejProfile(natayej_t *natayej, int size){
 	if(fp == NULL){
 		return 0;
 	}
-	char data[100] = "gameid:team1goal:team2goal"; //first row
+	char data[100] = "gameid,team1goal,team2goal"; //first row
 	for(int i = 0; i < size; i++){ //save each line in file
 		fprintf(fp, "%s\n", data);
-		sprintf(data, "%d:%d:%d", (natayej + i)->gameid, (natayej + i)->team1goal, (natayej + i)->team2goal);
+		sprintf(data, "%d,%d,%d", (natayej + i)->gameid, (natayej + i)->team1goal, (natayej + i)->team2goal);
 	}
 	fprintf(fp, "%s\n", data); //save the last line
 	fclose(fp);
@@ -292,10 +271,10 @@ int saveGamesProfile(game_t *games, int size){
 	if(fp == NULL){
 		return 0;
 	}
-	char data[100] = "id:team1id:team2id:raftorbargasht:week"; //first row
+	char data[100] = "id,team1id,team2id,week"; //first row
 	for(int i = 0; i < size; i++){ //save each line in file
 		fprintf(fp, "%s\n", data);
-		sprintf(data, "%d:%d:%d:%d:%d", (games + i)->id, (games + i)->team1id, (games + i)->team2id, (games + i)->raftorbargasht, (games + i)->week);
+		sprintf(data, "%d,%d,%d,%d", (games + i)->id, (games + i)->team1id, (games + i)->team2id, (games + i)->week);
 	}
 	fprintf(fp, "%s\n", data); //save the last line
 	fclose(fp);
@@ -338,7 +317,21 @@ int savePlayersProfile(player_t *players, int size){
 	fp = NULL;
 	return 1;	
 }
-int addNatayejProfile(){
+int addNatayejProfile(natayej_t *natayej, int size){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database/profile/natayej";
+	fp = fopen(destination, "a");
+	if(fp == NULL){
+		return 0;
+	}
+	char data[100];
+	for(int i = 0; i < size; i++){ //save each line in file
+		sprintf(data, "%d,%d,%d", (natayej + i)->gameid, (natayej + i)->team1goal, (natayej + i)->team2goal);
+		fprintf(fp, "%s\n", data);
+	}
+	fclose(fp);
+	fp = NULL;
 	return 1;
 }
 void removeEmptyFile(void){
@@ -346,7 +339,9 @@ void removeEmptyFile(void){
 	int ret = remove(destination);
 }
 void createProfile(){
-	removeEmptyFile();
-	createTeamsProfile();
-	createPlayersProfile();
+	removeEmptyFile(); //remove empty file
+	createTeamsProfile(); //Save team list
+	createPlayersProfile(); //Save all players
+	natayej_t natije;
+	saveAllNatayejProfile(&natije, 0); //Create a Natayej file with the headers...
 }
