@@ -45,7 +45,7 @@ void start(){ //sakhte profile
 		}
 	}else {
 		printf("azizm inja ye profile dari ^__^\n");
-		printf("mikhay ye profile jadid dashte bashi ya na ??!?\n");
+		printf("mikhay ye profile jadid dashte bashi ya na?\n");
 		printf("bara ye shuru e league jadid kalame ye 'new' ra vared namayin ya bara ye edame ye league ghabli kalame ye 'resume' ra vared namayin\n");
 		char input[10];
 		while(1){
