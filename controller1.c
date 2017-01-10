@@ -10,6 +10,8 @@
 #include "database.h"
 #include "controller1.h"
 #include "utilities.h"
+#include <string.h>
+#include "profile.h"
 
 
 
