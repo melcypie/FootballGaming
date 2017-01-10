@@ -78,9 +78,15 @@ enum playerField{
 	playerKHOSHUNAT,
 	playerSUM
 };
+struct arrangment{
+	int defa;
+	int miane;
+	int hamle;
+};
 typedef struct team team_t;
 typedef struct game game_t;
 typedef struct natayej natayej_t;
 typedef struct goal goal_t;
 typedef struct player player_t;
+typedef struct arrangment arrangment_t;
 #endif 

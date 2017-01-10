@@ -66,7 +66,7 @@ int getPlayersProfile(player_t **players){
 	fgets(data,100,fp); //exclude first line
 	for(int i = 0;fgets(data,100,fp) != NULL;i++){ //save each line in data variable
 		char id[3], sen[3], shomare[3], teamid[3], goal[4], position[2], skill[4], amadegi[4], khastegi[4], rouhiye[4], khoshunat[4]; //some string to put data in
-		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, teamid, shomare, (*players + i - 1)->name, sen, goal, position, skill, amadegi, khastegi, rouhiye, khoshunat); //scan data with : seprator
+		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, teamid, shomare, (*players + i)->name, sen, goal, position, skill, amadegi, khastegi, rouhiye, khoshunat); //scan data with : seprator
 		char *ptr = NULL;
 		(*players + i)->id = strtol(id,&ptr,10); //save id into struct
 		(*players + i)->teamid = strtol(teamid,&ptr,10); //save teamid into struct
@@ -202,13 +202,43 @@ int getGames(game_t **games){
 	int i = 1;
 	fgets(data,100,fp); //exclude first line
 	while(fgets(data,100,fp) != NULL){ //save each line in data variable
-		char id[3], idteam1[3], idteam2[3], raftorbargasht[3], week[4]; //some string to put data in
-		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,]", id, idteam1, idteam2, raftorbargasht, week); //scan data with : seprator
+		char id[3], idteam1[3], idteam2[3], week[4]; //some string to put data in
+		sscanf(data, "%[^,],%[^,],%[^,],%[^,]", id, idteam1, idteam2, week); //scan data with , seprator
 		char *ptr = NULL;
 		(*games + i - 1)->id = strtol(id,&ptr,10); //save id into struct
 		(*games + i - 1)->team1id = strtol(idteam1,&ptr,10); //save idteam1 into struct
 		(*games + i - 1)->team2id = strtol(idteam2,&ptr,10); //save idteam2 into struct
 		(*games + i - 1)->week = strtol(week,&ptr,10); //save week zade into struct
+		i++;
+	}
+	fclose(fp);
+	fp = NULL;
+	return line;
+}
+int getarrangments(arrangment_t **arrangments){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database/arrangment";
+	fp = fopen(destination, "r");
+	if(fp == NULL){
+		return 0;
+	}
+	char data[100];
+	//count lines
+	int line;
+	for(line = 0; fgets(data,100,fp) != NULL; line++);
+	line--;
+	*arrangments = (arrangment_t *)(calloc(line, sizeof(arrangment_t))); //allocate the games in ram
+	rewind(fp);
+	int i = 0;
+	fgets(data,100,fp); //exclude first line
+	while(fgets(data,100,fp) != NULL){ //save each line in data variable
+		char defa[2],miane[2],hamle[2]; //some string to put data in
+		sscanf(data, "%[^,],%[^,],%[^,]", defa, miane, hamle); //scan data with , seprator
+		char *ptr = NULL;
+		(*arrangments + i)->defa = strtol(defa,&ptr,10);
+		(*arrangments + i)->miane = strtol(miane,&ptr,10); 
+		(*arrangments + i)->hamle = strtol(hamle,&ptr,10); 
 		i++;
 	}
 	fclose(fp);
