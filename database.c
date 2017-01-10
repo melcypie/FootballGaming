@@ -215,7 +215,7 @@ int getGames(game_t **games){
 	fp = NULL;
 	return line;
 }
-int getarrangments(arrangment_t **arrangments){
+int getArrangments(arrangment_t **arrangments){
 	//Open file
 	FILE *fp = NULL;
 	char destination[] = "Database/arrangment";
