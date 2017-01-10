@@ -11,6 +11,58 @@
 #include "controller1.h"
 #include "utilities.h"
 
-void start(){
-	welcomeFootball();		
+
+
+void selectProfileTeam(){
+	clearPage();
+	printf("azizm ye team Ntekhab kon\n");
+	team_t teams[16];
+	getTeamsProfile(teams);
+	printAllTeamsList(teams,16);
 }
+
+
+
+
+void start(){ //sakhte profile
+	welcomeFootball();		
+	if ( checkProfile()==0){
+		printf("azizm inja hich profili vujud nadare! :3\n");
+		printf("bara ye sakhte profile kalame ye 'new' ra vared namayid\n");
+		char input[10];
+		while(1) {
+			scanf("%4s" , input);
+			flushBuffer();
+			if ( strcmp ( input , "new")==0 ){
+				createProfile();
+				selectProfileTeam();
+				break;	
+			} else {
+				printf("azizm fght mituni 'new' ro vared koni\n");
+			}
+		}
+	}else {
+		printf("azizm inja ye profile dari ^__^\n");
+		printf("mikhay ye profile jadid dashte bashi ya na ??!?\n");
+		printf("bara ye shuru e league jadid kalame ye 'new' ra vared namayin ya bara ye edame ye league ghabli kalame ye 'resume' ra vared namayin\n");
+		char input[10];
+		while(1){
+			scanf("%7s" , input);
+			flushBuffer();
+			if ( strcmp(input , "new") ==0 ){
+				clearProfile();
+				createProfile();
+				selectProfileTeam();
+				break;
+			}else if( strcmp(input , "resume")==0){
+				break;
+			} else {
+				printf("azizm ya fght 'new' ro bezn ya 'resume'\n");	
+			}
+		}
+	}	
+}
+
+
+
+
