@@ -21,6 +21,19 @@ void selectProfileTeam(){
 	team_t teams[16];
 	getTeamsProfile(teams);
 	printAllTeamsList(teams,16);
+	printf("azizm id ye team ro vared kon");
+	int teamNo=18;
+	while(1){
+		scanf("%d" , &teamNo);
+		flushBuffer();
+		if ( teamNo>16 || teamNo<1 ) {
+			printf("faght adade 1 ta 16 ra mishe vared krd\n");
+		}else
+		break;	
+	}
+	teams[teamNo - 1].isPlayer=1; //Ntekhabe teame karbar
+	saveTeamsProfile(teams ,16);
+	
 }
 
 
@@ -64,6 +77,8 @@ void start(){ //sakhte profile
 		}
 	}	
 }
+
+
 
 
 
