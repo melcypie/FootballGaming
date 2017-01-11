@@ -1,3 +1,14 @@
+/*
+* Author :leily nourbakhsh
+* Description:
+* Functions::
+Game list:bazi haeei k gharere dar hafte bargozar beshe ra ba estefade az tabee 
+va jabeb jaeie 2 ta team ba estefade az Swap va bad ham zakhire sazi ba tabe save
+games
+*
+*/
+
+
 #include "database.h"
 #include "controller2.h"
 #include "dataStruct.h"
@@ -35,9 +46,19 @@ void teamsSwap(team_t *t1, team_t *t2) {
 void creatGamelist(void){
 	team_t teams[16];
 	getTeamsProfile(teams);
+	int a = randomNo(10000000, 999999999);
+	for (int i = 0;i <4 ;i++) {
+		int temp = a % 100;
+		Swap(&team[temp%10], &team[temp/10]);
+		a /= 100;
+	}
+	
+
 	game_t games[240];
+
 	int counter = 0;
 	for (int i = 0;i < 15;i++) {
+		
 		for (int j = 0; j < 8; j++) {
 			games[counter].id = counter + 1;
 			games[counter].team1id = teams[j].id;
