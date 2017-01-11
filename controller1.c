@@ -412,16 +412,37 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}
 	
 	
-	
-	
-	
-	
-	
-	//123 123 update kone 3 emtiaz ezafe kone be teame bbarande tedad goala ye zade va khorde hm update kon va tedad bazia hm update kone
-	
-	
-	
+	//345 345 update kone 3 emtiaz ezafe kone be teame bbarande tedad goala ye zade va khorde hm update kon va tedad bazia hm update kone
+
 }
+
+
+
+
+
+
+
+
+void playGameCP ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , player_t *players1 ,int size1, player_t *players2 , int size2 ) {
+	
+	for (int i=0 ;  i < size1 ; i++ ){
+		players1[i].sum= players1[i].amadegi + players1[i].rouhiye/2 -players1[i].khastegi*2 + players1[i].skill;
+	}
+	for (int j=0 ; j<size2 ; j++){
+		players2[j].sum=players2[j].amadegi + players2[j].rouhiye/2 -players2[j].khastegi*2 + players2[j].skill;
+	}
+	
+	arrangment_t *arrangments;
+	int counter= getArrangments(&arrangments);
+	int team1_arrangment = randomNo(0 , counter-1);
+	int team2_arrangment = randomNo(0 , counter-1);
+	
+	bubblePlayers( players1, size1,playerSUM);
+	bubblePlayers( players2, size2,playerSUM);
+
+
+
+
 
 
 
