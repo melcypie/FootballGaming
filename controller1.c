@@ -103,15 +103,16 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	bubblePlayers( players1, size1,playerSUM);
 	bubblePlayers( players2, size2,playerSUM);
 
-	int defa1= arrangments[team1_arrangment].defa;
+	int defa1= arrangments[team1_arrangment].defa; //tedad defa ra moshakhas mikond
 	int miane1= arrangments[team1_arrangment].miane;
 	int hamle1= arrangments[team1_arrangment].hamle;  //123 123 fght pega midune cp
 	
+		
 	int index_team1[2][11];                 //araye ye 2*11 ke id va positione bazikona ye tu ye zamin tushe
-	int counter2 = 0;
+	int counter2 = 0; //vase shomare khuna ha ye index_team1
 	
 	// for ha ro vase neveshtm ke khune haye index_team1 ro por kone va mshakhas kone ke shomare ye khune ha ye position ha ye mokhtalef chian
-	for ( int k=0 ; k<size1 ; k++ ){
+	for ( int k=size-1 ; k>=0 ; k-- ){
 		if ( players1[k].position == 4){
 			index_team1[0][counter2] = k;
 			index_team1[1][counter2] = 4;
@@ -120,7 +121,8 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	}
 	    
 	for ( ; defa1>0 ; defa1-- ){
-		for ( int k=0 ; k<size1 ; k++ ){
+		for ( int k=size-1 ; k>=0 ; k-- ){
+
 			if (players1[k].position==3 ){
 				index_team1[0][counter2] = k;
 				index_team1[1][counter2] = 3;
@@ -130,7 +132,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	}
 	
 	for ( ; hamle1>0 ; hamle1-- ){
-		for ( int k=0 ; k<size1 ; k++ ){
+		for ( int k=size-1; k>=0; k-- ){
 			if (players1[k].position==1 ){
 				index_team1[0][counter2] = k;
 				index_team1[1][counter2] = 1;
@@ -140,7 +142,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	}
 	
 	for ( ; miane1>0 ; miane1-- ){
-		for ( int k=0 ; k<size1 ; k++ ){
+		for ( int k=size-1 ; k>=0 ; k-- ){
 			if (players1[k].position==2 ){
 				index_team1[0][counter2] = k;
 				index_team1[1][counter2] = 2;
@@ -159,7 +161,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	int index_team2[2][11];                 
 	int counter3 = 0;
 	
-	for ( int k=0 ; k<size2 ; k++ ){
+	for ( int k=size-1 ; k>=0; k-- ){
 		if ( players2[k].position == 4){
 			index_team2[0][counter3] = k;
 			index_team2[1][counter3] = 4;
@@ -168,7 +170,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	}
 	    
 	for ( ; defa2>0 ; defa2-- ){
-		for ( int k=0 ; k<size2 ; k++ ){
+		for ( int k=size-1 ; k>=0; k-- ){
 			if (players2[k].position==3 ){
 				index_team2[0][counter3] = k;
 				index_team2[1][counter3] = 3;
@@ -178,7 +180,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	}
 	
 	for ( ; hamle2>0 ; hamle2-- ){
-		for ( int k=0 ; k<size2 ; k++ ){
+		for ( int k=size-1 ; k>=0 ; k-- ){
 			if (players2[k].position==1 ){
 				index_team2[0][counter3] = k;
 				index_team2[1][counter3] = 1;
@@ -188,7 +190,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	}
 	
 	for ( ; miane2>0 ; miane2-- ){
-		for ( int k=0 ; k<size2 ; k++ ){
+		for ( int k=size-1 ; k>=0 ; k-- ){
 			if (players2[k].position==2 ){
 				index_team2[0][counter3] = k;
 				index_team2[1][counter3] = 2;
@@ -206,7 +208,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	
 	
 	
-/*	
+	
 	int sumDefaTeam1=0;
 	int sumMianeTeam1=0;
 	int sumHamleTeam1=0;
@@ -221,15 +223,13 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 			else if(players1[index_team1[0][i]].position==4)
 				sumDefaTeam1 += players1[index_team1[0][i]].sum /2;//in else if ha bara ye vaghtian ke bazikon dar mogheEyataesh gharar nagire
 				
-				
-				
-				// 123 123 inja ro ghati krdm vase darvaze ban bayad chi kar mikrdim??
+
 				
 				
 				
 		}else if ( index_team1[1][i]==4 ) {  //in else if ha bara ye position ha ye bazikon haye tu ye zamine
 			sumDefaTeam1 += players1[index_team1[0][i]].sum * 2;
-			
+//123 123 inja bade javab dadn hoseyni darbare ye inke aya 100% darvaze ban darim malum mishe doroste ya na			
 			
 			
 		}else if ( index_team1[1][i]==2 ){
@@ -255,9 +255,8 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 				sumHamleTeam1 += players1[index_team1[0][i]].sum /2;                     
 		}		
 		
-
 	}
-	sumDefaTeam1+=sumMianeTeam1/2;
+	sumDefaTeam1+=sumMianeTeam1/2; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
 	sumHamleTeam1+=sumMianeTeam1/2;
 	//123 123 tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni
 	
@@ -316,18 +315,9 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	sumDefaTeam2+=sumMianeTeam2/2;
 	sumHamleTeam2+=sumMianeTeam2/2;
 	
-*/ 	
-	
-	
-	
-	moshkel: avval cck she ke aya doros neveshtm bad vase darvaze ban chi kar konmish???
-	
 
 	
-	
-	
-	
-	
+
 	
 	
 	
