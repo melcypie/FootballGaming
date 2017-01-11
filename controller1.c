@@ -94,6 +94,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	for (int j=0 ; j<size2 ; j++){
 		players2[j].sum=players2[j].amadegi + players2[j].rouhiye/2 -players2[j].khastegi*2 + players2[j].skill;
 	}
+	
 	arrangment_t *arrangments;
 	int counter= getArrangments(&arrangments);
 	int team1_arrangment = randomNo(0 , counter-1);
@@ -109,6 +110,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	int index_team1[2][11];                 //araye ye 2*11 ke id va positione bazikona ye tu ye zamin tushe
 	int counter2 = 0;
 	
+	// for ha ro vase neveshtm ke khune haye index_team1 ro por kone va mshakhas kone ke shomare ye khune ha ye position ha ye mokhtalef chian
 	for ( int k=0 ; k<size1 ; k++ ){
 		if ( players1[k].position == 4){
 			index_team1[0][counter2] = k;
@@ -116,7 +118,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 			counter2++;
 		}
 	}
-	    //123 123 vase hamle o miane ham benevis hamino (fght pega midune)
+	    
 	for ( ; defa1>0 ; defa1-- ){
 		for ( int k=0 ; k<size1 ; k++ ){
 			if (players1[k].position==3 ){
@@ -127,13 +129,87 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 		}
 	}
 	
-	// 123 123 vase teame 2 hamina ro benevis ( fght pega midune)
+	for ( ; hamle1>0 ; hamle1-- ){
+		for ( int k=0 ; k<size1 ; k++ ){
+			if (players1[k].position==1 ){
+				index_team1[0][counter2] = k;
+				index_team1[1][counter2] = 1;
+				counter2++;
+			}
+		}
+	}
+	
+	for ( ; miane1>0 ; miane1-- ){
+		for ( int k=0 ; k<size1 ; k++ ){
+			if (players1[k].position==2 ){
+				index_team1[0][counter2] = k;
+				index_team1[1][counter2] = 2;
+				counter2++;
+			}
+		}
+	}
+		
+	// hamin karo vase team2 anjam midm
+	
+	
+	int defa2= arrangments[team2_arrangment].defa;
+	int miane2= arrangments[team2_arrangment].miane;
+	int hamle2= arrangments[team2_arrangment].hamle;  
+	
+	int index_team2[2][11];                 
+	int counter3 = 0;
+	
+	for ( int k=0 ; k<size2 ; k++ ){
+		if ( players2[k].position == 4){
+			index_team2[0][counter3] = k;
+			index_team2[1][counter3] = 4;
+			counter3++;
+		}
+	}
+	    
+	for ( ; defa2>0 ; defa2-- ){
+		for ( int k=0 ; k<size2 ; k++ ){
+			if (players2[k].position==3 ){
+				index_team2[0][counter3] = k;
+				index_team2[1][counter3] = 3;
+				counter3++;
+			}
+		}
+	}
+	
+	for ( ; hamle2>0 ; hamle2-- ){
+		for ( int k=0 ; k<size2 ; k++ ){
+			if (players2[k].position==1 ){
+				index_team2[0][counter3] = k;
+				index_team2[1][counter3] = 1;
+				counter3++;
+			}
+		}
+	}
+	
+	for ( ; miane2>0 ; miane2-- ){
+		for ( int k=0 ; k<size2 ; k++ ){
+			if (players2[k].position==2 ){
+				index_team2[0][counter3] = k;
+				index_team2[1][counter3] = 2;
+				counter3++;
+			}
+		}
+	}	
+	
+	
+	
 	// 123 123 halati ke bazikon kam darim neveshte nashode  ( pega va mahdi know)
 	
 	
 	
+	
+	
+	
+/*	
 	int sumDefaTeam1=0;
 	int sumMianeTeam1=0;
+	int sumHamleTeam1=0;
 	for ( int i=0 ; i<11 ; i++){
 		if ( index_team1[1][i]==3 ){
 			if ( players1[index_team1[0][i]].position==3)
@@ -143,21 +219,117 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 			else if(players1[index_team1[0][i]].position==2)
 				sumDefaTeam1 += players1[index_team1[0][i]].sum * 9 / 10;
 			else if(players1[index_team1[0][i]].position==4)
-				sumDefaTeam1 += players1[index_team1[0][i]].sum /2;//in else if ha baa ye vaghtian ke bazikon dar mogheEyataesh gharar nagire
+				sumDefaTeam1 += players1[index_team1[0][i]].sum /2;//in else if ha bara ye vaghtian ke bazikon dar mogheEyataesh gharar nagire
+				
+				
+				
+				// 123 123 inja ro ghati krdm vase darvaze ban bayad chi kar mikrdim??
+				
+				
 				
 		}else if ( index_team1[1][i]==4 ) {  //in else if ha bara ye position ha ye bazikon haye tu ye zamine
 			sumDefaTeam1 += players1[index_team1[0][i]].sum * 2;
-		}else if(index_team1[1][i]==2){
-			sumMianeTeam1 += players1[index_team1[0][i]].sum;
-		}else if // 123 123 hamle miane
+			
+			
+			
+		}else if ( index_team1[1][i]==2 ){
+			if ( players1[index_team1[0][i]].position==2)
+				sumMianeTeam1 += players1[index_team1[0][i]].sum;
+			else if(players1[index_team1[0][i]].position==1)
+				sumDefaTeam1 += players1[index_team1[0][i]].sum * 9 /10 ;
+			else if(players1[index_team1[0][i]].position==3)
+				sumDefaTeam1 += players1[index_team1[0][i]].sum * 9 / 10;
+			else if(players1[index_team1[0][i]].position==4)
+				sumDefaTeam1 += players1[index_team1[0][i]].sum /2;                     
+		}
 		
+		
+		}else if ( index_team1[1][i]==1 ){
+			if ( players1[index_team1[0][i]].position==1)
+				sumHamleTeam1 += players1[index_team1[0][i]].sum;
+			else if(players1[index_team1[0][i]].position==2)
+				sumHamleTeam1 += players1[index_team1[0][i]].sum * 9 /10 ;
+			else if(players1[index_team1[0][i]].position==3)
+				sumHamleTeam1 += players1[index_team1[0][i]].sum * 7 / 10;
+			else if(players1[index_team1[0][i]].position==4)
+				sumHamleTeam1 += players1[index_team1[0][i]].sum /2;                     
+		}		
+		
+
 	}
 	sumDefaTeam1+=sumMianeTeam1/2;
 	sumHamleTeam1+=sumMianeTeam1/2;
 	//123 123 tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni
 	
 	
-	// 123 123 in kara ro vase hamle o  teame 2 benevis ( pegah midune)
+	
+	int sumDefaTeam2=0;
+	int sumMianeTeam2=0;
+	int sumHamleTeam2=0;
+	for ( int i=0 ; i<11 ; i++){
+		if ( index_team2[1][i]==3 ){
+			if ( players2[index_team2[0][i]].position==3)
+				sumDefaTeam12 += players2[index_team2[0][i]].sum;
+			else if(players2[index_team2[0][i]].position==1)
+				sumDefaTeam2 += players2[index_team2[0][i]].sum * 7 /10 ;
+			else if(players2[index_team2[0][i]].position==2)
+				sumDefaTeam2 += players2[index_team2[0][i]].sum * 9 / 10;
+			else if(players2[index_team2[0][i]].position==4)
+				sumDefaTeam2 += players2[index_team2[0][i]].sum /2;//in else if ha bara ye vaghtian ke bazikon dar mogheEyataesh gharar nagire
+				
+				
+				
+				// 123 123 inja ro ghati krdm vase darvaze ban bayad chi kar mikrdim??
+				
+				
+				
+		}else if ( index_team2[1][i]==4 ) {  //in else if ha bara ye position ha ye bazikon haye tu ye zamine
+			sumDefaTeam2 += players2[index_team2[0][i]].sum * 2;
+			
+			
+			
+		}else if ( index_team2[1][i]==2 ){
+			if ( players2[index_team2[0][i]].position==2)
+				sumMianeTeam2 += players2[index_team2[0][i]].sum;
+			else if(players2[index_team2[0][i]].position==1)
+				sumDefaTeam2 += players2[index_team2[0][i]].sum * 9 /10 ;
+			else if(players2[index_team2[0][i]].position==3)
+				sumDefaTeam2 += players2[index_team2[0][i]].sum * 9 / 10;
+			else if(players2[index_team2[0][i]].position==4)
+				sumDefaTeam2 += players2[index_team2[0][i]].sum /2;                     
+		}
+		
+		
+		}else if ( index_team2[1][i]==1 ){
+			if ( players2[index_team2[0][i]].position==1)
+				sumHamleTeam2 += players21[index_team2[0][i]].sum;
+			else if(players2[index_team2[0][i]].position==2)
+				sumHamleTeam2 += players2[index_team2[0][i]].sum * 9 /10 ;
+			else if(players2[index_team2[0][i]].position==3)
+				sumHamleTeam2 += players2[index_team2[0][i]].sum * 7 / 10;
+			else if(players2[index_team2[0][i]].position==4)
+				sumHamleTeam2 += players2[index_team2[0][i]].sum /2;                     
+		}		
+		
+
+	}
+	sumDefaTeam2+=sumMianeTeam2/2;
+	sumHamleTeam2+=sumMianeTeam2/2;
+	
+*/ 	
+	
+	
+	
+	moshkel: avval cck she ke aya doros neveshtm bad vase darvaze ban chi kar konmish???
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	if ( sumHamleTeam1 > sumDefaTeam2){ //123 123 farz kon ye tabe neveshte goalAssign alan farahani mikoni
