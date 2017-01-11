@@ -83,6 +83,7 @@ void creatGamelist(void){
 }
 
 
+void goalAssign(player_t *players, int index[2][11], int size) {
 
 	int tedadDefa = 0;
 	int tedadHamle = 0;
