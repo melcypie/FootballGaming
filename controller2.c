@@ -82,3 +82,64 @@ void creatGamelist(void){
 
 }
 
+
+
+	int tedadDefa = 0;
+	int tedadHamle = 0;
+	int tedadMiane = 0;
+	for (int i = 0;i < 11;i++) {
+		if (index[1][i] == 1)
+			tedadHamle++;
+		else if (index[1][i] == 2)
+			tedadMiane++;
+		else if (index[1][i] == 3)
+			tedadDefa++;
+	}
+	int DefaRange = tedadDefa * 1;
+	int MianeRange = DefaRange + tedadMiane * 2;
+	int HamleRange = MianeRange + tedadHamle * 3;
+	int pos = 0;
+	int baze = randomNo(0, HamleRange);
+	if (baze >= 0 && baze < DefaRange) {
+		int search = (baze-0) / 1;
+		pos = 3;
+	}
+	else if ( baze>=MianeRange &&  baze< MianeRange) {
+		pos = 2;
+		int search = (baze-DefaRange) / 2;
+	}
+	else if (baze >= HamleRange && baze < HamleRange) {
+		pos = 1;
+		int search = (baze-MianeRange) / 3;
+
+	}
+	int i = 0;
+	for (;search > 0;i++) {
+		if (index[1][i] == pos)
+			search--;
+	}
+	players[index[0][i - 1]].goal++;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+		
+		
+
+
+
+	
+		
+
+
+
+}
