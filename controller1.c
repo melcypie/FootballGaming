@@ -108,7 +108,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	int hamle1= arrangments[team1_arrangment].hamle;  //123 123 fght pega midune cp
 	
 		
-	int index_team1[2][11];                 //araye ye 2*11 ke id va positione bazikona ye tu ye zamin tushe
+	int index_team1[2][11]; //araye ye 2*11 ke id va positione bazikona ye tu ye zamin tushe
 	int counter2 = 0; //vase shomare khuna ha ye index_team1
 	
 	// for ha ro vase neveshtm ke khune haye index_team1 ro por kone va mshakhas kone ke shomare ye khune ha ye position ha ye mokhtalef chian
@@ -229,7 +229,7 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 				
 		}else if ( index_team1[1][i]==4 ) {  //in else if ha bara ye position ha ye bazikon haye tu ye zamine
 			sumDefaTeam1 += players1[index_team1[0][i]].sum * 2;
-//123 123 inja bade javab dadn hoseyni darbare ye inke aya 100% darvaze ban darim malum mishe doroste ya na			
+	//123 123 inja bade javab dadn hoseyni darbare ye inke aya 100% darvaze ban darim malum mishe doroste ya na			
 			
 			
 		}else if ( index_team1[1][i]==2 ){
@@ -241,9 +241,6 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 				sumDefaTeam1 += players1[index_team1[0][i]].sum * 9 / 10;
 			else if(players1[index_team1[0][i]].position==4)
 				sumDefaTeam1 += players1[index_team1[0][i]].sum /2;                     
-		}
-		
-		
 		}else if ( index_team1[1][i]==1 ){
 			if ( players1[index_team1[0][i]].position==1)
 				sumHamleTeam1 += players1[index_team1[0][i]].sum;
@@ -258,7 +255,11 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	}
 	sumDefaTeam1+=sumMianeTeam1/2; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
 	sumHamleTeam1+=sumMianeTeam1/2;
-	//123 123 tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni
+	int team1ZaribKhata=randomNo(0,100);
+	sumHamleTeam1*=team1ZaribKhata/100;
+	sumDefaTeam1*=team1ZaribKhata/100;
+	
+	//tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni ta ehtemale borde hame ye team ha vujud dashte bashe
 	
 	
 	
@@ -278,10 +279,6 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 				
 				
 				
-				// 123 123 inja ro ghati krdm vase darvaze ban bayad chi kar mikrdim??
-				
-				
-				
 		}else if ( index_team2[1][i]==4 ) {  //in else if ha bara ye position ha ye bazikon haye tu ye zamine
 			sumDefaTeam2 += players2[index_team2[0][i]].sum * 2;
 			
@@ -296,9 +293,6 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 				sumDefaTeam2 += players2[index_team2[0][i]].sum * 9 / 10;
 			else if(players2[index_team2[0][i]].position==4)
 				sumDefaTeam2 += players2[index_team2[0][i]].sum /2;                     
-		}
-		
-		
 		}else if ( index_team2[1][i]==1 ){
 			if ( players2[index_team2[0][i]].position==1)
 				sumHamleTeam2 += players21[index_team2[0][i]].sum;
@@ -315,6 +309,9 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	sumDefaTeam2+=sumMianeTeam2/2;
 	sumHamleTeam2+=sumMianeTeam2/2;
 	
+	int team2ZaribKhata=randomNo(0,100);
+	sumHamleTeam2*=team2ZaribKhata/100;
+	sumDefaTeam2*=team2ZaribKhata/100;
 
 	
 
