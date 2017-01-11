@@ -86,7 +86,7 @@ void start(){ //sakhte profile
 
 
 
-void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *players1 ,int size1, player_t *players2 , int size2 ) {
+void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , player_t *players1 ,int size1, player_t *players2 , int size2 ) {
 	
 	for (int i=0 ;  i < size1 ; i++ ){
 		players1[i].sum= players1[i].amadegi + players1[i].rouhiye/2 -players1[i].khastegi*2 + players1[i].skill;
@@ -256,10 +256,34 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	sumDefaTeam1+=sumMianeTeam1/2; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
 	sumHamleTeam1+=sumMianeTeam1/2;
 	int team1ZaribKhata=randomNo(0,100);
+	
+	//tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni ta ehtemale borde hame ye team ha vujud dashte bashe
 	sumHamleTeam1*=team1ZaribKhata/100;
 	sumDefaTeam1*=team1ZaribKhata/100;
 	
-	//tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni ta ehtemale borde hame ye team ha vujud dashte bashe
+	
+	for ( int i=0 ; i<11 ; i++){
+		players1[index_team1[0][i]].khastegi+=7;
+		if (players1[index_team1[0][i]].khastegi >100)
+			players1[index_team1[0][i]].khastegi=100;
+	}	
+	
+	//mikham bedum ke aya ye bazikon tu ye index hast ya na, hast=1 bud yani yani bazikn tu ye index hast age 0 bud yaani tu bazi nabude pas amadgish ka mishe
+	for ( int k=0 ; k<size1 ; k++){
+		int hast=0;
+		for (int j=0 ; j<11 ; j++){
+			if(k==index_team1[0][j]){
+				hast=1;
+				break;
+			}
+		}
+		if (hast==0)
+			players1[index_team1[0][k]].amadegi-=7;
+	}
+	
+	
+	
+
 	
 	
 	
@@ -313,6 +337,24 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 	sumHamleTeam2*=team2ZaribKhata/100;
 	sumDefaTeam2*=team2ZaribKhata/100;
 
+	for ( int i=0 ; i<11 ; i++){
+		players2[index_team2[0][i]].khastegi+=7;
+		if (players2[index_team2[0][i]].khastegi >100)
+			players2[index_team2[0][i]].khastegi=100;
+	}	
+	
+
+	for ( int k=0 ; k<size2 ; k++){
+		int hast=0;
+		for (int j=0 ; j<11 ; j++){
+			if(k==index_team2[0][j]){
+				hast=1;
+				break;
+			}
+		}
+		if(hast==0)
+			players2[index_team2[0][k]].amadegi-=7;
+	}
 	
 
 	
@@ -329,8 +371,54 @@ void playGameCC ( int id1 , int id2 , int *goal1 , int *goal2 , player_t *player
 		*goal1=(sumHamleTeam2 - sumDefaTeam1) / CTE ;		
 	}
 	
-	// 123 123 updatae kon niro ye playera ro ( chon tulanian badn minevisi)
+
+
+	if ( goal1>goal2 ) {
+		for ( int i=0 ; i<size1 ; i++){
+			players1[index_team1[0][i]].rouhiye+=10;
+			if(players1[index_team1[0][i]].rouhiye > 100)
+				players1[index_team1[0][i]].rouhiye=100;			
+		}
+	} else{
+		for ( int i=0 ; i<size2 ; i++){
+			players2[index_team2[0][i]].rouhiye+=10;
+			if(players2[index_team2[0][i]].rouhiye > 100)
+				players2[index_team2[0][i]].rouhiye=100;			
+		}		
+		
+	}
+	
+	
+	
+	
+	*team1.zade+=goal1;
+	*team1.khorde+=goal2;
+	*team1.count++ ;
+	if ( goal1 > goal2 ) {
+		*team1.score += 3;
+	}
+	
+	*team2.zade+=goal2;
+	*team2.khorde+=goal1;
+	*team2.count++ ;
+	if ( goal2 > goal1 ) {
+		*team2.score += 3;
+	}
+	
+	
+	if (goal1==goal2){
+		*team1.score += 1;
+		*team2.score += 1;	
+	}
+	
+	
+	
+	
+	
+	
+	
 	//123 123 update kone 3 emtiaz ezafe kone be teame bbarande tedad goala ye zade va khorde hm update kon va tedad bazia hm update kone
+	
 	
 	
 }
