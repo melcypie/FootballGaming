@@ -15,6 +15,7 @@
 #include "utilities.h"
 #include <string.h>
 #include "profile.h"
+#include "controller2.h"
 
 #define CTE 10
 
@@ -493,19 +494,23 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 	
-	if ( sumHamleTeam1 > sumDefaTeam2){ //123 123 farz kon ye tabe neveshte goalAssign alan farahani mikoni
-		goalAssign((sumHamleTeam1 - sumDefaTeam2) / CTE);
+	if ( sumHamleTeam1 > sumDefaTeam2){ 
 		*goal1=(sumHamleTeam1 - sumDefaTeam2) / CTE ;
+		for ( int i=0 ; i<*goal1 ; i++){
+			goalAssign(players1, index_team1[2][11],size1);
+		}
 	}
 
 	if ( sumHamleTeam2 > sumDefaTeam1) {
-		goalAssign((sumHamleTeam2 - sumDefaTeam1) / CTE);
-		*goal1=(sumHamleTeam2 - sumDefaTeam1) / CTE ;		
+		*goal1=(sumHamleTeam2 - sumDefaTeam1) / CTE ;
+		for ( int i=0 ; i<*goal2 ; i++){
+			goalAssign(players2, index_team2[2][11],size2);
+		}		
 	}
 	
 
 
-	if ( goal1>goal2 ) {
+	if ( *goal1>*goal2 ) {
 		for ( int i=0 ; i<size1 ; i++){
 			players1[index_team1[0][i]].rouhiye+=10;
 			if(players1[index_team1[0][i]].rouhiye > 100)
@@ -523,22 +528,22 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 	
-	*team1.zade+=goal1;
-	*team1.khorde+=goal2;
+	*team1.zade+=*goal1;
+	*team1.khorde+=*goal2;
 	*team1.count++ ;
-	if ( goal1 > goal2 ) {
+	if ( *goal1 > *goal2 ) {
 		*team1.score += 3;
 	}
 	
-	*team2.zade+=goal2;
-	*team2.khorde+=goal1;
+	*team2.zade+=*goal2;
+	*team2.khorde+=*goal1;
 	*team2.count++ ;
-	if ( goal2 > goal1 ) {
+	if (*goal2 > *goal1 ) {
 		*team2.score += 3;
 	}
 	
 	
-	if (goal1==goal2){
+	if (*goal1==*goal2){
 		*team1.score += 1;
 		*team2.score += 1;	
 	}
