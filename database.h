@@ -8,3 +8,5 @@ int saveAllNatayejProfile(natayej_t *natayej, int size);
 int getGames(game_t **games);
 void createProfile();
 int getArrangments(arrangment_t **arrangments);
+int addNatayejProfile(natayej_t *natayej, int size);
+int saveAllNatayejProfile(natayej_t *natayej, int size);

@@ -372,6 +372,7 @@ void createProfile(){
 	removeEmptyFile(); //remove empty file
 	createTeamsProfile(); //Save team list
 	createPlayersProfile(); //Save all players
+	createGameList();
 	natayej_t natije;
 	saveAllNatayejProfile(&natije, 0); //Create a Natayej file with the headers...
 }
