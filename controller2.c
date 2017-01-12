@@ -123,24 +123,51 @@ void goalAssign(player_t *players, int index[2][11], int size) {
 
 
 }
+//tabee playweek
+//n=hafte
 
-
-
-
-
-
-
-
-
-
-		
-		
-
-
-
+viod playWeek(int n,int *players,int size, int *teams){
+	game_t *games;
 	
-		
+	int m = getGames(&games);
+	game_t gameShouldPlay[8];
+	int k = 0;
+	for (int i = 0;i < m;i++) {
 
+		if (games[i].week == n) {
+			gameShouldPlay[k].id = games[i].id;
+			gameShouldPlay[k].team1id = games[i].team1id;
+			gameShouldPlay[k].team2id = games[i].team2id;
 
+			k++;
 
+		}
+	}
+	for (int i = 0;i < 8;i++)
+		if (teams[gameShouldPlay[i].team1id - 1].isPlayer == 0 && teams[gameShouldPlay[i].team2id - 1].isPlayer == 0) {
+			int goalTeam1 = 0;
+			int goalTeam2 = 0;
+			bubblePlayers(players, size, playerTEAMID);
+			int size1 = 0;
+			int size2 = 0;
+			int team1Last = 0;
+			int team2Last = 0;
+			for (int i = 0;i < size;i++) {
+				if (players[i].teamid == gameShouldPlay[i].team1id) {
+					size1++;
+					team1Last = i;
+				}
+				else if(players[i].teamid == gameShouldPlay[i].team2id){
+					size2++;
+					team2Last = i;
+				}
+			}
+			playGameCC(teams[gameShouldPlay[i].team1id - 1], teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last-size1-1],  size1, &players[team2Last-size2-1], size2);
+			natayej_t natije;
+			natije.gameid = gameShouldPlay[i].id;
+			natije.team1goal = goalTeam1;
+			natije.team2goal = goalTeam2;
+
+			addNatayejProfile(&natije,  1);
+		}
 }
