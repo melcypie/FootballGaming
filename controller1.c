@@ -105,11 +105,12 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 
 	int defa1= arrangments[team1_arrangment].defa; //tedad defa ra moshakhas mikond
 	int miane1= arrangments[team1_arrangment].miane;
-	int hamle1= arrangments[team1_arrangment].hamle;  //123 123 fght pega midune cp
+	int hamle1= arrangments[team1_arrangment].hamle;  
 	
 		
 	int index_team1[2][11]; //araye ye 2*11 ke id va positione bazikona ye tu ye zamin tushe
 	int counter2 = 0; //vase shomare khuna ha ye index_team1
+	int darvazeban1 = 1; //mikhaym bedunim hatmn darvazeban darim ya na
 	
 	// for ha ro vase neveshtm ke khune haye index_team1 ro por kone va mshakhas kone ke shomare ye khune ha ye position ha ye mokhtalef chian
 	for ( int k=size-1 ; k>=0 ; k-- ){
@@ -119,37 +120,105 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 			counter2++;
 		}
 	}
-	    
-	for ( ; defa1>0 ; defa1-- ){
-		for ( int k=size-1 ; k>=0 ; k-- ){
+	
+	if (counter2 == 0 ){
+		darvazeban1=0 ;
+	} 
+	  
+	
+	for ( int k=size-1 ; k >= 0 && defa1 > 0; k-- ){
+		if (players1[k].position==3 ){
+			index_team1[0][counter2] = k;
+			index_team1[1][counter2] = 3;
+			counter2++;
+			defa1--;
+		}
+	}
+	
+	
+	
+	for ( int k=size-1; k>=0 && hamle1 > 0; k-- ){
+		if (players1[k].position==1 ){
+			index_team1[0][counter2] = k;
+			index_team1[1][counter2] = 1;
+			counter2++;
+			hamle1--;
+		}
+	}
+	
+	
+	for ( int k=size-1 ; k>=0 && miane1>0 ; k-- ){
+		if (players1[k].position==2 ){
+			index_team1[0][counter2] = k;
+			index_team1[1][counter2] = 2;
+			counter2++;
+			miane1--;
+		}
+	}
+	
+	
+	if ( defa1 !=0 ) {
+		for (  int k=size-1 ; k >= 0 && defa1 > 0; k-- ){
+			for ( int i=0 ; i < counter2 ; i++){
+				if ( k == index_team1 [0][i] )
+					break;
+				else if (i == counter2 -1 ){
+					index_team1[0][counter2]=k;
+					index_team1[1][counter2]=3;
+					counter2++;
+					defa1--;
+				}
+			}
+		}
+	}
+	
+	
+	if ( hamle1 !=0 ) {
+		for (  int k=size-1 ; k >= 0 && hamle1 > 0; k-- ){
+			for ( int i=0 ; i < counter2 ; i++){
+				if ( k == index_team1 [0][i] )
+					break;
+				else if (i == counter2 -1 ){
+					index_team1[0][counter2]=k;
+					index_team1[1][counter2]=1;
+					counter2++;
+					hamle1--;
+				}
+			}
+		}
+	}	
+	
+	if ( miane1 !=0 ) {
+		for (  int k=size-1 ; k >= 0 && miane1 > 0; k-- ){
+			for ( int i=0 ; i < counter2 ; i++){
+				if ( k == index_team1 [0][i] )
+					break;
+				else if (i == counter2 -1 ){
+					index_team1[0][counter2]=k;
+					index_team1[1][counter2]=2;
+					counter2++;
+					miane1--;
+				}
+			}
+		}
+	}	
 
-			if (players1[k].position==3 ){
-				index_team1[0][counter2] = k;
-				index_team1[1][counter2] = 3;
-				counter2++;
+	if ( darvazeban1==0 ) {
+		for (  int k=size-1 ; k >= 0 && darvazeban1!=0 ; k-- ){
+			for ( int i=0 ; i < counter2 ; i++){
+				if ( k == index_team1 [0][i] )
+					break;
+				else if (i == counter2 -1 ){
+					index_team1[0][counter2]=k;
+					index_team1[1][counter2]=4;
+					counter2++;
+					darvazeban1++;
+				}
 			}
 		}
 	}
-	
-	for ( ; hamle1>0 ; hamle1-- ){
-		for ( int k=size-1; k>=0; k-- ){
-			if (players1[k].position==1 ){
-				index_team1[0][counter2] = k;
-				index_team1[1][counter2] = 1;
-				counter2++;
-			}
-		}
-	}
-	
-	for ( ; miane1>0 ; miane1-- ){
-		for ( int k=size-1 ; k>=0 ; k-- ){
-			if (players1[k].position==2 ){
-				index_team1[0][counter2] = k;
-				index_team1[1][counter2] = 2;
-				counter2++;
-			}
-		}
-	}
+
+	//if darvazeban == 0 ==> darvazeban nadarim. if defa1 != 0 == > be defa bishtar niaz darim and so on	
 		
 	// hamin karo vase team2 anjam midm
 	
@@ -160,6 +229,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	int index_team2[2][11];                 
 	int counter3 = 0;
+	int darvazeban2 = 1;
 	
 	for ( int k=size-1 ; k>=0; k-- ){
 		if ( players2[k].position == 4){
@@ -168,46 +238,105 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 			counter3++;
 		}
 	}
+	if (counter3 == 0 ){
+	darvazeban2=0 ;
+	} 
 	    
-	for ( ; defa2>0 ; defa2-- ){
-		for ( int k=size-1 ; k>=0; k-- ){
-			if (players2[k].position==3 ){
-				index_team2[0][counter3] = k;
-				index_team2[1][counter3] = 3;
-				counter3++;
+	    
+	for ( int k=size-1 ; k>=0 && defa2>0 ; k-- ){
+		if (players2[k].position==3 ){
+			index_team2[0][counter3] = k;
+			index_team2[1][counter3] = 3;
+			counter3++;
+			defa2--;
+		}
+	}
+	
+	for ( int k=size-1 ; k>=0 && hamle2>0 ; k-- ){
+		if (players2[k].position==1 ){
+			index_team2[0][counter3] = k;
+			index_team2[1][counter3] = 1;
+			counter3++;
+			hamle2--;
+		}
+	}
+	
+	
+
+	for ( int k=size-1 ; k>=0 && miane2>0 ; k-- ){
+		if (players2[k].position==2 ){
+			index_team2[0][counter3] = k;
+			index_team2[1][counter3] = 2;
+			counter3++;
+			miane2--;
+		}
+	}
+
+	
+	
+
+	if ( defa2 !=0 ) {
+		for (  int k=size-1 ; k >= 0 && defa2 > 0; k-- ){
+			for ( int i=0 ; i < counter3 ; i++){
+				if ( k == index_team2 [0][i] )
+					break;
+				else if (i == counter3 -1 ){
+					index_team2[0][counter3]=k;
+					index_team2[1][counter3]=3;
+					counter3++;
+					defa2--;
+				}
 			}
 		}
 	}
 	
-	for ( ; hamle2>0 ; hamle2-- ){
-		for ( int k=size-1 ; k>=0 ; k-- ){
-			if (players2[k].position==1 ){
-				index_team2[0][counter3] = k;
-				index_team2[1][counter3] = 1;
-				counter3++;
-			}
-		}
-	}
 	
-	for ( ; miane2>0 ; miane2-- ){
-		for ( int k=size-1 ; k>=0 ; k-- ){
-			if (players2[k].position==2 ){
-				index_team2[0][counter3] = k;
-				index_team2[1][counter3] = 2;
-				counter3++;
+	if ( hamle2 !=0 ) {
+		for (  int k=size-1 ; k >= 0 && hamle2 > 0; k-- ){
+			for ( int i=0 ; i < counter3 ; i++){
+				if ( k == index_team2 [0][i] )
+					break;
+				else if (i == counter3 -1 ){
+					index_team2[0][counter3]=k;
+					index_team2[1][counter3]=1;
+					counter3++;
+					hamle2--;
+				}
 			}
 		}
 	}	
 	
+	if ( miane2 !=0 ) {
+		for (  int k=size-1 ; k >= 0 && miane2 > 0; k-- ){
+			for ( int i=0 ; i < counter3 ; i++){
+				if ( k == index_team2 [0][i] )
+					break;
+				else if (i == counter2 -1 ){
+					index_team2[0][counter3]=k;
+					index_team2[1][counter3]=2;
+					counter3++;
+					miane2--;
+				}
+			}
+		}
+	}	
+
+	if ( darvazeban2==0 ) {
+		for (  int k=size-1 ; k >= 0 && darvazeban2!=0 ; k-- ){
+			for ( int i=0 ; i < counter3 ; i++){
+				if ( k == index_team2 [0][i] )
+					break;
+				else if (i == counter3 -1 ){
+					index_team2[0][counter3]=k;
+					index_team2[1][counter3]=4;
+					counter3++;
+					darvazeban2++;
+				}
+			}
+		}
+	}
 	
-	
-	// 123 123 halati ke bazikon kam darim neveshte nashode  ( pega va mahdi know)
-	
-	
-	
-	
-	
-	
+
 	
 	int sumDefaTeam1=0;
 	int sumMianeTeam1=0;
@@ -228,8 +357,10 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 				
 				
 		}else if ( index_team1[1][i]==4 ) {  //in else if ha bara ye position ha ye bazikon haye tu ye zamine
-			sumDefaTeam1 += players1[index_team1[0][i]].sum * 2;
-	//123 123 inja bade javab dadn hoseyni darbare ye inke aya 100% darvaze ban darim malum mishe doroste ya na			
+			if ( players1[index_team1[0][i]].position==4)
+				sumDefaTeam1 += players1[index_team1[0][i]].sum * 2;
+			else
+				sumDefaTeam1 += players1[index_team1[0][i]].sum;
 			
 			
 		}else if ( index_team1[1][i]==2 ){
@@ -285,8 +416,6 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 
 	
-	
-	
 	int sumDefaTeam2=0;
 	int sumMianeTeam2=0;
 	int sumHamleTeam2=0;
@@ -299,13 +428,16 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 			else if(players2[index_team2[0][i]].position==2)
 				sumDefaTeam2 += players2[index_team2[0][i]].sum * 9 / 10;
 			else if(players2[index_team2[0][i]].position==4)
-				sumDefaTeam2 += players2[index_team2[0][i]].sum /2;//in else if ha bara ye vaghtian ke bazikon dar mogheEyataesh gharar nagire
+				sumDefaTeam2 += players2[index_team2[0][i]].sum /2;
 				
 				
 				
-		}else if ( index_team2[1][i]==4 ) {  //in else if ha bara ye position ha ye bazikon haye tu ye zamine
-			sumDefaTeam2 += players2[index_team2[0][i]].sum * 2;
-			
+		}else if ( index_team2[1][i]==4 ) { 
+			if ( players2[index_team2[0][i]].position==4)
+				sumDefaTeam2 += players2[index_team2[0][i]].sum * 2;
+			else
+				sumDefaTeam2 += players1[index_team2[0][i]].sum;
+		
 			
 			
 		}else if ( index_team2[1][i]==2 ){
@@ -328,8 +460,8 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 				sumHamleTeam2 += players2[index_team2[0][i]].sum /2;                     
 		}		
 		
-
 	}
+	
 	sumDefaTeam2+=sumMianeTeam2/2;
 	sumHamleTeam2+=sumMianeTeam2/2;
 	
