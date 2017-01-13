@@ -182,7 +182,7 @@ void status(void) {
 	game_t *games;
 	count = getGames(&games);
 	natayej_t *natayej;
-	count1 = getNatayej(&natayej);
+	int count1 = getNatayej(&natayej);
 	int k = 0;
 	for (int i = 0;i<count;i++) {
 		if (natayej[count - 1].gameid == games[i].id) {
@@ -190,31 +190,5 @@ void status(void) {
 			break;
 		}
 	}
-	printGames(&games[8 * k], &games[count - 8 * k]);
-	
-	
-	
-
-
-
-
-
-
-
-	
-
-
-
-
-	
-
-
-
-	
-
-
-
-
-
-
+	printGames(&games[8 * k], count - 8 * k, p);
 }

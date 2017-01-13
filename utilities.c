@@ -361,15 +361,36 @@ void printAllTeamsList(team_t *teams, int size){
 void printLeagueData(team_t *teams, int size){
 	bubbleTeamsLeague(teams, 16);
 	printf(BLUE "\u250F\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2513\n" RESET);
-	printf(BLUE "\u2503" RESET "%4s" BLUE "\u2503" RESET "%20s" BLUE "\u2503" RESET "\n", "id","Name");
+	printf(BLUE "\u2503" RESET "%4s" BLUE "\u2503" RESET "%20s" BLUE "\u2503" RESET "%5s" BLUE "\u2503" RESET "%4s" BLUE "\u2503" RESET "%6s" BLUE "\u2503" RESET "%5s" BLUE "\u2503" RESET"\n", "id","Name", "Score", "Zade", "Khorde", "Tedad");
 	for(int i = 0; i < size; i++){
 		printf(BLUE "\u2523\u2501\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u2501\u2501\u2501\u254B\u2501\u2501\u2501\u2501\u2501\u252B\n" RESET);
 		if((teams + i)->isPlayer == 0)
 			printf(BLUE "\u2503" RESET "%4d" BLUE "\u2503" RESET "%20s" BLUE "\u2503" RESET "%5d" BLUE "\u2503" RESET "%4d" BLUE "\u2503" RESET "%6d" BLUE "\u2503" RESET "%5d" BLUE "\u2503" RESET "\n", (teams + i)->id, (teams + i)->name, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->count);
 		else
-			printf(BLUE "\u2503" RED "%4d" BLUE "\u2503" RED "%20s" BLUE "\u2503" RESET "\n", (teams + i)->id, (teams + i)->name);
+			printf(BLUE "\u2503" RED "%4d" BLUE "\u2503" RED "%20s" BLUE "\u2503" RED "%5d" BLUE "\u2503" RED "%4d" BLUE "\u2503" RED "%6d" BLUE "\u2503" RED "%5d" BLUE "\u2503" RESET "\n", (teams + i)->id, (teams + i)->name, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->count);
 	}
 	printf(BLUE "\u2517\u2501\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u251B\n" RESET);
+}
+void printGames(game_t *games, int size, team_t *teams){
+	int week = -1;
+	bubbleTeams(teams, 16, teamID);
+	printf(BLUE "\u250F\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2513\n" RESET);
+	printf(BLUE "\u2503" RESET "%4s" BLUE "\u2503" RESET "%20s" BLUE "\u2503" RESET "\n", "id","Name");	
+	for(int i=0; i < size; i++){
+		if(games[i].week != week){
+			if(week == -1){
+				printf("\n");
+			}else{
+				printf(BLUE "\u2517\u2501\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u251B\n" RESET);
+				printf("\n");
+				printf(BLUE "\u250F\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2513\n" RESET);
+			}
+			week = games[i].week;
+			printf(BLUE "\u2503" RESET "%4d" BLUE "\u2503" RESET "%20s" BLUE "\u2503" RESET "%20s" BLUE "\u2503" RESET "%4d" BLUE "\u2503" RESET"\n", games[i].id, teams[games[i].team1id - 1].name, teams[games[i].team2id - 1].name, games[i].week);	
+		}
+	}
+	printf(BLUE "\u2517\u2501\u2501\u2501\u2501\u253B\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u251B\n" RESET);
+
 }
 void printGameGoals(){
 
