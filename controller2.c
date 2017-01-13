@@ -11,6 +11,7 @@ games
 #include "dataStruct.h"
 #include "database.h"
 #include "controller2.h"
+#include "controller1.h"
 #include <stdio.h>
 #include <string.h>
 #include "utilities.h"
@@ -101,17 +102,18 @@ void goalAssign(player_t *players, int index[2][11], int size) {
 	int HamleRange = MianeRange + tedadHamle * 3;
 	int pos = 0;
 	int baze = randomNo(0, HamleRange);
+	int search = 0;
 	if (baze >= 0 && baze < DefaRange) {
-		int search = (baze-0) / 1;
+		 search = (baze-0) / 1;
 		pos = 3;
 	}
 	else if ( baze>=MianeRange &&  baze< MianeRange) {
 		pos = 2;
-		int search = (baze-DefaRange) / 2;
+		 search = (baze-DefaRange) / 2;
 	}
 	else if (baze >= HamleRange && baze < HamleRange) {
 		pos = 1;
-		int search = (baze-MianeRange) / 3;
+		 search = (baze-MianeRange) / 3;
 
 	}
 	int i = 0;
@@ -126,7 +128,7 @@ void goalAssign(player_t *players, int index[2][11], int size) {
 //tabee playweek
 //n=hafte
 
-viod playWeek(int n,int *players,int size, int *teams){
+void playWeek(int n,player_t*players,int size, team_t *teams){
 	game_t *games;
 	
 	int m = getGames(&games);
