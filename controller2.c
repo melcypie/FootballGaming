@@ -173,3 +173,14 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 			addNatayejProfile(&natije,  1);
 		}
 }
+
+void status(void) {
+	team_t p[16];
+	getTeamsProfile(p);
+	printLeagueData(p, 16);
+
+
+
+
+
+}
