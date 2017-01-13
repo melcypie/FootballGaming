@@ -52,7 +52,7 @@ void creatGamelist(void){
 		teamsSwap(&teams[temp%10], &teams[temp/10]);
 		a /= 100;
 	}
-	
+
 
 	game_t games[240];
 
@@ -68,7 +68,7 @@ void creatGamelist(void){
 			games[counter + 120].id = counter + 1 + 120;
 			games[counter + 120].team1id = teams[j + 8].id;
 			games[counter + 120].team2id = teams[j].id;
-			games[counter].week = i + 1 + 15;
+			games[counter + 120].week = i + 1 + 15;
 			counter++;
 		}
 		for (int j = 1; j <= 7; j++) {
