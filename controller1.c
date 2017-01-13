@@ -528,24 +528,24 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 	
-	*team1.zade+=*goal1;
-	*team1.khorde+=*goal2;
-	*team1.count++ ;
+	team1 -> zade += *goal1;
+	team1 ->khorde += *goal2;
+	team1 ->count++ ;
 	if ( *goal1 > *goal2 ) {
-		*team1.score += 3;
+		team1 ->score += 3;
 	}
 	
-	*team2.zade+=*goal2;
-	*team2.khorde+=*goal1;
-	*team2.count++ ;
+	team2-> zade+=*goal2;
+	team2->khorde+=*goal1;
+	team2->count++ ;
 	if (*goal2 > *goal1 ) {
-		*team2.score += 3;
+		team2->score += 3;
 	}
 	
 	
 	if (*goal1==*goal2){
-		*team1.score += 1;
-		*team2.score += 1;	
+		team2->score += 1;
+		team2->score += 1;	
 	}
 	
 	
