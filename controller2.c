@@ -8,39 +8,39 @@ games
 *
 */
 
-
+#include "dataStruct.h"
 #include "database.h"
 #include "controller2.h"
-#include "dataStruct.h"
 #include <stdio.h>
 #include <string.h>
+#include "utilities.h"
 
 void teamsSwap(team_t *t1, team_t *t2) {
 	team_t temp;
-	temp.count = *t1.count;
-	*t1.count = *t2.count;
-	*t2.count = temp.count;
-	temp.id = *t1.id;
-	*t1.id = *t2.id;
-	*t2.id = temp.id;
-	temp.isPlayer = *t1.isPlayer;
-	*t1.isPlayer = *t2.isPlayer;
-	*t2.isPlayer = temp.isPlayer;
-	temp.khorde = *t1.khorde;
-	*t1.khorde = *t2.khorde;
-	*t2.khorde = temp.khorde;
-	temp.money = *t1.money;
-	*t1.money = *t2.money;
-	*t2.money = temp.money;
-	str(temp.name, *t1.name);
-	str(*t1.name, *t2.name);
-	str(*t2.name, temp.name);
-	temp.score = *t1.score;
-	*t1.score = *t2.score;
-	*t2.score = temp.score;
-	temp.zade = *t1.zade;
-	*t1.zade = *t2.zade;
-	*t2.zade = temp.zade;
+	temp.count = t1->count;
+	t1->count = t2->count;
+	t2->count = temp.count;
+	temp.id = t1->id;
+	t1->id = t2->id;
+	t2->id = temp.id;
+	temp.isPlayer = t1->isPlayer;
+	t1->isPlayer = t2->isPlayer;
+	t2->isPlayer = temp.isPlayer;
+	temp.khorde = t1->khorde;
+	t1->khorde = t2->khorde;
+	t2->khorde = temp.khorde;
+	temp.money = t1->money;
+	t1->money = t2->money;
+	t2->money = temp.money;
+	strcpy(temp.name, t1->name);
+	strcpy(t1->name, t2->name);
+	strcpy(t2->name, temp.name);
+	temp.score = t1->score;
+	t1->score = t2->score;
+	t2->score = temp.score;
+	temp.zade = t1->zade;
+	t1->zade = t2->zade;
+	t2->zade = temp.zade;
 
 }
 void creatGamelist(void){
@@ -49,7 +49,7 @@ void creatGamelist(void){
 	int a = randomNo(10000000, 999999999);
 	for (int i = 0;i <4 ;i++) {
 		int temp = a % 100;
-		Swap(&team[temp%10], &team[temp/10]);
+		teamsSwap(&teams[temp%10], &teams[temp/10]);
 		a /= 100;
 	}
 	
