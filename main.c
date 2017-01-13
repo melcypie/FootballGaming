@@ -15,13 +15,20 @@
 
 int main(){
 	start();
-	//player_t *players;
-	//int count = getPlayersProfile(&players);
-	//team_t teams[16];
-	//getTeamsProfile(teams);
-	//printTeamPlayers(players, count, teams, 1);
-	//printLeagueData(teams, 16);
 	status();
-	//clearProfile();
-	return (EXIT_SUCCESS);
+	char a[100];
+	fgets(a,99, stdin);
+	if (strcmp(a, "status") == 0) {
+		status();
+	}
+	else if (strcmp(a, "exit") == 0) {
+		return;
+	}
+	else if (strncmp(a, "procceed", 8) == 0) {
+		int n = 0;
+		char s[100];
+		sscanf(a, "%s %d", s, &n);
+		procceed(n);
+	}
+	
 }
