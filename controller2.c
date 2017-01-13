@@ -178,6 +178,40 @@ void status(void) {
 	team_t p[16];
 	getTeamsProfile(p);
 	printLeagueData(p, 16);
+	int count = 0;
+	game_t *games;
+	count = getGames(&games);
+	natayej_t *natayej;
+	count1 = getNatayej(&natayej);
+	int k = 0;
+	for (int i = 0;i<count;i++) {
+		if (natayej[count - 1].gameid == games[i].id) {
+			k = games[i].week;
+			break;
+		}
+	}
+	printGames(&games[8 * k], &games[count - 8 * k]);
+	
+	
+	
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+
+
+
+	
+
 
 
 
