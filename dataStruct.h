@@ -3,12 +3,14 @@
 #define DATA_H
 	#ifdef __linux__ 
 	    #define BLUE "\x1b[34m"
+		#define RED "\x1b[31m"
 		#define RESET "\x1b[0m"
 	#elif _WIN32
 	    #define BLUE ""
 		#define RESET ""
 	#else
 		#define BLUE "\x1b[34m"
+		#define RED "\x1b[31m"
 		#define RESET "\x1b[0m"
 	#endif
 
