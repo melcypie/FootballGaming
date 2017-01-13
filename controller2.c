@@ -164,7 +164,7 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 					team2Last = i;
 				}
 			}
-			playGameCC(teams[gameShouldPlay[i].team1id - 1], teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last-size1-1],  size1, &players[team2Last-size2-1], size2);
+			playGameCC(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last-size1-1],  size1, &players[team2Last-size2-1], size2);
 			natayej_t natije;
 			natije.gameid = gameShouldPlay[i].id;
 			natije.team1goal = goalTeam1;
