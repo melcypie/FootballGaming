@@ -114,7 +114,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	int darvazeban1 = 1; //mikhaym bedunim hatmn darvazeban darim ya na
 	
 	// for ha ro vase neveshtm ke khune haye index_team1 ro por kone va mshakhas kone ke shomare ye khune ha ye position ha ye mokhtalef chian
-	for ( int k=size-1 ; k>=0 ; k-- ){
+	for ( int k=size1-1 ; k>=0 ; k-- ){
 		if ( players1[k].position == 4){
 			index_team1[0][counter2] = k;
 			index_team1[1][counter2] = 4;
@@ -127,7 +127,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	} 
 	  
 	
-	for ( int k=size-1 ; k >= 0 && defa1 > 0; k-- ){
+	for ( int k=size1-1 ; k >= 0 && defa1 > 0; k-- ){
 		if (players1[k].position==3 ){
 			index_team1[0][counter2] = k;
 			index_team1[1][counter2] = 3;
@@ -138,7 +138,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 	
-	for ( int k=size-1; k>=0 && hamle1 > 0; k-- ){
+	for ( int k=size1-1; k>=0 && hamle1 > 0; k-- ){
 		if (players1[k].position==1 ){
 			index_team1[0][counter2] = k;
 			index_team1[1][counter2] = 1;
@@ -148,7 +148,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}
 	
 	
-	for ( int k=size-1 ; k>=0 && miane1>0 ; k-- ){
+	for ( int k=size1-1 ; k>=0 && miane1>0 ; k-- ){
 		if (players1[k].position==2 ){
 			index_team1[0][counter2] = k;
 			index_team1[1][counter2] = 2;
@@ -159,7 +159,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 	if ( defa1 !=0 ) {
-		for (  int k=size-1 ; k >= 0 && defa1 > 0; k-- ){
+		for (  int k=size1-1 ; k >= 0 && defa1 > 0; k-- ){
 			for ( int i=0 ; i < counter2 ; i++){
 				if ( k == index_team1 [0][i] )
 					break;
@@ -175,7 +175,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 	if ( hamle1 !=0 ) {
-		for (  int k=size-1 ; k >= 0 && hamle1 > 0; k-- ){
+		for (  int k=size1-1 ; k >= 0 && hamle1 > 0; k-- ){
 			for ( int i=0 ; i < counter2 ; i++){
 				if ( k == index_team1 [0][i] )
 					break;
@@ -190,7 +190,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}	
 	
 	if ( miane1 !=0 ) {
-		for (  int k=size-1 ; k >= 0 && miane1 > 0; k-- ){
+		for (  int k=size1-1 ; k >= 0 && miane1 > 0; k-- ){
 			for ( int i=0 ; i < counter2 ; i++){
 				if ( k == index_team1 [0][i] )
 					break;
@@ -205,7 +205,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}	
 
 	if ( darvazeban1==0 ) {
-		for (  int k=size-1 ; k >= 0 && darvazeban1!=0 ; k-- ){
+		for (  int k=size1-1 ; k >= 0 && darvazeban1!=0 ; k-- ){
 			for ( int i=0 ; i < counter2 ; i++){
 				if ( k == index_team1 [0][i] )
 					break;
@@ -232,7 +232,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	int counter3 = 0;
 	int darvazeban2 = 1;
 	
-	for ( int k=size-1 ; k>=0; k-- ){
+	for ( int k=size2-1 ; k>=0; k-- ){
 		if ( players2[k].position == 4){
 			index_team2[0][counter3] = k;
 			index_team2[1][counter3] = 4;
@@ -244,7 +244,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	} 
 	    
 	    
-	for ( int k=size-1 ; k>=0 && defa2>0 ; k-- ){
+	for ( int k=size2-1 ; k>=0 && defa2>0 ; k-- ){
 		if (players2[k].position==3 ){
 			index_team2[0][counter3] = k;
 			index_team2[1][counter3] = 3;
@@ -253,7 +253,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 		}
 	}
 	
-	for ( int k=size-1 ; k>=0 && hamle2>0 ; k-- ){
+	for ( int k=size2-1 ; k>=0 && hamle2>0 ; k-- ){
 		if (players2[k].position==1 ){
 			index_team2[0][counter3] = k;
 			index_team2[1][counter3] = 1;
@@ -264,7 +264,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 
-	for ( int k=size-1 ; k>=0 && miane2>0 ; k-- ){
+	for ( int k=size2-1 ; k>=0 && miane2>0 ; k-- ){
 		if (players2[k].position==2 ){
 			index_team2[0][counter3] = k;
 			index_team2[1][counter3] = 2;
@@ -277,7 +277,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 
 	if ( defa2 !=0 ) {
-		for (  int k=size-1 ; k >= 0 && defa2 > 0; k-- ){
+		for (  int k=size2-1 ; k >= 0 && defa2 > 0; k-- ){
 			for ( int i=0 ; i < counter3 ; i++){
 				if ( k == index_team2 [0][i] )
 					break;
@@ -293,7 +293,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	
 	
 	if ( hamle2 !=0 ) {
-		for (  int k=size-1 ; k >= 0 && hamle2 > 0; k-- ){
+		for (  int k=size2-1 ; k >= 0 && hamle2 > 0; k-- ){
 			for ( int i=0 ; i < counter3 ; i++){
 				if ( k == index_team2 [0][i] )
 					break;
@@ -308,7 +308,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}	
 	
 	if ( miane2 !=0 ) {
-		for (  int k=size-1 ; k >= 0 && miane2 > 0; k-- ){
+		for (  int k=size2-1 ; k >= 0 && miane2 > 0; k-- ){
 			for ( int i=0 ; i < counter3 ; i++){
 				if ( k == index_team2 [0][i] )
 					break;
@@ -323,7 +323,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}	
 
 	if ( darvazeban2==0 ) {
-		for (  int k=size-1 ; k >= 0 && darvazeban2!=0 ; k-- ){
+		for (  int k=size2-1 ; k >= 0 && darvazeban2!=0 ; k-- ){
 			for ( int i=0 ; i < counter3 ; i++){
 				if ( k == index_team2 [0][i] )
 					break;
@@ -423,7 +423,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	for ( int i=0 ; i<11 ; i++){
 		if ( index_team2[1][i]==3 ){
 			if ( players2[index_team2[0][i]].position==3)
-				sumDefaTeam12 += players2[index_team2[0][i]].sum;
+				sumDefaTeam2 += players2[index_team2[0][i]].sum;
 			else if(players2[index_team2[0][i]].position==1)
 				sumDefaTeam2 += players2[index_team2[0][i]].sum * 7 /10 ;
 			else if(players2[index_team2[0][i]].position==2)
@@ -437,7 +437,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 			if ( players2[index_team2[0][i]].position==4)
 				sumDefaTeam2 += players2[index_team2[0][i]].sum * 2;
 			else
-				sumDefaTeam2 += players1[index_team2[0][i]].sum;
+				sumDefaTeam2 += players2[index_team2[0][i]].sum;
 		
 			
 			
@@ -452,7 +452,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 				sumDefaTeam2 += players2[index_team2[0][i]].sum /2;                     
 		}else if ( index_team2[1][i]==1 ){
 			if ( players2[index_team2[0][i]].position==1)
-				sumHamleTeam2 += players21[index_team2[0][i]].sum;
+				sumHamleTeam2 += players2[index_team2[0][i]].sum;
 			else if(players2[index_team2[0][i]].position==2)
 				sumHamleTeam2 += players2[index_team2[0][i]].sum * 9 /10 ;
 			else if(players2[index_team2[0][i]].position==3)
@@ -497,14 +497,14 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	if ( sumHamleTeam1 > sumDefaTeam2){ 
 		*goal1=(sumHamleTeam1 - sumDefaTeam2) / CTE ;
 		for ( int i=0 ; i<*goal1 ; i++){
-			goalAssign(players1, index_team1[2][11],size1);
+			goalAssign(players1, index_team1,size1);
 		}
 	}
 
 	if ( sumHamleTeam2 > sumDefaTeam1) {
 		*goal1=(sumHamleTeam2 - sumDefaTeam1) / CTE ;
 		for ( int i=0 ; i<*goal2 ; i++){
-			goalAssign(players2, index_team2[2][11],size2);
+			goalAssign(players2, index_team2,size2);
 		}		
 	}
 	
@@ -557,25 +557,23 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 
 
 
-
-
-
-void playGameCP ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , player_t *players1 ,int size1, player_t *players2 , int size2 ) {
+// p: karbar c:compuer
+//team_p : teami ke karbar bazi mikond
+//team_c : teami ke comuter bazi mikond
+void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , player_t *players_c ,int size_c, player_t *players_p , int size_p ) {
 	
-	for (int i=0 ;  i < size1 ; i++ ){
-		players1[i].sum= players1[i].amadegi + players1[i].rouhiye/2 -players1[i].khastegi*2 + players1[i].skill;
+	for (int i=0 ;  i < size_c ; i++ ){
+		players_c[i].sum= players_c[i].amadegi + players_c[i].rouhiye/2 -players_c[i].khastegi*2 + players_c[i].skill;
 	}
-	for (int j=0 ; j<size2 ; j++){
-		players2[j].sum=players2[j].amadegi + players2[j].rouhiye/2 -players2[j].khastegi*2 + players2[j].skill;
+	for (int j=0 ; j<size_p ; j++){
+		players_p[j].sum=players_p[j].amadegi + players_p[j].rouhiye/2 -players_p[j].khastegi*2 + players_p[j].skill;
 	}
 	
 	arrangment_t *arrangments;
 	int counter= getArrangments(&arrangments);
-	int team1_arrangment = randomNo(0 , counter-1);
-	int team2_arrangment = randomNo(0 , counter-1);
+	int team_c_arrangment = randomNo(0 , counter-1);
 	
-	bubblePlayers( players1, size1,playerSUM);
-	bubblePlayers( players2, size2,playerSUM);
+	bubblePlayers( players_c, size_c,playerSUM);
 
 
 
@@ -591,4 +589,4 @@ void playGameCP ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 
 
 
-
+}
