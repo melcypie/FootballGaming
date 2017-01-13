@@ -22,6 +22,8 @@
 #include "database.h"
 #include "utilities.h"
 #include <string.h>
+#include "controller2.h"
+
 team_t *getTeamsProfile(team_t *teams){
 	//Open file
 	char destination[] = "Database/profile/teams";
@@ -372,7 +374,7 @@ void createProfile(){
 	removeEmptyFile(); //remove empty file
 	createTeamsProfile(); //Save team list
 	createPlayersProfile(); //Save all players
-	createGameList();
+	creatGamelist();
 	natayej_t natije;
 	saveAllNatayejProfile(&natije, 0); //Create a Natayej file with the headers...
 }
