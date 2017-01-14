@@ -394,8 +394,14 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 				break;
 			}
 		}
-		if (hast==0)
+		if (hast==0){
 			players1[index_team1[0][k]].amadegi-=7;
+			players1[index_team1[0][k]].skill-=7;
+		}
+		if(players1[index_team1[0][k]].amadegi < 0)
+			players1[index_team1[0][k]].amadegi=0;
+		if(players1[index_team1[0][k]].skill < 0 )
+			players1[index_team1[0][k]].skill=0;
 	}
 	
 	int sumDefaTeam2=0;
@@ -460,8 +466,14 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 				break;
 			}
 		}
-		if(hast==0)
+		if(hast==0){
 			players2[index_team2[0][k]].amadegi-=7;
+			players2[index_team2[0][k]].skill-=7;	
+		}
+		if(players2[index_team2[0][k]].amadegi < 0)
+			players2[index_team2[0][k]].amadegi=0;
+		if(players2[index_team2[0][k]].skill < 0 )
+			players2[index_team2[0][k]].skill=0;		
 	}
 	
 	
@@ -538,7 +550,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	
 	
 	bubblePlayers( players_c, size_c,playerSUM);
-
+	bubblePlayers( players_p, size_p,playerID);
 
 	int defa_c= arrangments[team_c_arrangment].defa; //tedad defa ra moshakhas mikond
 	int miane_c= arrangments[team_c_arrangment].miane;
@@ -702,8 +714,8 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	int team_cZaribKhata=randomNo(0,100);
 	
 	//tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni ta ehtemale borde hame ye team ha vujud dashte bashe
-	sumHamleTeam1*=team_cZaribKhata/100;
-	sumDefaTeam1*=team_cZaribKhata/100;
+	sumHamleTeam_c *=team_cZaribKhata/100;
+	sumDefaTeam_c *=team_cZaribKhata/100;
 	
 	for ( int i=0 ; i<11 ; i++){
 		players_c[index_c[0][i]].khastegi+=7;
@@ -711,7 +723,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 			players_c[index_c[0][i]].khastegi=100;
 	}	
 	
-	//mikham bedum ke aya ye bazikon tu ye index hast ya na, hast=1 bud yani yani bazikn tu ye index hast age 0 bud yaani tu bazi nabude pas amadgish ka mishe
+	//mikham bedum ke aya ye bazikon tu ye index hast ya na, hast=1 bud yani yani bazikn tu ye index hast age 0 bud yaani tu bazi nabude pas amadgish kam mishe
 	for ( int k=0 ; k<size_c ; k++){
 		int hast=0;
 		for (int j=0 ; j<11 ; j++){
@@ -720,19 +732,147 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 				break;
 			}
 		}
-		if (hast==0)
+		if (hast==0){
 			players_c[index_c[0][k]].amadegi-=7;
+			players_c[index_c[0][k]].skill-=7;
+		}
+		if(players_c[index_c[0][k]].amadegi < 0)
+			players_c[index_c[0][k]].amadegi=0;
+		if(players_c[index_c[0][k]].skill < 0 )
+			players_c[index_c[0][k]].skill=0;		
 	}
 
 
 
 
 
+	int index_p[2][11];
+
+	int sumDefaTeam_p=0;
+	int sumMianeTeam_p=0;
+	int sumHamleTeam_p=0;
+		
+	for ( int i=0 ; i<11 ; i++){
+		if ( index_p[1][i]==3 ){
+			if ( players_p[index_p[0][i]].position==3)
+				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum;
+			else if(players_p[index_p[0][i]].position==1)
+				players_p[index_p[0][i] - players_p[0].id].sum * 7 /10 ;
+			else if(players_p[index_p[0][i]].position==2)
+				players_p[index_p[0][i] - players_p[0].id].sum * 9 / 10;
+			else if(players_p[index_p[0][i]].position==4)
+				players_p[index_p[0][i] - players_p[0].id].sum /2;			
+		}else if ( index_p[1][i]==4 ){
+			if ( players_p[index_p[0][i]].position==4)
+				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 2;
+			else
+				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum;			
+		}else if ( index_p[1][i]==2 ){
+			if ( players_p[index_p[0][i]].position==2)
+				sumMianeTeam_p += players_p[index_p[0][i] - players_p[0].id].sum;
+			else if(players_p[index_p[0][i]].position==1)
+				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 /10 ;
+			else if(players_p[index_p[0][i]].position==3)
+				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 / 10;
+			else if(players_p[index_p[0][i]].position==4)
+				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum /2;			
+		}else if ( index_p[1][i]==1 ) {
+			if ( players_p[index_p[0][i]].position==1)
+				sumHamleTeam_p += players_p[index_p[0][i] - players_p[0].id].sum;
+			else if(players_p[index_p[0][i]].position==2)
+				sumHamleTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 /10 ;
+			else if(players_p[index_p[0][i]].position==3)
+				sumHamleTeam_p += pplayers_p[index_p[0][i] - players_p[0].id].sum * 7 / 10;
+			else if(players_p[index_p[0][i]].position==4)
+				sumHamleTeam_p += players_p[index_p[0][i] - players_p[0].id].sum /2;			
+		}	
+	}
+	
+	sumDefaTeam_p+=sumMianeTeam_p/2; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
+	sumHamleTeam_p+=sumMianeTeam_p/2;
+	int team_pZaribKhata=randomNo(0,100);	
+
+	sumHamleTeam_p *=team_pZaribKhata/100;
+	sumDefaTeam_p *=team_pZaribKhata/100;
+	
+	//updating....
+	for ( int i=0 ; i<11 ; i++){
+		players_p[index_p[0][i] - players_p[0].id].khastegi+=7;
+		if (players_p[index_p[0][i] - players_p[0].id].khastegi >100)
+			players_p[index_p[0][i] - players_p[0].id].khastegi=100;
+	}
 
 
 
+	for ( int k=0 ; k<size_p ; k++){
+		int hast=0;
+		for (int j=0 ; j<11 ; j++){
+			if(player_p[k].id==index_p[0][j]){
+				hast=1;
+				break;
+			}
+		}
+		if (hast==0){
+			players_p[index_p[0][k] - players_p[0].id].amadegi-=7;
+			players_p[index_p[0][k] - players_p[0].id].skill-=7;
+		}
+		if(players_p[index_p[0][k] - players_p[0].id].amadegi < 0)
+			players_p[index_p[0][k] - players_p[0].id].amadegi=0;
+		if(players_p[index_p[0][k] - players_p[0].id].skill < 0 )
+			players_p[index_p[0][k] - players_p[0].id].skill=0;		
+	}
 
 
+
+	if ( sumHamleTeam_c > sumDefaTeam_p){ 
+		*goal_c=(sumHamleTeam_c - sumDefaTeam_p) / CTE ;
+		for ( int i=0 ; i<*goal1 ; i++){
+			goalAssign(players_c, index_c,size_c);
+		}
+	}
+
+	if ( sumHamleTeam_p > sumDefaTeam_c) {
+		*goal_c=(sumHamleTeam_p - sumDefaTeam_c) / CTE ;
+		for ( int i=0 ; i<*goal_p ; i++){
+			goalAssign(players_p, index_p,size_p);
+		}		
+	}
+	
+
+	if ( *goal_c > *goal_p ) {
+		for ( int i=0 ; i<size_c ; i++){
+			players_c[index_c[0][i]].rouhiye+=10;
+			if(players_c[index_c[0][i]].rouhiye > 100)
+				players_c[index_c[0][i]].rouhiye=100;			
+		}
+	} else{
+		for ( int i=0 ; i<size_p ; i++){
+			players_p[index_p[0][i]].rouhiye+=10;
+			if(players_p[index_p[0][i]].rouhiye > 100)
+				players_P[index_p[0][i]].rouhiye=100;			
+		}		
+		
+	}
+	
+	team_c -> zade += *goal_c;
+	team_c ->khorde += *goal_p;
+	team_c ->count++ ;
+	if ( *goal_c > *goal_p ) {
+		team_c ->score += 3;
+	}
+	
+	team_p-> zade+= *goal_p;
+	team_p->khorde+= *goal_c;
+	team_p->count++ ;
+	if (*goal_p > *goal_c ) {
+		team2->score += 3;
+	}
+	
+	
+	if (*goal_c == *goal_p){
+		team_p->score += 1;
+		team_p->score += 1;	
+	}
 
 
 }
