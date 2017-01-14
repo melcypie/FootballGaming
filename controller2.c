@@ -224,7 +224,6 @@ void lineup(void) {
 	bubblePlayers(players_in, 11, playerID);
 	bubbleTeams(teams, 16, teamID);
 	for (int i = 0;i < 11;i++) {
-
 			players_in[i].id = players[index_p[0][i] - 1].id;
 			players_in[i].amadegi = players[index_p[0][i] - 1].amadegi;
 			players_in[i].goal = players[index_p[0][i] - 1].goal;
@@ -272,9 +271,137 @@ void lineup(void) {
 			miane = arrangment[number - 1].miane;
 			hamle = arrangment[number - 1].hamle;
 		}
-		
-		
+		int status = 0;
+		int size = 0;
+		int i = 0;
+		for (i = 0; i < count1; i++) {
+			if (players[i].teamid == k) {
+				size++;
+				status = 1;
+			} else {
+				if (status == 1)
+					break;
+			}
+		}
+		player_t players_mine;
+		for (int j = 0; j < size; j++) {
+			players_mine[j].id = players[i - size + j].id;
+			players_mine[j].amadegi = players[i - size + j].amadegi;
+			players_mine[j].goal = players[i - size + j].goal;
+			players_mine[j].khastegi = players[i - size + j].khastegi;
+			players_mine[j].khoshunat = players[i - size + j].khoshunat;
+			strcpy(players_mine[j].name, players[i - size + j].name);
+			players_mine[j].position = players[i - size + j].position;
+			players_mine[j].rouhiye = players[i - size + j].rouhiye;
+			players_mine[j].sen = players[i - size + j].sen;
+			players_mine[j].shomare = players[i - size + j].shomare;
+			players_mine[j].skill = players[i - size + j].skill;
+			players_mine[j].sum = players[i - size + j].sum;
+			players_mine[j].teamid = players[i - size + j].teamid;
+		}
+		int counter2 = 0;
+		bubblePlayers(players_mine, size, playerSUM);
+		for (int k = size - 1; k >= 0; k--) {
+			if (players_mine[k].position == 4) {
+				index_p[0][counter2] = players_mine[k].id;
+				index_p[1][counter2] = 4;
+				counter2++;
+			}
+		}
+
+		if (counter2 == 0) {
+			darvazeban_p = 0;
+		}
+
+		for (int k = size - 1; k >= 0 && defa > 0; k--) {
+			if (players_mine[k].position == 3) {
+				index_p[0][counter2] = players_mine[k].id;
+				index_p[1][counter2] = 3;
+				counter2++;
+				defa--;
+			}
+		}
+
+
+		for (int k = size - 1; k >= 0 && hamle > 0; k--) {
+			if (players_mine[k].position == 1) {
+				index_p[0][counter2] = players_mine[k].id;
+				index_p[1][counter2] = 1;
+				counter2++;
+				hamle--;
+			}
+		}
+
+
+		for (int k = size - 1; k >= 0 && miane >0; k--) {
+			if (players_mine[k].position == 2) {
+				index_p[0][counter2] = players_mine[k].id;
+				index_p[1][counter2] = 2;
+				counter2++;
+				miane--;
+			}
+		}
+
+
+		if (defa != 0) {
+			for (int k = size - 1; k >= 0 && defa > 0; k--) {
+				for (int i = 0; i < counter2; i++) {
+					if (players_mine[k].id == index_p[0][i])
+						break;
+					else if (i == counter2 - 1) {
+						index_p[0][counter2] = players_mine[k].id;
+						index_p[1][counter2] = 3;
+						counter2++;
+						defa--;
+					}
+				}
+			}
+		}
+
+
+		if (hamle != 0) {
+			for (int k = size - 1; k >= 0 && hamle > 0; k--) {
+				for (int i = 0; i < counter2; i++) {
+					if (players_mine[k].id == index_p[0][i])
+						break;
+					else if (i == counter2 - 1) {
+						index_p[0][counter2] = players_mine[k].id;
+						index_p[1][counter2] = 1;
+						counter2++;
+						hamle--;
+					}
+				}
+			}
+		}
+
+		if (miane != 0) {
+			for (int k = size - 1; k >= 0 && miane > 0; k--) {
+				for (int i = 0; i < counter2; i++) {
+					if (players_mine[k] == index_p[0][i])
+						break;
+					else if (i == counter2 - 1) {
+						index_p[0][counter2] = players_mine[k].id;
+						index_p[1][counter2] = 2;
+						counter2++;
+						miane--;
+					}
+				}
+			}
+		}
+
+		if (darvazeban == 0) {
+			for (int k = size - 1; k >= 0 && darvazeban != 0; k--) {
+				for (int i = 0; i < counter2; i++) {
+					if (players_mine[k].id == index_p[0][i])
+						break;
+					else if (i == counter2 - 1) {
+						index_p[0][counter2] = k;
+						index_p[1][counter2] = 4;
+						counter2++;
+						darvazeban++;
+					}
+				}
+			}
+		}
 	}
 }
-
-
