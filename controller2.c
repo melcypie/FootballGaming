@@ -192,3 +192,20 @@ void status(void) {
 	}
 	printGames(&games[8 * k], count - 8 * k, p);
 }
+void proceed(int n) {
+	int count = 0;
+	natayej_t *natayej;
+	count = getNatayej(&natayej);
+	int count1 = 0;
+	player_t *players;
+	count1 = getPlayersProfile(&players);
+	team_t teams[16];
+	getTeamsProfile(teams);
+	for (int i = 0;i < n;i++) {
+		playWeek(natayej[couny - 1].week + i + 1,players,count1,teams);
+	}
+	saveTeamsProfile(teams, 16);
+	savePlayersProfile(players, count1);		
+}
+
+

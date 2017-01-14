@@ -25,7 +25,7 @@ int main(){
 		return;
 	}
 	else if (strncmp(a, "procceed", 8) == 0) {
-		int n = 0;
+		int n = 1;
 		char s[100];
 		sscanf(a, "%s %d", s, &n);
 		procceed(n);
