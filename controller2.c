@@ -207,5 +207,74 @@ void proceed(int n) {
 	saveTeamsProfile(teams, 16);
 	savePlayersProfile(players, count1);		
 }
+void lineup(void) {
+	getArrangments(&arrangment);
+	int count1 = 0;
+	player_t *players;
+	count1 = getPlayersProfile(&players);
+	team_t teams[16];
+	getTeamsProfile(teams);
+	int k = 0;
+	for (int i = 0;i < 16;i++) {
+		if (teams[i].isPlayer == 1)
+			k=teams[i].id;
+	}
+	printTeamPlayers(players, count1, teams, k);
+	player_t players_in[11];
+	bubblePlayers(players_in, 11, playerID);
+	bubbleTeams(teams, 16, teamID);
+	for (int i = 0;i < 11;i++) {
+
+			players_in[i].id = players[index_p[0][i] - 1].id;
+			players_in[i].amadegi = players[index_p[0][i] - 1].amadegi;
+			players_in[i].goal = players[index_p[0][i] - 1].goal;
+			players_in[i].khastegi = players[index_p[0][i] - 1].khastegi;
+			players_in[i].khoshunat = players[index_p[0][i] - 1].khoshunat;
+			strcpy(players_in[i].name, players[index_p[0][i] - 1].name);
+			players_in[i].position = players[index_p[0][i] - 1].position;
+			players_in[i].rouhiye = players[index_p[0][i] - 1].rouhiye;
+			players_in[i].sen = players[index_p[0][i] - 1].sen;
+			players_in[i].shomare = players[index_p[0][i] - 1].shomare;
+			players_in[i].skill = players[index_p[0][i] - 1].skill;
+			players_in[i].sum = players[index_p[0][i] - 1].sum;
+			players_in[i].teamid = players[index_p[0][i] - 1].teamid;
+
+	}
+	printTeamPlayers(players_in, 11, teams, k);
+	printf("mikhay Arrengemant ra avaz koni??\n");
+	printf("age mikhay bzan yes age nemikhay bzan no!\n");
+	char s[5];
+	scanf("%4s",s);
+	flushBuffer();
+	if (strcmp(s,"no")==0) {
+		return;
+	}else if (strcmp(s, "yes") == 0) {
+		arrangment_t  *arrangment;
+		int count = 0;
+		count=getArrangments(&arrangment);
+		printArrangment(&arrangment,count);
+		printf("arrangment haye dade shode ra mikhay?\n");
+		printf("age mikhay bzan yes age nemikhay bzan no!\n");
+		scanf("%4s", s);
+		flushBuffer();
+		int defa = 0;
+		int miane = 0; 
+		int hamle = 0;
+		if(strcmp(s,"no")==0){
+			printf("3 ta adad be tartibe defa miane va hamle vared kon");
+			scanf("%d %d %d", &defa, &miane, &hamle);
+		}
+		else if (strcmp(s,"yes")==0) {
+			printf("harkodam ra ke mikhahi shomarasho az jadval vared kon");
+			int number = 0;
+			scanf("%d", &number);
+			defa = arrangment[number - 1].defa;
+			miane = arrangment[number - 1].miane;
+			hamle = arrangment[number - 1].hamle;
+		}
+		
+		
+	}
+}
 
 
