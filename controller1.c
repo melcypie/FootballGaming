@@ -743,11 +743,6 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	}
 
 
-
-
-
-	int index_p[2][11];
-
 	int sumDefaTeam_p=0;
 	int sumMianeTeam_p=0;
 	int sumHamleTeam_p=0;
