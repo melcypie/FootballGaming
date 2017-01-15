@@ -17,17 +17,23 @@ int main(){
 	start();
 	status();
 	char a[100];
-	fgets(a,99, stdin);
-	if (strcmp(a, "status") == 0) {
-		status();
+	while(1){
+		fgets(a, 99, stdin);
+		if (strcmp(a, "status") == 0) {
+			status();
+		}else if (strcmp(a, "exit") == 0) {
+			return;
+		}else if (strcmp(s,"lineup")==0) {
+			lineup();
+		}else if (strncmp(a, "procceed", 8) == 0) {
+			int n = 1;
+			char s[100];
+			sscanf(a, "%s %d", s, &n);
+			procceed(n);
+		}else {
+			printf("dastoor na motabar ast !! \n");
+			printf("dobare vared kon!!\n");
+		}
 	}
-	else if (strcmp(a, "exit") == 0) {
-		return;
-	}
-	else if (strncmp(a, "procceed", 8) == 0) {
-		int n = 1;
-		char s[100];
-		sscanf(a, "%s %d", s, &n);
-		procceed(n);
-	}
+	
 }

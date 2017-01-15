@@ -15,7 +15,7 @@ games
 #include <stdio.h>
 #include <string.h>
 #include "utilities.h"
-
+extern int index_p[2][11];
 void teamsSwap(team_t *t1, team_t *t2) {
 	team_t temp;
 	temp.count = t1->count;
@@ -135,14 +135,11 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 	game_t gameShouldPlay[8];
 	int k = 0;
 	for (int i = 0;i < m;i++) {
-
 		if (games[i].week == n) {
 			gameShouldPlay[k].id = games[i].id;
 			gameShouldPlay[k].team1id = games[i].team1id;
 			gameShouldPlay[k].team2id = games[i].team2id;
-
 			k++;
-
 		}
 	}
 	for (int i = 0;i < 8;i++)
@@ -169,15 +166,65 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 			natije.gameid = gameShouldPlay[i].id;
 			natije.team1goal = goalTeam1;
 			natije.team2goal = goalTeam2;
-
 			addNatayejProfile(&natije,  1);
+		}else if(teams[gameShouldPlay[i].team1id - 1].isPlayer == 1 && teams[gameShouldPlay[i].team2id - 1].isPlayer == 0){
+			int goalTeam1 = 0;
+			int goalTeam2 = 0;
+			bubblePlayers(players, size, playerTEAMID);
+			int size1 = 0;
+			int size2 = 0;
+			int team1Last = 0;
+			int team2Last = 0;
+			for (int i = 0;i < size;i++) {
+				if (players[i].teamid == gameShouldPlay[i].team1id) {
+					size1++;
+					team1Last = i;
+				}
+				else if (players[i].teamid == gameShouldPlay[i].team2id) {
+					size2++;
+					team2Last = i;
+				}
+			}
+			playGameCP(&teams[gameShouldPlay[i].team2id - 1], &teams[gameShouldPlay[i].team1id - 1], &goalTeam2, &goalTeam1, &players[team2Last - size2 - 1], size2, &players[team1Last - size1 - 1], size1);
+			natayej_t natije;
+			natije.gameid = gameShouldPlay[i].id;
+			natije.team1goal = goalTeam1;
+			natije.team2goal = goalTeam2;
+			addNatayejProfile(&natije, 1);
+		}
+		else {
+			int goalTeam1 = 0;
+			int goalTeam2 = 0;
+			bubblePlayers(players, size, playerTEAMID);
+			int size1 = 0;
+			int size2 = 0;
+			int team1Last = 0;
+			int team2Last = 0;
+			for (int i = 0;i < size;i++) {
+				if (players[i].teamid == gameShouldPlay[i].team1id) {
+					size1++;
+					team1Last = i;
+				}
+				else if (players[i].teamid == gameShouldPlay[i].team2id) {
+					size2++;
+					team2Last = i;
+				}
+			}
+			playGameCP(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last - size1 - 1], size1, &players[team2Last - size2 - 1], size2);
+			natayej_t natije;
+			natije.gameid = gameShouldPlay[i].id;
+			natije.team1goal = goalTeam1;
+			natije.team2goal = goalTeam2;
+			addNatayejProfile(&natije, 1);
 		}
 }
 
 void status(void) {
 	team_t p[16];
 	getTeamsProfile(p);
+	printf("jadvale league bazi ha::\n");
 	printLeagueData(p, 16);
+	printf("baazi haye badi::\n");
 	int count = 0;
 	game_t *games;
 	count = getGames(&games);
@@ -190,7 +237,7 @@ void status(void) {
 			break;
 		}
 	}
-	printGames(&games[8 * k], count - 8 * k, p);
+	printGames(&games[8 * k], count - 8 * k, p);//ye tabas k too khodesh printf dare
 }
 void proceed(int n) {
 	int count = 0;
@@ -203,6 +250,7 @@ void proceed(int n) {
 	getTeamsProfile(teams);
 	for (int i = 0;i < n;i++) {
 		playWeek(natayej[couny - 1].week + i + 1,players,count1,teams);
+
 	}
 	saveTeamsProfile(teams, 16);
 	savePlayersProfile(players, count1);		
@@ -219,6 +267,7 @@ void lineup(void) {
 		if (teams[i].isPlayer == 1)
 			k=teams[i].id;
 	}
+	printf("tamame bazikon hayat inha hasatand!!");
 	printTeamPlayers(players, count1, teams, k);
 	player_t players_in[11];
 	bubblePlayers(players_in, 11, playerID);
@@ -239,161 +288,189 @@ void lineup(void) {
 			players_in[i].teamid = players[index_p[0][i] - 1].teamid;
 
 	}
+	printf("bazikon haye tooye zamin inha hasatand!");
 	printTeamPlayers(players_in, 11, teams, k);
 	printf("mikhay Arrengemant ra avaz koni??\n");
 	printf("age mikhay bzan yes age nemikhay bzan no!\n");
 	char s[5];
-	scanf("%4s",s);
-	flushBuffer();
-	if (strcmp(s,"no")==0) {
-		return;
-	}else if (strcmp(s, "yes") == 0) {
-		arrangment_t  *arrangment;
-		int count = 0;
-		count=getArrangments(&arrangment);
-		printArrangment(&arrangment,count);
-		printf("arrangment haye dade shode ra mikhay?\n");
-		printf("age mikhay bzan yes age nemikhay bzan no!\n");
+	while (1) {
 		scanf("%4s", s);
 		flushBuffer();
-		int defa = 0;
-		int miane = 0; 
-		int hamle = 0;
-		if(strcmp(s,"no")==0){
-			printf("3 ta adad be tartibe defa miane va hamle vared kon");
-			scanf("%d %d %d", &defa, &miane, &hamle);
-		}
-		else if (strcmp(s,"yes")==0) {
-			printf("harkodam ra ke mikhahi shomarasho az jadval vared kon");
-			int number = 0;
-			scanf("%d", &number);
-			defa = arrangment[number - 1].defa;
-			miane = arrangment[number - 1].miane;
-			hamle = arrangment[number - 1].hamle;
-		}
-		int status = 0;
-		int size = 0;
-		int i = 0;
-		for (i = 0; i < count1; i++) {
-			if (players[i].teamid == k) {
-				size++;
-				status = 1;
-			} else {
-				if (status == 1)
-					break;
+		if (strcmp(s, "no") == 0) {
+			break;
+		}else if (strcmp(s, "yes") == 0) {
+			arrangment_t  *arrangment;
+			int count = 0;
+			count = getArrangments(&arrangment);
+			printArrangment(&arrangment, count);
+			printf("arrangment haye dade shode ra mikhay?\n");
+			printf("age mikhay bzan yes age nemikhay bzan no!\n");
+			scanf("%4s", s);
+			flushBuffer();
+			int defa = 0;
+			int miane = 0;
+			int hamle = 0;
+			while (1) {
+				if (strcmp(s, "no") == 0) {
+					printf("3 ta adad be tartibe defa miane va hamle vared kon");
+					while (1) {
+						scanf("%d %d %d", &defa, &miane, &hamle);
+						flushBuffer();
+						if((defa+miane+hamle)!=10){
+							printf("riiidi ba in arrangmentet!!");
+						}else{
+							break;
+						}
+					}
+				}else if (strcmp(s, "yes") == 0) {
+					printf("harkodam ra ke mikhahi shomarasho az jadval vared kon");
+					int number = 1;
+					while (1) {
+						scanf("%d", &number);
+						if (number > count || number < 1) {
+							printf("chenin arrangmenti vojood nadarad");
+							printf("lotfan ye adade beine 1 ta %d vared konid", count);
+						}else {
+							break;
+						}
+						
+						flushBuffer();
+					}
+					defa = arrangment[number - 1].defa;
+					miane = arrangment[number - 1].miane;
+					hamle = arrangment[number - 1].hamle;
+				}else {
+					printf("voroodi ghalat ast@@ dobare emtehan kon!!");
+				}
 			}
-		}
-		player_t players_mine;
-		for (int j = 0; j < size; j++) {
-			players_mine[j].id = players[i - size + j].id;
-			players_mine[j].amadegi = players[i - size + j].amadegi;
-			players_mine[j].goal = players[i - size + j].goal;
-			players_mine[j].khastegi = players[i - size + j].khastegi;
-			players_mine[j].khoshunat = players[i - size + j].khoshunat;
-			strcpy(players_mine[j].name, players[i - size + j].name);
-			players_mine[j].position = players[i - size + j].position;
-			players_mine[j].rouhiye = players[i - size + j].rouhiye;
-			players_mine[j].sen = players[i - size + j].sen;
-			players_mine[j].shomare = players[i - size + j].shomare;
-			players_mine[j].skill = players[i - size + j].skill;
-			players_mine[j].sum = players[i - size + j].sum;
-			players_mine[j].teamid = players[i - size + j].teamid;
-		}
-		int counter2 = 0;
-		bubblePlayers(players_mine, size, playerSUM);
-		for (int k = size - 1; k >= 0; k--) {
-			if (players_mine[k].position == 4) {
-				index_p[0][counter2] = players_mine[k].id;
-				index_p[1][counter2] = 4;
-				counter2++;
+			int status = 0;
+			int size = 0;
+			int i = 0;
+			for (i = 0; i < count1; i++) {
+				if (players[i].teamid == k) {
+					size++;
+					status = 1;
+				}
+				else {
+					if (status == 1)
+						break;
+				}
 			}
-		}
+			player_t players_mine;
+			for (int j = 0; j < size; j++) {
+				players_mine[j].id = players[i - size + j].id;
+				players_mine[j].amadegi = players[i - size + j].amadegi;
+				players_mine[j].goal = players[i - size + j].goal;
+				players_mine[j].khastegi = players[i - size + j].khastegi;
+				players_mine[j].khoshunat = players[i - size + j].khoshunat;
+				strcpy(players_mine[j].name, players[i - size + j].name);
+				players_mine[j].position = players[i - size + j].position;
+				players_mine[j].rouhiye = players[i - size + j].rouhiye;
+				players_mine[j].sen = players[i - size + j].sen;
+				players_mine[j].shomare = players[i - size + j].shomare;
+				players_mine[j].skill = players[i - size + j].skill;
+				players_mine[j].sum = players[i - size + j].sum;
+				players_mine[j].teamid = players[i - size + j].teamid;
+			}
+			int counter2 = 0;
+			bubblePlayers(players_mine, size, playerSUM);
+			for (int k = size - 1; k >= 0; k--) {
+				if (players_mine[k].position == 4) {
+					index_p[0][counter2] = players_mine[k].id;
+					index_p[1][counter2] = 4;
+					counter2++;
+				}
+			}
 
-		if (counter2 == 0) {
-			darvazeban_p = 0;
-		}
+			if (counter2 == 0) {
+				darvazeban_p = 0;
+			}
 
-		for (int k = size - 1; k >= 0 && defa > 0; k--) {
-			if (players_mine[k].position == 3) {
-				index_p[0][counter2] = players_mine[k].id;
-				index_p[1][counter2] = 3;
-				counter2++;
-				defa--;
-			}
-		}
-		for (int k = size - 1; k >= 0 && hamle > 0; k--) {
-			if (players_mine[k].position == 1) {
-				index_p[0][counter2] = players_mine[k].id;
-				index_p[1][counter2] = 1;
-				counter2++;
-				hamle--;
-			}
-		}
-		for (int k = size - 1; k >= 0 && miane >0; k--) {
-			if (players_mine[k].position == 2) {
-				index_p[0][counter2] = players_mine[k].id;
-				index_p[1][counter2] = 2;
-				counter2++;
-				miane--;
-			}
-		}
-		if (defa != 0) {
 			for (int k = size - 1; k >= 0 && defa > 0; k--) {
-				for (int i = 0; i < counter2; i++) {
-					if (players_mine[k].id == index_p[0][i])
-						break;
-					else if (i == counter2 - 1) {
-						index_p[0][counter2] = players_mine[k].id;
-						index_p[1][counter2] = 3;
-						counter2++;
-						defa--;
-					}
+				if (players_mine[k].position == 3) {
+					index_p[0][counter2] = players_mine[k].id;
+					index_p[1][counter2] = 3;
+					counter2++;
+					defa--;
 				}
 			}
-		}
-		if (hamle != 0) {
 			for (int k = size - 1; k >= 0 && hamle > 0; k--) {
-				for (int i = 0; i < counter2; i++) {
-					if (players_mine[k].id == index_p[0][i])
-						break;
-					else if (i == counter2 - 1) {
-						index_p[0][counter2] = players_mine[k].id;
-						index_p[1][counter2] = 1;
-						counter2++;
-						hamle--;
-					}
+				if (players_mine[k].position == 1) {
+					index_p[0][counter2] = players_mine[k].id;
+					index_p[1][counter2] = 1;
+					counter2++;
+					hamle--;
 				}
 			}
-		}
-
-		if (miane != 0) {
 			for (int k = size - 1; k >= 0 && miane > 0; k--) {
-				for (int i = 0; i < counter2; i++) {
-					if (players_mine[k] == index_p[0][i])
-						break;
-					else if (i == counter2 - 1) {
-						index_p[0][counter2] = players_mine[k].id;
-						index_p[1][counter2] = 2;
-						counter2++;
-						miane--;
+				if (players_mine[k].position == 2) {
+					index_p[0][counter2] = players_mine[k].id;
+					index_p[1][counter2] = 2;
+					counter2++;
+					miane--;
+				}
+			}
+			if (defa != 0) {
+				for (int k = size - 1; k >= 0 && defa > 0; k--) {
+					for (int i = 0; i < counter2; i++) {
+						if (players_mine[k].id == index_p[0][i])
+							break;
+						else if (i == counter2 - 1) {
+							index_p[0][counter2] = players_mine[k].id;
+							index_p[1][counter2] = 3;
+							counter2++;
+							defa--;
+						}
 					}
 				}
 			}
-		}
+			if (hamle != 0) {
+				for (int k = size - 1; k >= 0 && hamle > 0; k--) {
+					for (int i = 0; i < counter2; i++) {
+						if (players_mine[k].id == index_p[0][i])
+							break;
+						else if (i == counter2 - 1) {
+							index_p[0][counter2] = players_mine[k].id;
+							index_p[1][counter2] = 1;
+							counter2++;
+							hamle--;
+						}
+					}
+				}
+			}
 
-		if (darvazeban == 0) {
-			for (int k = size - 1; k >= 0 && darvazeban != 0; k--) {
-				for (int i = 0; i < counter2; i++) {
-					if (players_mine[k].id == index_p[0][i])
-						break;
-					else if (i == counter2 - 1) {
-						index_p[0][counter2] = k;
-						index_p[1][counter2] = 4;
-						counter2++;
-						darvazeban++;
+			if (miane != 0) {
+				for (int k = size - 1; k >= 0 && miane > 0; k--) {
+					for (int i = 0; i < counter2; i++) {
+						if (players_mine[k] == index_p[0][i])
+							break;
+						else if (i == counter2 - 1) {
+							index_p[0][counter2] = players_mine[k].id;
+							index_p[1][counter2] = 2;
+							counter2++;
+							miane--;
+						}
 					}
 				}
 			}
+
+			if (darvazeban == 0) {
+				for (int k = size - 1; k >= 0 && darvazeban != 0; k--) {
+					for (int i = 0; i < counter2; i++) {
+						if (players_mine[k].id == index_p[0][i])
+							break;
+						else if (i == counter2 - 1) {
+							index_p[0][counter2] = k;
+							index_p[1][counter2] = 4;
+							counter2++;
+							darvazeban++;
+						}
+					}
+				}
+			}
+			break;
+		}else {
+			printf("voroodi ghalat ast@@ dobare emtehan kon");
 		}
 	}
 	printf("alaan in bazikon ha tooye zamin hastand!\n ");
@@ -416,52 +493,79 @@ void lineup(void) {
 	printTeamPlayers(players_in, 11, teams, k);
 	printf("mikhay bazikon haye tooye zamin ra avaz koni??");
 	printf("yes/no?");
-	scanf("%s", s);
-	flushBuffer();
-	if (strcmp(s, "no") == 0) {
-		return;
-	}
-	else if (strcmp(s, "yes") == 0) {
-		printf("kio ba ki mikhay avaz koni??");
-		printf("id baikone tooye zamino vared kon!");
-		int id1 = 0;
-		scanf("%d", &id1);
+	while (1) {
+		scanf("%s", s);
 		flushBuffer();
-		printf("id nafare dovomo vared kon!");
-		int id2 = 0;
-		scanf("%d", &id2);
-		flushBuffer();
-		int status = 0;
-		for (int i = 0;i < 11;i++) {
-			if (id2 == index_p[0][i]) {
-				status = 1;
-				break;
+		if (strcmp(s, "no") == 0) {
+			return;
+		}else if (strcmp(s, "yes") == 0) {
+			printf("hala bazikon hato avaz kon\n");
+			printf("harvaght karet tamoom shod '-1' bezan!");
+			while (1) {
+				printf("kio ba ki mikhay avaz koni??");
+				printf("id baikone tooye zamino vared kon!");
+				int id1 = 0;
+				while (1) {
+					scanf("%d", &id1);
+					if (id1 == -1)
+						return;
+					flushBuffer();
+					int status = 0;
+					for (int i = 0; i < 11; i++) {
+						if (index_p[0][i] == id1)
+							staus = 1;
+					}
+					if (status == 0) {
+						printf("in bazikon dar zamin nist");
+						printf("bazikon haye daroon zamin ra entekhab kon");
+					}
+					else {
+						break;
+					}
+				}
+				printf("id nafare dovomo vared kon!");
+				int id2 = 0;
+				bubbleTeams(teams, 16, teamID);
+				while (1) {
+					scanf("%d", &id2);
+					flushBuffer();
+					if (teams[players[id2 - 1].teamid - 1].isPlayer == 0) {
+						printf("in bazikon male shoma nist!");
+					}
+					else {
+						break;
+					}
+				}
+				int status = 0;
+				for (int i = 0;i < 11;i++) {
+					if (id2 == index_p[0][i]) {
+						status = 1;
+						break;
+					}
+				}
+				if (status == 1) {
+					int k1 = 0;
+					int k2 = 0;
+					for (int i = 0;i < 11;i++) {
+						if (index_p[0][i] == id1)
+							k1 = id1;
+						else if (index_p[0][i] == id2)
+							k2 = id2;
+					}
+					/*int temp = index_p[0][k1];
+					index_p[0][k1] = index_p[0][k2];
+					index_p[0][k2] = temp;*/
+					index_p[0][k1] ^= index_p[0][k2];
+					index_p[0][k2] ^= index_p[0][k1];
+					index_p[0][k1] ^= index_p[0][k2];
+				}
+				else {
+					for (int i = 0;i < 11;i++) {
+						if (index_p[0][i] == id1)
+							index_p[0][i] = id2;
+					}
+				}
 			}
 		}
-		if (status == 1) {
-			int k1 = 0;
-			int k2 = 0;
-			for (int i = 0;i < 11;i++) {
-				if (index_p[0][i] == id1)
-					k1 = id1;
-				else if (index_p[0][i] == id2)
-					k2 = id2;
-			}
-			/*int temp = index_p[0][k1];
-			index_p[0][k1] = index_p[0][k2];
-			index_p[0][k2] = temp;*/
-			index_p[0][k1] ^= index_p[0][k2];
-			index_p[0][k2] ^= index_p[0][k1];
-			index_p[0][k1] ^= index_p[0][k2];
-		}else{
-			for (int i = 0;i < 11;i++) {
-				if (index_p[0][i] == id1)
-					index_p[0][i] = id2;
-			}
-		}
 	}
-
-
 }
-
-
