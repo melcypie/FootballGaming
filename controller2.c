@@ -321,8 +321,6 @@ void lineup(void) {
 				defa--;
 			}
 		}
-
-
 		for (int k = size - 1; k >= 0 && hamle > 0; k--) {
 			if (players_mine[k].position == 1) {
 				index_p[0][counter2] = players_mine[k].id;
@@ -331,8 +329,6 @@ void lineup(void) {
 				hamle--;
 			}
 		}
-
-
 		for (int k = size - 1; k >= 0 && miane >0; k--) {
 			if (players_mine[k].position == 2) {
 				index_p[0][counter2] = players_mine[k].id;
@@ -341,8 +337,6 @@ void lineup(void) {
 				miane--;
 			}
 		}
-
-
 		if (defa != 0) {
 			for (int k = size - 1; k >= 0 && defa > 0; k--) {
 				for (int i = 0; i < counter2; i++) {
@@ -357,8 +351,6 @@ void lineup(void) {
 				}
 			}
 		}
-
-
 		if (hamle != 0) {
 			for (int k = size - 1; k >= 0 && hamle > 0; k--) {
 				for (int i = 0; i < counter2; i++) {
@@ -404,4 +396,72 @@ void lineup(void) {
 			}
 		}
 	}
+	printf("alaan in bazikon ha tooye zamin hastand!\n ");
+	bubblePlayers(players, count1, playerID);
+	for (int i = 0;i < 11;i++) {
+		players_in[i].id = players[index_p[0][i] - 1].id;
+		players_in[i].amadegi = players[index_p[0][i] - 1].amadegi;
+		players_in[i].goal = players[index_p[0][i] - 1].goal;
+		players_in[i].khastegi = players[index_p[0][i] - 1].khastegi;
+		players_in[i].khoshunat = players[index_p[0][i] - 1].khoshunat;
+		strcpy(players_in[i].name, players[index_p[0][i] - 1].name);
+		players_in[i].position = players[index_p[0][i] - 1].position;
+		players_in[i].rouhiye = players[index_p[0][i] - 1].rouhiye;
+		players_in[i].sen = players[index_p[0][i] - 1].sen;
+		players_in[i].shomare = players[index_p[0][i] - 1].shomare;
+		players_in[i].skill = players[index_p[0][i] - 1].skill;
+		players_in[i].sum = players[index_p[0][i] - 1].sum;
+		players_in[i].teamid = players[index_p[0][i] - 1].teamid;
+	}
+	printTeamPlayers(players_in, 11, teams, k);
+	printf("mikhay bazikon haye tooye zamin ra avaz koni??");
+	printf("yes/no?");
+	scanf("%s", s);
+	flushBuffer();
+	if (strcmp(s, "no") == 0) {
+		return;
+	}
+	else if (strcmp(s, "yes") == 0) {
+		printf("kio ba ki mikhay avaz koni??");
+		printf("id baikone tooye zamino vared kon!");
+		int id1 = 0;
+		scanf("%d", &id1);
+		flushBuffer();
+		printf("id nafare dovomo vared kon!");
+		int id2 = 0;
+		scanf("%d", &id2);
+		flushBuffer();
+		int status = 0;
+		for (int i = 0;i < 11;i++) {
+			if (id2 == index_p[0][i]) {
+				status = 1;
+				break;
+			}
+		}
+		if (status == 1) {
+			int k1 = 0;
+			int k2 = 0;
+			for (int i = 0;i < 11;i++) {
+				if (index_p[0][i] == id1)
+					k1 = id1;
+				else if (index_p[0][i] == id2)
+					k2 = id2;
+			}
+			/*int temp = index_p[0][k1];
+			index_p[0][k1] = index_p[0][k2];
+			index_p[0][k2] = temp;*/
+			index_p[0][k1] ^= index_p[0][k2];
+			index_p[0][k2] ^= index_p[0][k1];
+			index_p[0][k1] ^= index_p[0][k2];
+		}else{
+			for (int i = 0;i < 11;i++) {
+				if (index_p[0][i] == id1)
+					index_p[0][i] = id2;
+			}
+		}
+	}
+
+
 }
+
+
