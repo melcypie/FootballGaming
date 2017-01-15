@@ -154,7 +154,7 @@ int createPlayersProfile(void){
 		rewind(fp);
 		for(int j = 0;fgets(data,100,fp) != NULL;j++, player_id++){ //save each line in data variable
 			char sen[3], shomare[3], position[2]; //some string to put data in
-			sscanf(data, "%[^,],%[^,],%[^:]:%[^,]", shomare, (players + j)->name, sen, position); //scan data with : seprator
+			sscanf(data, "%[^,],%[^,],%[^,],%[^,]", shomare, (players + j)->name, sen, position); //scan data with : seprator
 			char *ptr = NULL;
 			(players + j)->id = player_id; //save id into struct
 			(players + j)->teamid = (teams + i)->id; //save teamid into struct

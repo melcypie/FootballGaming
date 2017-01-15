@@ -62,37 +62,33 @@ void goalAssign(player_t *players, int index[2][11], int size) {
 		else if (index[1][i] == 3)
 			tedadDefa++;
 	}
-	int DefaRange = tedadDefa * 1;
+	int DefaRange = tedadDefa * 1 - 1;
 	int MianeRange = DefaRange + tedadMiane * 2;
 	int HamleRange = MianeRange + tedadHamle * 3;
 	int pos = 0;
 	int baze = randomNo(0, HamleRange);
 	int search = 0;
-	if (baze >= 0 && baze < DefaRange) {
-		 search = (baze-0) / 1;
+	if (baze >= 0 && baze <= DefaRange) {
+		search = (baze - 0) / 1;
 		pos = 3;
-	}
-	else if ( baze>=MianeRange &&  baze< MianeRange) {
+	}else if ( baze > DefaRange &&  baze <= MianeRange) {
 		pos = 2;
-		 search = (baze-DefaRange) / 2;
+		search = (baze - DefaRange) / 2;
 	}
-	else if (baze >= HamleRange && baze < HamleRange) {
+	else if (baze >= MianeRange && baze < HamleRange) {
 		pos = 1;
-		 search = (baze-MianeRange) / 3;
-
+		search = (baze - MianeRange) / 3;
 	}
 	int i = 0;
-	for (;search > 0;i++) {
+	for (;search >= 0;i++) {
 		if (index[1][i] == pos)
 			search--;
 	}
 	players[index[0][i - 1]].goal++;
-
-
 }
 //tabee playweek
 //n=hafte
-void playWeek(int n,player_t*players,int size, team_t *teams){
+void playWeek(int n,player_t *players,int size, team_t *teams){
 	game_t *games;
 	int m = getGames(&games);
 	game_t gameShouldPlay[8];
@@ -106,7 +102,7 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 		}
 	}
 	bubbleTeams(teams,16, teamID);
-	for (int i = 0;i < 8;i++){
+	for (int i = 0;i < 8;i++){		
 		if (teams[gameShouldPlay[i].team1id - 1].isPlayer == 0 && teams[gameShouldPlay[i].team2id - 1].isPlayer == 0) {
 			int goalTeam1 = 0;
 			int goalTeam2 = 0;
@@ -125,7 +121,7 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 					team2Last = j;
 				}
 			}
-			playGameCC(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last-size1 + 1],  size1, &players[team2Last-size2 + 1], size2);
+			playGameCC(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last - size1 + 1],  size1, &players[team2Last-size2 + 1], size2);
 			natayej_t natije;
 			natije.gameid = gameShouldPlay[i].id;
 			natije.team1goal = goalTeam1;

@@ -15,6 +15,7 @@
 
 int index_p[2][11];//bazikon haye tooye teame ma hamashoono aval 0 mizarim
 int main(){
+	clearPage();
 	start();
 	clearPage();
 	status();
@@ -38,7 +39,7 @@ int main(){
 			status();
 		}else if (strcmp(a, "exit") == 0) {
 			return (EXIT_SUCCESS);
-		}else if (strcmp(a,"lineup")==0) {
+		}else if (strcmp(a,"lineup") == 0) {
 			lineup();
 		}else if (strncmp(a, "procceed", 8) == 0) {
 			int n = 1;
