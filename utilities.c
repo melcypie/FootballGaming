@@ -18,96 +18,133 @@
 
 static int seed_count = 0;
 //Sort
+void teamsSwap(team_t *t1, team_t *t2) {
+	team_t temp;
+	temp.count = t1->count;
+	t1->count = t2->count;
+	t2->count = temp.count;
+	temp.id = t1->id;
+	t1->id = t2->id;
+	t2->id = temp.id;
+	temp.isPlayer = t1->isPlayer;
+	t1->isPlayer = t2->isPlayer;
+	t2->isPlayer = temp.isPlayer;
+	temp.khorde = t1->khorde;
+	t1->khorde = t2->khorde;
+	t2->khorde = temp.khorde;
+	temp.money = t1->money;
+	t1->money = t2->money;
+	t2->money = temp.money;
+	strcpy(temp.name, t1->name);
+	strcpy(t1->name, t2->name);
+	strcpy(t2->name, temp.name);
+	temp.score = t1->score;
+	t1->score = t2->score;
+	t2->score = temp.score;
+	temp.zade = t1->zade;
+	t1->zade = t2->zade;
+	t2->zade = temp.zade;
+
+}
+void playersSwap(player_t *t1, player_t *t2) {
+	player_t temp;
+	temp.id = t1->id;
+	t1->id = t2->id;
+	t2->id = temp.id;
+	temp.teamid = t1->teamid;
+	t1->teamid = t2->teamid;
+	t2->teamid = temp.teamid;
+	temp.goal = t1->goal;
+	t1->goal = t2->goal;
+	t2->goal = temp.goal;
+	temp.position = t1->position;
+	t1->position = t2->position;
+	t2->position = temp.position;
+	temp.skill = t1->skill;
+	t1->skill = t2->skill;
+	t2->skill = temp.skill;
+	strcpy(temp.name, t1->name);
+	strcpy(t1->name, t2->name);
+	strcpy(t2->name, temp.name);
+	temp.amadegi = t1->amadegi;
+	t1->amadegi = t2->amadegi;
+	t2->amadegi = temp.amadegi;
+	temp.khastegi = t1->khastegi;
+	t1->khastegi = t2->khastegi;
+	t2->khastegi = temp.khastegi;
+	temp.rouhiye = t1->rouhiye;
+	t1->rouhiye = t2->rouhiye;
+	t2->rouhiye = temp.rouhiye;
+	temp.khoshunat = t1->khoshunat;
+	t1->khoshunat = t2->khoshunat;
+	t2->khoshunat = temp.khoshunat;
+	temp.sen = t1->sen;
+	t1->sen = t2->sen;
+	t2->sen = temp.sen;
+	temp.shomare = t1->shomare;
+	t1->shomare = t2->shomare;
+	t2->shomare = temp.shomare;
+	temp.sum = t1->sum;
+	t1->sum = t2->sum;
+	t2->sum = temp.sum;
+}
 void bubblePlayers(player_t *players, int size, int type){
 	for(int i = 0; i < size; i++){
 		for(int j = 0; j < size - 1 - i; j++){
 			switch (type){
 				case playerTEAMID:
 					if(players[j].teamid > players[j+1].teamid){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerNAME:
 					if(strcmp(players[j].name , players[j+1].name) > 0){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerGOAL:
 					if(players[j].goal > players[j+1].goal){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerPOSITION:
 					if(players[j].position > players[j+1].position){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerSKILL:
 					if(players[j].skill > players[j+1].skill){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerAMADEGI:
 					if(players[j].amadegi > players[j+1].amadegi){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerKHASTEGI:
 					if(players[j].khastegi > players[j+1].khastegi){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerROUHIYE:
 					if(players[j].rouhiye > players[j+1].rouhiye){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerKHOSHUNAT:
 					if(players[j].khoshunat > players[j+1].khoshunat){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				case playerSUM:
 					if(players[j].sum > players[j+1].sum){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 				default:
 					if(players[j].id > players[j+1].id){
-						player_t tmp;
-						tmp = players[j];
-						players[j] = players[j+1];
-						players[j+1] = tmp;
+						playersSwap(&players[j], &players[j+1]);
 					}
 					break;
 			}
@@ -120,66 +157,42 @@ void bubbleTeams(team_t *teams, int size, int type){
 			switch (type){
 				case teamNAME:
 					if(strcmp(teams[j].name , teams[j+1].name) > 0){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 				case teamISPLAYER:
 					if(teams[j].isPlayer > teams[j+1].isPlayer){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 				case teamMONEY:
 					if(teams[j].money > teams[j+1].money){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 				case teamSCORE:
 					if(teams[j].score > teams[j+1].score){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 				case teamZADE:
 					if(teams[j].zade > teams[j+1].zade){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 				case teamKHORDE:
 					if(teams[j].khorde > teams[j+1].khorde){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 				case teamCOUNT:
 					if(teams[j].count > teams[j+1].count){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 				default:
 					if(teams[j].id > teams[j+1].id){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}
 					break;
 			}
@@ -188,30 +201,18 @@ void bubbleTeams(team_t *teams, int size, int type){
 }
 void bubbleTeamsLeague(team_t *teams, int size){
 	for(int i = 0; i < size; i++){
-		for(int j = 0; j < size; j++){
+		for(int j = 0; j < size - 1; j++){
 			if((teams + j)->score < (teams + j + 1)->score){
-				team_t tmp;
-				tmp = teams[j];
-				teams[j] = teams[j+1];
-				teams[j+1] = tmp;
+				teamsSwap(&teams[j], &teams[j+1]);
 			}else if((teams + j)->score == (teams + j + 1)->score){
 				if((teams + j)->zade < (teams + j + 1)->zade){
-					team_t tmp;
-					tmp = teams[j];
-					teams[j] = teams[j+1];
-					teams[j+1] = tmp;
+					teamsSwap(&teams[j], &teams[j+1]);
 				}else if((teams + j)->zade == (teams + j + 1)->zade){
 					if((teams + j)->khorde > (teams + j + 1)->khorde){
-						team_t tmp;
-						tmp = teams[j];
-						teams[j] = teams[j+1];
-						teams[j+1] = tmp;
+						teamsSwap(&teams[j], &teams[j+1]);
 					}else if((teams + j)->khorde == (teams + j + 1)->khorde){
 						if((teams + j)->id > (teams + j + 1)->id){
-							team_t tmp;
-							tmp = teams[j];
-							teams[j] = teams[j+1];
-							teams[j+1] = tmp;
+							teamsSwap(&teams[j], &teams[j+1]);
 						}
 					}
 				}

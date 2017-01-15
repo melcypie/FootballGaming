@@ -10,3 +10,5 @@ void bubbleTeams(team_t *teams, int size, int type);
 void printLeagueData(team_t *teams, int size);
 void printGames(game_t *games, int size, team_t *teams);
 void printArrangment(arrangment_t *arrangments, int size);
+void teamsSwap(team_t *t1, team_t *t2);
+void playersSwap(player_t *t1, player_t *t2);

@@ -16,34 +16,7 @@ games
 #include <string.h>
 #include "utilities.h"
 extern int index_p[2][11];
-void teamsSwap(team_t *t1, team_t *t2) {
-	team_t temp;
-	temp.count = t1->count;
-	t1->count = t2->count;
-	t2->count = temp.count;
-	temp.id = t1->id;
-	t1->id = t2->id;
-	t2->id = temp.id;
-	temp.isPlayer = t1->isPlayer;
-	t1->isPlayer = t2->isPlayer;
-	t2->isPlayer = temp.isPlayer;
-	temp.khorde = t1->khorde;
-	t1->khorde = t2->khorde;
-	t2->khorde = temp.khorde;
-	temp.money = t1->money;
-	t1->money = t2->money;
-	t2->money = temp.money;
-	strcpy(temp.name, t1->name);
-	strcpy(t1->name, t2->name);
-	strcpy(t2->name, temp.name);
-	temp.score = t1->score;
-	t1->score = t2->score;
-	t2->score = temp.score;
-	temp.zade = t1->zade;
-	t1->zade = t2->zade;
-	t2->zade = temp.zade;
 
-}
 void creatGamelist(void){
 	team_t teams[16];
 	getTeamsProfile(teams);
@@ -53,13 +26,9 @@ void creatGamelist(void){
 		teamsSwap(&teams[temp%10], &teams[temp/10]);
 		a /= 100;
 	}
-
-
 	game_t games[240];
-
 	int counter = 0;
 	for (int i = 0;i < 15;i++) {
-		
 		for (int j = 0; j < 8; j++) {
 			games[counter].id = counter + 1;
 			games[counter].team1id = teams[j].id;
@@ -80,12 +49,8 @@ void creatGamelist(void){
 		}
 	}
 	saveGamesProfile(games, 240);
-
 }
-
-
 void goalAssign(player_t *players, int index[2][11], int size) {
-
 	int tedadDefa = 0;
 	int tedadHamle = 0;
 	int tedadMiane = 0;
@@ -127,10 +92,8 @@ void goalAssign(player_t *players, int index[2][11], int size) {
 }
 //tabee playweek
 //n=hafte
-
 void playWeek(int n,player_t*players,int size, team_t *teams){
 	game_t *games;
-	
 	int m = getGames(&games);
 	game_t gameShouldPlay[8];
 	int k = 0;
@@ -142,7 +105,8 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 			k++;
 		}
 	}
-	for (int i = 0;i < 8;i++)
+	bubbleTeams(teams,16, teamID);
+	for (int i = 0;i < 8;i++){
 		if (teams[gameShouldPlay[i].team1id - 1].isPlayer == 0 && teams[gameShouldPlay[i].team2id - 1].isPlayer == 0) {
 			int goalTeam1 = 0;
 			int goalTeam2 = 0;
@@ -151,22 +115,22 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 			int size2 = 0;
 			int team1Last = 0;
 			int team2Last = 0;
-			for (int i = 0;i < size;i++) {
-				if (players[i].teamid == gameShouldPlay[i].team1id) {
+			for (int j = 0;j < size;j++) {
+				if (players[j].teamid == gameShouldPlay[i].team1id) {
 					size1++;
-					team1Last = i;
+					team1Last = j;
 				}
-				else if(players[i].teamid == gameShouldPlay[i].team2id){
+				else if(players[j].teamid == gameShouldPlay[i].team2id){
 					size2++;
-					team2Last = i;
+					team2Last = j;
 				}
 			}
-			playGameCC(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last-size1-1],  size1, &players[team2Last-size2-1], size2);
+			playGameCC(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last-size1 + 1],  size1, &players[team2Last-size2 + 1], size2);
 			natayej_t natije;
 			natije.gameid = gameShouldPlay[i].id;
 			natije.team1goal = goalTeam1;
 			natije.team2goal = goalTeam2;
-			addNatayejProfile(&natije,  1);
+			addNatayejProfile(&natije, 1);
 		}else if(teams[gameShouldPlay[i].team1id - 1].isPlayer == 1 && teams[gameShouldPlay[i].team2id - 1].isPlayer == 0){
 			int goalTeam1 = 0;
 			int goalTeam2 = 0;
@@ -175,24 +139,23 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 			int size2 = 0;
 			int team1Last = 0;
 			int team2Last = 0;
-			for (int i = 0;i < size;i++) {
-				if (players[i].teamid == gameShouldPlay[i].team1id) {
+			for (int j = 0;j < size;j++) {
+				if (players[j].teamid == gameShouldPlay[i].team1id) {
 					size1++;
-					team1Last = i;
+					team1Last = j;
 				}
-				else if (players[i].teamid == gameShouldPlay[i].team2id) {
+				else if (players[j].teamid == gameShouldPlay[i].team2id) {
 					size2++;
-					team2Last = i;
+					team2Last = j;
 				}
 			}
-			playGameCP(&teams[gameShouldPlay[i].team2id - 1], &teams[gameShouldPlay[i].team1id - 1], &goalTeam2, &goalTeam1, &players[team2Last - size2 - 1], size2, &players[team1Last - size1 - 1], size1);
+			playGameCP(&teams[gameShouldPlay[i].team2id - 1], &teams[gameShouldPlay[i].team1id - 1], &goalTeam2, &goalTeam1, &players[team2Last - size2 + 1], size2, &players[team1Last - size1 + 1], size1);
 			natayej_t natije;
 			natije.gameid = gameShouldPlay[i].id;
 			natije.team1goal = goalTeam1;
 			natije.team2goal = goalTeam2;
 			addNatayejProfile(&natije, 1);
-		}
-		else {
+		}else {
 			int goalTeam1 = 0;
 			int goalTeam2 = 0;
 			bubblePlayers(players, size, playerTEAMID);
@@ -200,25 +163,25 @@ void playWeek(int n,player_t*players,int size, team_t *teams){
 			int size2 = 0;
 			int team1Last = 0;
 			int team2Last = 0;
-			for (int i = 0;i < size;i++) {
-				if (players[i].teamid == gameShouldPlay[i].team1id) {
+			for (int j = 0;j < size;j++) {
+				if (players[j].teamid == gameShouldPlay[i].team1id) {
 					size1++;
-					team1Last = i;
+					team1Last = j;
 				}
-				else if (players[i].teamid == gameShouldPlay[i].team2id) {
+				else if (players[j].teamid == gameShouldPlay[i].team2id) {
 					size2++;
-					team2Last = i;
+					team2Last = j;
 				}
 			}
-			playGameCP(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last - size1 - 1], size1, &players[team2Last - size2 - 1], size2);
+			playGameCP(&teams[gameShouldPlay[i].team1id - 1], &teams[gameShouldPlay[i].team2id - 1], &goalTeam1, &goalTeam2, &players[team1Last - size1 + 1], size1, &players[team2Last - size2 + 1], size2);
 			natayej_t natije;
 			natije.gameid = gameShouldPlay[i].id;
 			natije.team1goal = goalTeam1;
 			natije.team2goal = goalTeam2;
 			addNatayejProfile(&natije, 1);
 		}
+	}
 }
-
 void status(void) {
 	team_t p[16];
 	getTeamsProfile(p);
@@ -247,13 +210,15 @@ void procceed(int n) {
 	player_t *players;
 	count1 = getPlayersProfile(&players);
 	team_t teams[16];
+	getTeamsProfile(teams);
 	game_t *games;
 	int count3 = 0;
 	count3 = getGames(&games);
-	getTeamsProfile(teams);
 	for (int i = 0;i < n;i++) {
-		playWeek(games[natayej[count - 1].gameid -1].week + i + 1, players, count1, teams);
-
+		if(count == 0)
+			playWeek(i + 1, players, count1, teams);
+		else
+			playWeek(games[natayej[count - 1].gameid -1].week + i + 1, players, count1, teams);
 	}
 	saveTeamsProfile(teams, 16);
 	savePlayersProfile(players, count1);		

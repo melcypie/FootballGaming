@@ -137,7 +137,7 @@ int createPlayersProfile(void){
 	fclose(fp);
 	fp = NULL;
 	int player_id = 1;
-	for(int i = 0;i < 16; i++, player_id++){
+	for(int i = 0;i < 16; i++){
 		//Open file
 		char destination[200];
 		sprintf(destination, "Database/%s.csv", (teams + i)->name);

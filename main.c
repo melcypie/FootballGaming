@@ -16,10 +16,24 @@
 int index_p[2][11];//bazikon haye tooye teame ma hamashoono aval 0 mizarim
 int main(){
 	start();
+	clearPage();
 	status();
 	char a[100];
+	char last = 0;
 	while(1){
-		fgets(a, 99, stdin);
+		scanf("%99[^\n]", a);
+		flushBuffer();
+		if(strcmp(a, "damn") == 0){
+			if(last == 's'){
+				strcpy(a, "status");
+			}else if(last == 'e'){
+				strcpy(a, "exit");
+			}else if(last == 'p'){
+				strcpy(a, "procceed");
+			}else if(last == 'l'){
+				strcpy(a, "lineup");
+			}
+		}
 		if (strcmp(a, "status") == 0) {
 			status();
 		}else if (strcmp(a, "exit") == 0) {
@@ -29,11 +43,27 @@ int main(){
 		}else if (strncmp(a, "procceed", 8) == 0) {
 			int n = 1;
 			char s[100];
-			sscanf(a, "%s %d", s, &n);
+			if(a[8] != 0)
+				sscanf(a, "%s %d", s, &n);
 			procceed(n);
 		}else {
 			printf("dastoor na motabar ast !! \n");
 			printf("dobare vared kon!!\n");
+			printf("%s", "Manzuret in bud :: ");
+			if(strncmp(a, "s", 1) == 0){
+				printf("%s\n", "status");
+				last = 's';
+			}else if(strncmp(a, "l", 1) == 0){
+				printf("%s\n", "lineup");
+				last = 'l';
+			}else if(strncmp(a, "p", 1) == 0){
+				printf("%s\n", "procceed");
+				last = 'p';
+			}else if(strncmp(a, "e", 1) == 0){
+				printf("%s\n", "exit");
+				last = 'e';
+			}
+			printf("%s\n", "Age Are benevis damn");
 		}
 	}
 	
