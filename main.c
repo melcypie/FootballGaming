@@ -12,7 +12,8 @@
 #include "utilities.h"
 #include "controller1.h"
 #include "controller2.h"
-extern int index_p[2][11];//bazikon haye tooye teame ma hamashoono aval 0 mizarim
+
+int index_p[2][11];//bazikon haye tooye teame ma hamashoono aval 0 mizarim
 int main(){
 	start();
 	status();
