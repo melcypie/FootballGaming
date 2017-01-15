@@ -239,7 +239,7 @@ void status(void) {
 	}
 	printGames(&games[8 * k], count - 8 * k, p);//ye tabas k too khodesh printf dare
 }
-void proceed(int n) {
+void procceed(int n) {
 	int count = 0;
 	natayej_t *natayej;
 	count = getNatayej(&natayej);
@@ -247,16 +247,18 @@ void proceed(int n) {
 	player_t *players;
 	count1 = getPlayersProfile(&players);
 	team_t teams[16];
+	game_t *games;
+	int count3 = 0;
+	count3 = getGames(&games);
 	getTeamsProfile(teams);
 	for (int i = 0;i < n;i++) {
-		playWeek(natayej[couny - 1].week + i + 1,players,count1,teams);
+		playWeek(games[natayej[count - 1].gameid -1].week + i + 1, players, count1, teams);
 
 	}
 	saveTeamsProfile(teams, 16);
 	savePlayersProfile(players, count1);		
 }
 void lineup(void) {
-	getArrangments(&arrangment);
 	int count1 = 0;
 	player_t *players;
 	count1 = getPlayersProfile(&players);
@@ -302,7 +304,7 @@ void lineup(void) {
 			arrangment_t  *arrangment;
 			int count = 0;
 			count = getArrangments(&arrangment);
-			printArrangment(&arrangment, count);
+			printArrangment(arrangment, count);
 			printf("arrangment haye dade shode ra mikhay?\n");
 			printf("age mikhay bzan yes age nemikhay bzan no!\n");
 			scanf("%4s", s);
@@ -356,7 +358,7 @@ void lineup(void) {
 						break;
 				}
 			}
-			player_t players_mine;
+			player_t players_mine[size];
 			for (int j = 0; j < size; j++) {
 				players_mine[j].id = players[i - size + j].id;
 				players_mine[j].amadegi = players[i - size + j].amadegi;
@@ -373,6 +375,7 @@ void lineup(void) {
 				players_mine[j].teamid = players[i - size + j].teamid;
 			}
 			int counter2 = 0;
+			int darvazeban = 1;
 			bubblePlayers(players_mine, size, playerSUM);
 			for (int k = size - 1; k >= 0; k--) {
 				if (players_mine[k].position == 4) {
@@ -383,7 +386,7 @@ void lineup(void) {
 			}
 
 			if (counter2 == 0) {
-				darvazeban_p = 0;
+				darvazeban = 0;
 			}
 
 			for (int k = size - 1; k >= 0 && defa > 0; k--) {
@@ -442,7 +445,7 @@ void lineup(void) {
 			if (miane != 0) {
 				for (int k = size - 1; k >= 0 && miane > 0; k--) {
 					for (int i = 0; i < counter2; i++) {
-						if (players_mine[k] == index_p[0][i])
+						if (players_mine[k].id == index_p[0][i])
 							break;
 						else if (i == counter2 - 1) {
 							index_p[0][counter2] = players_mine[k].id;
@@ -513,7 +516,7 @@ void lineup(void) {
 					int status = 0;
 					for (int i = 0; i < 11; i++) {
 						if (index_p[0][i] == id1)
-							staus = 1;
+							status = 1;
 					}
 					if (status == 0) {
 						printf("in bazikon dar zamin nist");

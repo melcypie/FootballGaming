@@ -399,3 +399,6 @@ void printGameGoals(){
 void printWeekGames(){
 
 }
+void printArrangment(arrangment_t *arrangments, int size){
+
+}

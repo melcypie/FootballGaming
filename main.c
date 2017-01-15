@@ -12,7 +12,7 @@
 #include "utilities.h"
 #include "controller1.h"
 #include "controller2.h"
-extern int index_p[2][11] = {};//bazikon haye tooye teame ma hamashoono aval 0 mizarim
+extern int index_p[2][11];//bazikon haye tooye teame ma hamashoono aval 0 mizarim
 int main(){
 	start();
 	status();
@@ -22,8 +22,8 @@ int main(){
 		if (strcmp(a, "status") == 0) {
 			status();
 		}else if (strcmp(a, "exit") == 0) {
-			return;
-		}else if (strcmp(s,"lineup")==0) {
+			return (EXIT_SUCCESS);
+		}else if (strcmp(a,"lineup")==0) {
 			lineup();
 		}else if (strncmp(a, "procceed", 8) == 0) {
 			int n = 1;

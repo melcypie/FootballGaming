@@ -12,11 +12,13 @@
 #include <stdlib.h>
 #include "database.h"
 #include "controller1.h"
+#include "controller2.h"
 #include "utilities.h"
 #include <string.h>
 #include "profile.h"
-#include "controller2.h"
 #define CTE 10
+
+extern int index_p[2][11];
 
 void selectProfileTeam(){
 	clearPage();
@@ -579,7 +581,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	
 	
 	for ( int k=size_c-1; k>=0 && hamle_c > 0; k-- ){
-		if (players_c1[k].position==1 ){
+		if (players_c[k].position==1 ){
 			index_c[0][counter2] = k;
 			index_c[1][counter2] = 1;
 			counter2++;
@@ -745,11 +747,11 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 			if ( players_p[index_p[0][i]].position==3)
 				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum;
 			else if(players_p[index_p[0][i]].position==1)
-				players_p[index_p[0][i] - players_p[0].id].sum * 7 /10 ;
+				sumDefaTeam_p +=players_p[index_p[0][i] - players_p[0].id].sum * 7 /10 ;
 			else if(players_p[index_p[0][i]].position==2)
-				players_p[index_p[0][i] - players_p[0].id].sum * 9 / 10;
+				sumDefaTeam_p +=players_p[index_p[0][i] - players_p[0].id].sum * 9 / 10;
 			else if(players_p[index_p[0][i]].position==4)
-				players_p[index_p[0][i] - players_p[0].id].sum /2;			
+				sumDefaTeam_p +=players_p[index_p[0][i] - players_p[0].id].sum /2;			
 		}else if ( index_p[1][i]==4 ){
 			if ( players_p[index_p[0][i]].position==4)
 				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 2;
@@ -770,7 +772,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 			else if(players_p[index_p[0][i]].position==2)
 				sumHamleTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 /10 ;
 			else if(players_p[index_p[0][i]].position==3)
-				sumHamleTeam_p += pplayers_p[index_p[0][i] - players_p[0].id].sum * 7 / 10;
+				sumHamleTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 7 / 10;
 			else if(players_p[index_p[0][i]].position==4)
 				sumHamleTeam_p += players_p[index_p[0][i] - players_p[0].id].sum /2;			
 		}	
@@ -795,7 +797,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	for ( int k=0 ; k<size_p ; k++){
 		int hast=0;
 		for (int j=0 ; j<11 ; j++){
-			if(player_p[k].id==index_p[0][j]){
+			if(players_p[k].id==index_p[0][j]){
 				hast=1;
 				break;
 			}
@@ -814,7 +816,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 
 	if ( sumHamleTeam_c > sumDefaTeam_p){ 
 		*goal_c=(sumHamleTeam_c - sumDefaTeam_p) / CTE ;
-		for ( int i=0 ; i<*goal1 ; i++){
+		for ( int i=0 ; i<*goal_c ; i++){
 			goalAssign(players_c, index_c,size_c);
 		}
 	}
@@ -837,7 +839,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		for ( int i=0 ; i<size_p ; i++){
 			players_p[index_p[0][i]].rouhiye+=10;
 			if(players_p[index_p[0][i]].rouhiye > 100)
-				players_P[index_p[0][i]].rouhiye=100;			
+				players_p[index_p[0][i]].rouhiye=100;			
 		}		
 		
 	}
@@ -853,7 +855,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	team_p->khorde+= *goal_c;
 	team_p->count++ ;
 	if (*goal_p > *goal_c ) {
-		team2->score += 3;
+		team_p->score += 3;
 	}
 	
 	

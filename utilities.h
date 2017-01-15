@@ -9,3 +9,4 @@ void bubblePlayers(player_t *players, int size, int type);
 void bubbleTeams(team_t *teams, int size, int type);
 void printLeagueData(team_t *teams, int size);
 void printGames(game_t *games, int size, team_t *teams);
+void printArrangment(arrangment_t *arrangments, int size);
