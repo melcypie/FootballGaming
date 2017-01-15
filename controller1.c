@@ -16,10 +16,7 @@
 #include <string.h>
 #include "profile.h"
 #include "controller2.h"
-
 #define CTE 10
-
-
 
 void selectProfileTeam(){
 	clearPage();
@@ -28,7 +25,7 @@ void selectProfileTeam(){
 	getTeamsProfile(teams);
 	printAllTeamsList(teams,16);
 	printf("azizm id ye team ro vared kon\n");
-	int teamNo=18;
+	int teamNo = 18;
 	while(1){
 		scanf("%d" , &teamNo);
 		flushBuffer();
@@ -39,11 +36,7 @@ void selectProfileTeam(){
 	}
 	teams[teamNo - 1].isPlayer=1; //Ntekhabe teame karbar
 	saveTeamsProfile(teams ,16);
-	
 }
-
-
-
 void start(){ //sakhte profile
 	welcomeFootball();		
 	if ( checkProfile()==0){

@@ -1,5 +1,5 @@
 /*
-* Author : Mahdi Alikhasi
+* Author : Mahdi Alikhasi, leily nourbakhsh
 * Description:
 * Functions::
 */
@@ -12,7 +12,7 @@
 #include "utilities.h"
 #include "controller1.h"
 #include "controller2.h"
-
+extern int index_p[2][11] = {};//bazikon haye tooye teame ma hamashoono aval 0 mizarim
 int main(){
 	start();
 	status();
@@ -30,5 +30,4 @@ int main(){
 		sscanf(a, "%s %d", s, &n);
 		procceed(n);
 	}
-	
 }
