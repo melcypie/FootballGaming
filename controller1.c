@@ -465,13 +465,13 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	if ( sumHamleTeam1 > sumDefaTeam2){ 
 		*goal1=(sumHamleTeam1 - sumDefaTeam2) / CTE ;
 		for ( int i=0 ; i < *goal1 ; i++){
-			goalAssign(players1, index_team1,size1);
+			goalAssign(players1, index_team1,size1,0);
 		}
 	}
 	if ( sumHamleTeam2 > sumDefaTeam1) {
 		*goal2 = (sumHamleTeam2 - sumDefaTeam1) / CTE ;
 		for ( int i = 0 ; i < *goal2 ; i++){
-			goalAssign(players2, index_team2,size2);
+			goalAssign(players2, index_team2,size2,0);
 		}
 	}
 	
@@ -768,10 +768,10 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	
 	sumDefaTeam_p +=sumMianeTeam_p/2 + sumHamleTeam_p/5; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
 	sumHamleTeam_p +=sumMianeTeam_p/2 + sumDefaTeam_p/5;
-	int team_pZaribKhata=randomNo(KHATABAZE,100);	
+	//int team_pZaribKhata=randomNo(KHATABAZE,100);	
 
-	sumHamleTeam_p = sumHamleTeam_p * team_pZaribKhata / 100;
-	sumDefaTeam_p = sumDefaTeam_p * team_pZaribKhata / 100;
+	//sumHamleTeam_p = sumHamleTeam_p * team_pZaribKhata / 100;
+	//sumDefaTeam_p = sumDefaTeam_p * team_pZaribKhata / 100;
 	//updating....
 
 	for ( int i=0 ; i<11 ; i++){
@@ -799,21 +799,20 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		if(players_p[index_p[0][k] - players_p[0].id].skill < 0 )
 			players_p[index_p[0][k] - players_p[0].id].skill=0;		
 	}
-printf("%s\n", "Before");
+
+
 	if ( sumHamleTeam_c > sumDefaTeam_p){ 
 		*goal_c = (sumHamleTeam_c - sumDefaTeam_p) / CTE ;
 		for ( int i=0 ; i < *goal_c ; i++){
-			goalAssign(players_c, index_c,size_c);
+			goalAssign(players_c, index_c,size_c, 0);
 		}
 	}
-
 	if ( sumHamleTeam_p > sumDefaTeam_c) {
 		*goal_p=(sumHamleTeam_p - sumDefaTeam_c) / CTE ;
 		for ( int i=0 ; i<*goal_p ; i++){
-			goalAssign(players_p, index_p,size_p);
+			goalAssign(players_p, index_p , size_p, 1);
 		}		
 	}
-printf("%s", "After");
 	if ( *goal_c > *goal_p ) {
 		for ( int i=0 ; i<size_c ; i++){
 			players_c[i].rouhiye+=10;

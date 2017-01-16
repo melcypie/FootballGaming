@@ -89,8 +89,8 @@ void goalAssign(player_t *players, int index[2][11], int size,int type) {
 	else {
 		int k = index[0][i - 1];
 		for (int i = 0;i < size;i++)
-			if (player[i].id == k)
-				player[i].goal++;
+			if (players[i].id == k)
+				players[i].goal++;
 	}
 }
 //tabee playweek
