@@ -281,6 +281,7 @@ void lineup(void) {
 			scanf("%4s", s);
 			flushBuffer();
 		}else{
+			clearPage();
 			printf("%s\n", "To arrangmenti Nadari, Bayad Ye arrangmenti vase teamet besazi\n");
 			strcpy(s, "yes");
 		}
@@ -301,6 +302,7 @@ void lineup(void) {
 				flushBuffer();
 				int status = 0;
 				if (strcmp(s, "no") == 0) {
+					clearPage();
 					printf("3 ta adad be tartibe defa miane va hamle vared kon\n");
 					while (1) {
 						scanf("%d %d %d", &defa, &miane, &hamle);
@@ -466,6 +468,7 @@ void lineup(void) {
 			printf("voroodi ghalat ast@@ dobare emtehan kon\n");
 		}
 	}
+	clearPage();
 	printf("alaan in bazikon ha tooye zamin hastand!\n");
 	bubblePlayers(players, count1, playerID);
 	for (int i = 0;i < 11;i++) {
