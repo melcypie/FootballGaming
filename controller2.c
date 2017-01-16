@@ -62,13 +62,13 @@ void goalAssign(player_t *players, int index[2][11], int size,int type) {
 		else if (index[1][i] == 3)
 			tedadDefa++;
 	}
-	int DefaRange = tedadDefa * 1 - 1;
+	int DefaRange = tedadDefa * 1;
 	int MianeRange = DefaRange + tedadMiane * 2;
 	int HamleRange = MianeRange + tedadHamle * 3;
 	int pos = 0;
 	int baze = randomNo(0, HamleRange);
 	int search = 0;
-	if (baze >= 0 && baze <= DefaRange) {
+	if (baze >= 0 && baze < DefaRange) {
 		search = (baze - 0) / 1;
 		pos = 3;
 	}else if ( baze > DefaRange &&  baze <= MianeRange) {
@@ -80,17 +80,24 @@ void goalAssign(player_t *players, int index[2][11], int size,int type) {
 		search = (baze - MianeRange) / 3;
 	}
 	int i = 0;
+//printf("Search:%d==Pos::%d\n", search, pos);
 	for (;search >= 0;i++) {
 		if (index[1][i] == pos)
 			search--;
 	}
-	if(type==0)
-	players[index[0][i - 1]].goal++;
-	else {
+	if(type == 0){
+
+		players[index[0][i - 1]].goal++;
+//printf("%s\n", players[index[0][i - 1]].name);
+	}else {
 		int k = index[0][i - 1];
-		for (int i = 0;i < size;i++)
-			if (players[i].id == k)
+//printf("index::%d\n", k);
+		for (int i = 0;i < size;i++){
+			if (players[i].id == k){
 				players[i].goal++;
+//printf("%s\n", players[i].name);
+			}
+		}
 	}
 }
 //tabee playweek
@@ -183,6 +190,8 @@ void playWeek(int n,player_t *players,int size, team_t *teams){
 			natije.team2goal = goalTeam2;
 			addNatayejProfile(&natije, 1);
 		}
+		saveTeamsProfile(teams,11);
+		savePlayersProfile(players,size);
 	}
 }
 void status(void) {
@@ -500,6 +509,7 @@ void lineup(void) {
 		scanf("%s", s);
 		flushBuffer();
 		if (strcmp(s, "no") == 0) {
+			saveIndex(index_p);
 			return;
 		}else if (strcmp(s, "yes") == 0) {
 			printTeamPlayers(players, count1, teams, k);
@@ -570,6 +580,7 @@ void lineup(void) {
 					}
 				}
 			}
+			saveIndex(index_p);
 		}
 	}
 }

@@ -462,19 +462,30 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 		if(players2[k].skill < 0 )
 			players2[k].skill=0;		
 	}
+	if(sumDefaTeam2 < 0)
+		sumDefaTeam2 = 0;
+	if(sumHamleTeam2 < 0)
+		sumHamleTeam2 = 0;
+	if(sumDefaTeam1 < 0)
+		sumDefaTeam1 = 0;
+	if(sumHamleTeam1 < 0)
+		sumHamleTeam1 = 0;
+//printf("cc%s\n", "Before");
 	if ( sumHamleTeam1 > sumDefaTeam2){ 
 		*goal1=(sumHamleTeam1 - sumDefaTeam2) / CTE ;
 		for ( int i=0 ; i < *goal1 ; i++){
-			goalAssign(players1, index_team1,size1,0);
+//printf("11%d\n", i);
+//			goalAssign(players1, index_team1,size1,0);
 		}
 	}
 	if ( sumHamleTeam2 > sumDefaTeam1) {
 		*goal2 = (sumHamleTeam2 - sumDefaTeam1) / CTE ;
 		for ( int i = 0 ; i < *goal2 ; i++){
-			goalAssign(players2, index_team2,size2,0);
+//printf("cc22%d\n", i);
+//			goalAssign(players2, index_team2,size2,0);
 		}
 	}
-	
+//printf("%s\n", "After");
 
 	if ( *goal1 > *goal2 ) {
 		for ( int i=0 ; i < size1 ; i++){
@@ -525,6 +536,9 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	}
 	for (int j=0 ; j<size_p ; j++){
 		players_p[j].sum=players_p[j].amadegi + players_p[j].rouhiye/2 -players_p[j].khastegi*2 + players_p[j].skill;
+		if(players_p[j].sum < 0){
+			players_p[j].sum = 10;
+		}
 	}
 	
 	arrangment_t *arrangments;
@@ -799,27 +813,39 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		if(players_p[index_p[0][k] - players_p[0].id].skill < 0 )
 			players_p[index_p[0][k] - players_p[0].id].skill=0;		
 	}
+	if(sumDefaTeam_p < 0)
+		sumDefaTeam_p = 0;
+	if(sumHamleTeam_p < 0)
+		sumHamleTeam_p = 0;
+	if(sumDefaTeam_c < 0)
+		sumDefaTeam_c = 0;
+	if(sumHamleTeam_c < 0)
+		sumHamleTeam_c = 0;
+//printf("%s\n", "Before");
 
-
+//printf("-- HaC %d::%d\n", sumHamleTeam_c , sumDefaTeam_p);
+//printf("-- HaP %d::%d\n", sumHamleTeam_p , sumDefaTeam_c);
 	if ( sumHamleTeam_c > sumDefaTeam_p){ 
 		*goal_c = (sumHamleTeam_c - sumDefaTeam_p) / CTE ;
 		for ( int i=0 ; i < *goal_c ; i++){
-			goalAssign(players_c, index_c,size_c, 0);
+//printf("%d", i);
+//			goalAssign(players_c, index_c,size_c, 0);
 		}
 	}
 	if ( sumHamleTeam_p > sumDefaTeam_c) {
 		*goal_p=(sumHamleTeam_p - sumDefaTeam_c) / CTE ;
 		for ( int i=0 ; i<*goal_p ; i++){
-			goalAssign(players_p, index_p , size_p, 1);
+//			goalAssign(players_p, index_p , size_p, 1);
 		}		
 	}
+//printf("%s\n", "After");
 	if ( *goal_c > *goal_p ) {
 		for ( int i=0 ; i<size_c ; i++){
 			players_c[i].rouhiye+=10;
 			if(players_c[i].rouhiye > 100)
 				players_c[i].rouhiye=100;			
 		}
-	} else{
+	} else if(*goal_c < *goal_p){
 		for ( int i=0 ; i<size_p ; i++){
 			players_p[i].rouhiye+=10;
 			if(players_p[i].rouhiye > 100)
@@ -827,7 +853,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		}		
 		
 	}
-	
+//printf("%s\n", "AFTER AFTER");	
 	team_c->zade += *goal_c;
 	team_c->khorde += *goal_p;
 	team_c->count++ ;
