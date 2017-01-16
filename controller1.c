@@ -51,6 +51,7 @@ void start(){ //sakhte profile
 			if ( strcmp ( input , "new")==0 ){
 				createProfile();
 				selectProfileTeam();
+				lineup();
 				break;	
 			} else {
 				printf("azizm fght mituni 'new' ro vared koni\n");
@@ -68,8 +69,10 @@ void start(){ //sakhte profile
 				clearProfile();
 				createProfile();
 				selectProfileTeam();
+				lineup();
 				break;
 			}else if( strcmp(input , "resume")==0){
+				getIndex(index_p);
 				break;
 			} else {
 				printf("azizm ya fght 'new' ro bezn ya 'resume'\n");	
@@ -834,9 +837,9 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		
 	}
 	
-	team_c -> zade += *goal_c;
-	team_c ->khorde += *goal_p;
-	team_c ->count++ ;
+	team_c-> zade += *goal_c;
+	team_c->khorde += *goal_p;
+	team_c->count++ ;
 	if ( *goal_c > *goal_p ) {
 		team_c ->score += 3;
 	}
