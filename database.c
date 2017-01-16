@@ -378,3 +378,42 @@ void createProfile(){
 	natayej_t natije;
 	saveAllNatayejProfile(&natije, 0); //Create a Natayej file with the headers...
 }
+int getIndex(int index[2][11]){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database/profile/index";
+	fp = fopen(destination, "r");
+	if(fp == NULL){
+		return 0;
+	}
+	int i = 0;
+	char data[100];
+	while(fgets(data,100,fp) != NULL){ //save each line in data variable
+		char position[3], id[4]; //some string to put data in
+		sscanf(data, "%[^,],%[^,]", id, position); //scan data with , seprator
+		char *ptr = NULL;
+		index[0][i] = strtol(id,&ptr,10); 
+		index[1][i] = strtol(position,&ptr,10);
+		i++;
+	}
+	fclose(fp);
+	fp = NULL;
+	return 1;
+}
+int saveIndex(int index[2][11]){
+	//Open file
+	FILE *fp = NULL;
+	char destination[] = "Database/profile/index";
+	fp = fopen(destination, "w");
+	if(fp == NULL){
+		return 0;
+	}
+	char data[100];
+	for(int i = 0; i < 11; i++){ //save each line in file
+		sprintf(data, "%d,%d", index[0][i], index[1][i]);
+		fprintf(fp, "%s\n", data);
+	}
+	fclose(fp);
+	fp = NULL;
+	return 1;
+}

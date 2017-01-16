@@ -10,3 +10,5 @@ void createProfile();
 int getArrangments(arrangment_t **arrangments);
 int addNatayejProfile(natayej_t *natayej, int size);
 int saveAllNatayejProfile(natayej_t *natayej, int size);
+int saveIndex(int index[2][11]);
+int getIndex(int index[2][11]);
