@@ -190,8 +190,8 @@ void status(void) {
 	natayej_t *natayej;
 	int count1 = getNatayej(&natayej);
 	int k = 0;
-	for (int i = 0;i<count;i++) {
-		if (natayej[count - 1].gameid == games[i].id) {
+	for (int i = 0;i < count1;i++) {
+		if (natayej[count1 - 1].gameid == games[i].id) {
 			k = games[i].week;
 			break;
 		}
@@ -210,6 +210,17 @@ void procceed(int n) {
 	game_t *games;
 	int count3 = 0;
 	count3 = getGames(&games);
+	if(count == 0){
+		if(n > 30){
+			printf("Nmishe bishtar az 30 hafte ro bargozar kard");
+			return;
+		}
+	}else{
+		if(n + games[natayej[count - 1].gameid -1].week > 30){
+			printf("Nmishe bishtar az 30 hafte ro bargozar kard");
+			return;	
+		}
+	}
 	for (int i = 0;i < n;i++) {
 		if(count == 0)
 			playWeek(i + 1, players, count1, teams);
@@ -237,10 +248,10 @@ void lineup(void) {
 		if (teams[i].isPlayer == 1)
 			k=teams[i].id;
 	}
+	player_t players_in[11];
 	if(HaveSaved == 1){
-		printf("tamame bazikon hayat inha hasatand!!");
+		printf("tamame bazikon hayat inha hasatand!!\n");
 		printTeamPlayers(players, count1, teams, k);
-		player_t players_in[11];
 		bubblePlayers(players_in, 11, playerID);
 		bubbleTeams(teams, 16, teamID);
 		for (int i = 0;i < 11;i++) {
@@ -259,7 +270,7 @@ void lineup(void) {
 				players_in[i].teamid = players[index_p[0][i] - 1].teamid;
 
 		}
-		printf("bazikon haye tooye zamin inha hasatand!");
+		printf("bazikon haye tooye zamin inha hasatand!\n");
 		printTeamPlayers(players_in, 11, teams, k);
 		printf("mikhay Arrengemant ra avaz koni??\n");
 		printf("age mikhay bzan yes age nemikhay bzan no!\n");
@@ -270,7 +281,7 @@ void lineup(void) {
 			scanf("%4s", s);
 			flushBuffer();
 		}else{
-			printf("%s\n", "To arrangmenti Nadari, Bayad Ye arrangmenti vase teamet besazi");
+			printf("%s\n", "To arrangmenti Nadari, Bayad Ye arrangmenti vase teamet besazi\n");
 			strcpy(s, "yes");
 		}
 		if (strcmp(s, "no") == 0) {
@@ -280,45 +291,49 @@ void lineup(void) {
 			int count = 0;
 			count = getArrangments(&arrangment);
 			printArrangment(arrangment, count);
-			printf("arrangment haye dade shode ra mikhay?\n");
-			printf("age mikhay bzan yes age nemikhay bzan no!\n");
-			scanf("%4s", s);
-			flushBuffer();
 			int defa = 0;
 			int miane = 0;
 			int hamle = 0;
 			while (1) {
+				printf("arrangment haye dade shode ra mikhay?\n");
+				printf("age mikhay bzan yes age nemikhay bzan no!\n");
+				scanf("%4s", s);
+				flushBuffer();
+				int status = 0;
 				if (strcmp(s, "no") == 0) {
-					printf("3 ta adad be tartibe defa miane va hamle vared kon");
+					printf("3 ta adad be tartibe defa miane va hamle vared kon\n");
 					while (1) {
 						scanf("%d %d %d", &defa, &miane, &hamle);
 						flushBuffer();
 						if((defa+miane+hamle)!=10){
-							printf("riiidi ba in arrangmentet!!");
+							printf("riiidi ba in arrangmentet!!\n");
 						}else{
+							status = 1;
 							break;
 						}
 					}
 				}else if (strcmp(s, "yes") == 0) {
-					printf("harkodam ra ke mikhahi shomarasho az jadval vared kon");
+					printf("harkodam ra ke mikhahi shomarasho az jadval vared kon\n");
 					int number = 1;
 					while (1) {
 						scanf("%d", &number);
 						if (number > count || number < 1) {
 							printf("chenin arrangmenti vojood nadarad");
-							printf("lotfan ye adade beine 1 ta %d vared konid", count);
+							printf("lotfan ye adade beine 1 ta %d vared konid\n", count);
 						}else {
+							status = 1;
 							break;
 						}
-						
 						flushBuffer();
 					}
 					defa = arrangment[number - 1].defa;
 					miane = arrangment[number - 1].miane;
 					hamle = arrangment[number - 1].hamle;
 				}else {
-					printf("voroodi ghalat ast@@ dobare emtehan kon!!");
+					printf("voroodi ghalat ast@@ dobare emtehan kon!!\n");
 				}
+				if(status)
+					break;
 			}
 			int status = 0;
 			int size = 0;
@@ -352,7 +367,7 @@ void lineup(void) {
 			int counter2 = 0;
 			int darvazeban = 1;
 			bubblePlayers(players_mine, size, playerSUM);
-			for (int k = size - 1; k >= 0; k--) {
+			for (int k = size - 1; k >= 0 && counter2 == 0; k--) {
 				if (players_mine[k].position == 4) {
 					index_p[0][counter2] = players_mine[k].id;
 					index_p[1][counter2] = 4;
@@ -448,10 +463,10 @@ void lineup(void) {
 			}
 			break;
 		}else {
-			printf("voroodi ghalat ast@@ dobare emtehan kon");
+			printf("voroodi ghalat ast@@ dobare emtehan kon\n");
 		}
 	}
-	printf("alaan in bazikon ha tooye zamin hastand!\n ");
+	printf("alaan in bazikon ha tooye zamin hastand!\n");
 	bubblePlayers(players, count1, playerID);
 	for (int i = 0;i < 11;i++) {
 		players_in[i].id = players[index_p[0][i] - 1].id;
@@ -469,8 +484,8 @@ void lineup(void) {
 		players_in[i].teamid = players[index_p[0][i] - 1].teamid;
 	}
 	printTeamPlayers(players_in, 11, teams, k);
-	printf("mikhay bazikon haye tooye zamin ra avaz koni??");
-	printf("yes/no?");
+	printf("mikhay bazikon haye tooye zamin ra avaz koni??\n");
+	printf("yes/no?\n");
 	while (1) {
 		scanf("%s", s);
 		flushBuffer();
@@ -478,10 +493,10 @@ void lineup(void) {
 			return;
 		}else if (strcmp(s, "yes") == 0) {
 			printf("hala bazikon hato avaz kon\n");
-			printf("harvaght karet tamoom shod '-1' bezan!");
+			printf("harvaght karet tamoom shod '-1' bezan!\n");
 			while (1) {
-				printf("kio ba ki mikhay avaz koni??");
-				printf("id baikone tooye zamino vared kon!");
+				printf("kio ba ki mikhay avaz koni??\n");
+				printf("id baikone tooye zamino vared kon!\n");
 				int id1 = 0;
 				while (1) {
 					scanf("%d", &id1);
@@ -494,21 +509,21 @@ void lineup(void) {
 							status = 1;
 					}
 					if (status == 0) {
-						printf("in bazikon dar zamin nist");
-						printf("bazikon haye daroon zamin ra entekhab kon");
+						printf("in bazikon dar zamin nist\n");
+						printf("bazikon haye daroon zamin ra entekhab kon\n");
 					}
 					else {
 						break;
 					}
 				}
-				printf("id nafare dovomo vared kon!");
+				printf("id nafare dovomo vared kon!\n");
 				int id2 = 0;
 				bubbleTeams(teams, 16, teamID);
 				while (1) {
 					scanf("%d", &id2);
 					flushBuffer();
 					if (teams[players[id2 - 1].teamid - 1].isPlayer == 0) {
-						printf("in bazikon male shoma nist!");
+						printf("in bazikon male shoma nist!\n");
 					}
 					else {
 						break;

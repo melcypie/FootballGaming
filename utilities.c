@@ -401,5 +401,11 @@ void printWeekGames(){
 
 }
 void printArrangment(arrangment_t *arrangments, int size){
-
+	printf(BLUE "┏━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┓\n" RESET);
+	printf(BLUE "┃" RESET "%4s" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%10s" BLUE "┃" RESET"\n", "id","Defa", "Miane", "Hamle");
+	for(int i =0; i < size; i++){
+	printf(BLUE "┣━━━━╋━━━━━━━━━━╋━━━━━━━━━━╋━━━━━━━━━━┫\n" RESET);
+	printf(BLUE "┃" RESET "%4d" BLUE "┃" RESET "%10d" BLUE "┃" RESET "%10d" BLUE "┃" RESET "%10d" BLUE "┃" RESET"\n", i + 1, arrangments[i].defa ,arrangments[i].miane, arrangments[i].hamle);	
+	}
+	printf(BLUE "┗━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┛\n" RESET);
 }
