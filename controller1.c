@@ -103,8 +103,6 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	int darvazeban1 = 1; //mikhaym bedunim hatmn darvazeban darim ya na
 	// for ha ro vase neveshtm ke khune haye index_team1 ro por kone va mshakhas kone ke shomare ye khune ha ye position ha ye mokhtalef chian
 
-	//printAllPlayers(players1, size1, team1);
-	//printf("%d::%d::%d\n", defa1,miane1,hamle1);
 	for ( int k = size1 - 1 ; k >= 0 && counter2 == 0; k-- ){
 		if ( players1[k].position == 4){
 			index_team1[0][counter2] = k;
@@ -379,7 +377,6 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 		int hast = 0;
 		for (int j = 0 ; j < 11 ; j++){
 			if(k == index_team1[0][j]){
-				//printf("%s\n", players1[index_team1[0][k]]);
 				hast = 1;
 				break;
 			}
@@ -549,7 +546,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	int darvazeban_c = 1; //mikhaym bedunim hatmn darvazeban darim ya na
 	
 	// for ha ro vase neveshtm ke khune haye index_team1 ro por kone va mshakhas kone ke shomare ye khune ha ye position ha ye mokhtalef chian
-	for ( int k=size_c-1 ; k>=0 ; k-- ){
+	for ( int k=size_c-1 ; k>=0 && counter2==0 ; k--  ){
 		if ( players_c[k].position == 4){
 			index_c[0][counter2] = k;
 			index_c[1][counter2] = 4;
@@ -720,13 +717,13 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 			}
 		}
 		if (hast==0){
-			players_c[index_c[0][k]].amadegi-=7;
-			players_c[index_c[0][k]].skill-=7;
+			players_c[k].amadegi-=7;
+			players_c[k].skill-=7;
 		}
-		if(players_c[index_c[0][k]].amadegi < 0)
-			players_c[index_c[0][k]].amadegi=0;
-		if(players_c[index_c[0][k]].skill < 0 )
-			players_c[index_c[0][k]].skill=0;		
+		if(players_c[k].amadegi < 0)
+			players_c[k].amadegi=0;
+		if(players_c[k].skill < 0 )
+			players_c[k].skill=0;		
 	}
 
 
@@ -774,10 +771,11 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	sumHamleTeam_p+=sumMianeTeam_p/2;
 	int team_pZaribKhata=randomNo(0,100);	
 
-	sumHamleTeam_p *=team_pZaribKhata/100;
-	sumDefaTeam_p *=team_pZaribKhata/100;
+	sumHamleTeam_p = sumHamleTeam_p * team_pZaribKhata/100;
+	sumDefaTeam_p = sumDefaTeam_p * team_pZaribKhata/100;
 	
 	//updating....
+
 	for ( int i=0 ; i<11 ; i++){
 		players_p[index_p[0][i] - players_p[0].id].khastegi+=7;
 		if (players_p[index_p[0][i] - players_p[0].id].khastegi >100)
@@ -814,7 +812,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	}
 
 	if ( sumHamleTeam_p > sumDefaTeam_c) {
-		*goal_c=(sumHamleTeam_p - sumDefaTeam_c) / CTE ;
+		*goal_p=(sumHamleTeam_p - sumDefaTeam_c) / CTE ;
 		for ( int i=0 ; i<*goal_p ; i++){
 			goalAssign(players_p, index_p,size_p);
 		}		
@@ -823,15 +821,15 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 
 	if ( *goal_c > *goal_p ) {
 		for ( int i=0 ; i<size_c ; i++){
-			players_c[index_c[0][i]].rouhiye+=10;
-			if(players_c[index_c[0][i]].rouhiye > 100)
-				players_c[index_c[0][i]].rouhiye=100;			
+			players_c[i].rouhiye+=10;
+			if(players_c[i].rouhiye > 100)
+				players_c[i].rouhiye=100;			
 		}
 	} else{
 		for ( int i=0 ; i<size_p ; i++){
-			players_p[index_p[0][i]].rouhiye+=10;
-			if(players_p[index_p[0][i]].rouhiye > 100)
-				players_p[index_p[0][i]].rouhiye=100;			
+			players_p[i].rouhiye+=10;
+			if(players_p[i].rouhiye > 100)
+				players_p[i].rouhiye=100;			
 		}		
 		
 	}
