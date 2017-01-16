@@ -502,6 +502,7 @@ void lineup(void) {
 		if (strcmp(s, "no") == 0) {
 			return;
 		}else if (strcmp(s, "yes") == 0) {
+			printTeamPlayers(players, count1, teams, k);
 			printf("hala bazikon hato avaz kon\n");
 			printf("harvaght karet tamoom shod '-1' bezan!\n");
 			while (1) {
