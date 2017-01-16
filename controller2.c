@@ -50,7 +50,7 @@ void creatGamelist(void){
 	}
 	saveGamesProfile(games, 240);
 }
-void goalAssign(player_t *players, int index[2][11], int size) {
+void goalAssign(player_t *players, int index[2][11], int size,int type) {
 	int tedadDefa = 0;
 	int tedadHamle = 0;
 	int tedadMiane = 0;
@@ -84,7 +84,14 @@ void goalAssign(player_t *players, int index[2][11], int size) {
 		if (index[1][i] == pos)
 			search--;
 	}
+	if(type==0)
 	players[index[0][i - 1]].goal++;
+	else {
+		int k = index[0][i - 1];
+		for (int i = 0;i < size;i++)
+			if (player[i].id == k)
+				player[i].goal++;
+	}
 }
 //tabee playweek
 //n=hafte
