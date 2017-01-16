@@ -701,8 +701,8 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	int team_cZaribKhata=randomNo(0,100);
 	
 	//tabe random ro farakhani kon ye adade random beyne 0 ta 100 bara ye ar team dar nazar migiri bad defa o hamle ye har teamo dar random/100 zarb mikoni ta ehtemale borde hame ye team ha vujud dashte bashe
-	sumHamleTeam_c *=team_cZaribKhata/100;
-	sumDefaTeam_c *=team_cZaribKhata/100;
+	sumHamleTeam_c = sumHamleTeam_c * team_cZaribKhata/100;
+	sumDefaTeam_c = sumDefaTeam_c * team_cZaribKhata/100;
 	
 	for ( int i=0 ; i<11 ; i++){
 		players_c[index_c[0][i]].khastegi+=7;
@@ -770,8 +770,8 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		}	
 	}
 	
-	sumDefaTeam_p+=sumMianeTeam_p/2; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
-	sumHamleTeam_p+=sumMianeTeam_p/2;
+	sumDefaTeam_p +=sumMianeTeam_p/2; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
+	sumHamleTeam_p +=sumMianeTeam_p/2;
 	int team_pZaribKhata=randomNo(0,100);	
 
 	sumHamleTeam_p = sumHamleTeam_p * team_pZaribKhata/100;
