@@ -220,6 +220,13 @@ void procceed(int n) {
 	savePlayersProfile(players, count1);		
 }
 void lineup(void) {
+	int HaveSaved = 1;
+	if(index_p[0][0] == 0){
+		if(getIndex(index_p) == 0)
+			HaveSaved = 0;
+		else
+			return;
+	}
 	int count1 = 0;
 	player_t *players;
 	count1 = getPlayersProfile(&players);
@@ -230,35 +237,42 @@ void lineup(void) {
 		if (teams[i].isPlayer == 1)
 			k=teams[i].id;
 	}
-	printf("tamame bazikon hayat inha hasatand!!");
-	printTeamPlayers(players, count1, teams, k);
-	player_t players_in[11];
-	bubblePlayers(players_in, 11, playerID);
-	bubbleTeams(teams, 16, teamID);
-	for (int i = 0;i < 11;i++) {
-			players_in[i].id = players[index_p[0][i] - 1].id;
-			players_in[i].amadegi = players[index_p[0][i] - 1].amadegi;
-			players_in[i].goal = players[index_p[0][i] - 1].goal;
-			players_in[i].khastegi = players[index_p[0][i] - 1].khastegi;
-			players_in[i].khoshunat = players[index_p[0][i] - 1].khoshunat;
-			strcpy(players_in[i].name, players[index_p[0][i] - 1].name);
-			players_in[i].position = players[index_p[0][i] - 1].position;
-			players_in[i].rouhiye = players[index_p[0][i] - 1].rouhiye;
-			players_in[i].sen = players[index_p[0][i] - 1].sen;
-			players_in[i].shomare = players[index_p[0][i] - 1].shomare;
-			players_in[i].skill = players[index_p[0][i] - 1].skill;
-			players_in[i].sum = players[index_p[0][i] - 1].sum;
-			players_in[i].teamid = players[index_p[0][i] - 1].teamid;
+	if(HaveSaved == 1){
+		printf("tamame bazikon hayat inha hasatand!!");
+		printTeamPlayers(players, count1, teams, k);
+		player_t players_in[11];
+		bubblePlayers(players_in, 11, playerID);
+		bubbleTeams(teams, 16, teamID);
+		for (int i = 0;i < 11;i++) {
+				players_in[i].id = players[index_p[0][i] - 1].id;
+				players_in[i].amadegi = players[index_p[0][i] - 1].amadegi;
+				players_in[i].goal = players[index_p[0][i] - 1].goal;
+				players_in[i].khastegi = players[index_p[0][i] - 1].khastegi;
+				players_in[i].khoshunat = players[index_p[0][i] - 1].khoshunat;
+				strcpy(players_in[i].name, players[index_p[0][i] - 1].name);
+				players_in[i].position = players[index_p[0][i] - 1].position;
+				players_in[i].rouhiye = players[index_p[0][i] - 1].rouhiye;
+				players_in[i].sen = players[index_p[0][i] - 1].sen;
+				players_in[i].shomare = players[index_p[0][i] - 1].shomare;
+				players_in[i].skill = players[index_p[0][i] - 1].skill;
+				players_in[i].sum = players[index_p[0][i] - 1].sum;
+				players_in[i].teamid = players[index_p[0][i] - 1].teamid;
 
+		}
+		printf("bazikon haye tooye zamin inha hasatand!");
+		printTeamPlayers(players_in, 11, teams, k);
+		printf("mikhay Arrengemant ra avaz koni??\n");
+		printf("age mikhay bzan yes age nemikhay bzan no!\n");
 	}
-	printf("bazikon haye tooye zamin inha hasatand!");
-	printTeamPlayers(players_in, 11, teams, k);
-	printf("mikhay Arrengemant ra avaz koni??\n");
-	printf("age mikhay bzan yes age nemikhay bzan no!\n");
 	char s[5];
 	while (1) {
-		scanf("%4s", s);
-		flushBuffer();
+		if(HaveSaved){
+			scanf("%4s", s);
+			flushBuffer();
+		}else{
+			printf("%s\n", "To arrangmenti Nadari, Bayad Ye arrangmenti vase teamet besazi");
+			strcpy(s, "yes");
+		}
 		if (strcmp(s, "no") == 0) {
 			break;
 		}else if (strcmp(s, "yes") == 0) {
