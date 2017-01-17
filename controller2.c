@@ -5,6 +5,7 @@
 Game list:bazi haeei k gharere dar hafte bargozar beshe ra ba estefade az tabee 
 va jabeb jaeie 2 ta team ba estefade az Swap va bad ham zakhire sazi ba tabe save
 games
+tabee goal assign mige ki goal zade va mogheeiatesh chi boode!
 *
 */
 
@@ -19,21 +20,27 @@ extern int index_p[2][11];
 
 void creatGamelist(void){
 	team_t teams[16];
-	getTeamsProfile(teams);
+	getTeamsProfile(teams);//list team haro az profile migire
 	int a = randomNo(10000000, 999999999);
+	//gereftane yek adade randome 8 raghami baraye inke 8 ta bazi avalo avaz konim.
 	for (int i = 0;i <4 ;i++) {
+		//chon adade 8 raghami /100 pas 2 ta 2ta joda mishe pasi<4
 		int temp = a % 100;
 		teamsSwap(&teams[temp%10], &teams[temp/10]);
 		a /= 100;
 	}
 	game_t games[240];
+	//too har hafte 8 ta bazi 15 hafte gharare bargozar she raft va bargasht ham 15 ta.
 	int counter = 0;
+	//counter ma dare 240 taro por mikone. 
 	for (int i = 0;i < 15;i++) {
 		for (int j = 0; j < 8; j++) {
+			//bazi haye raft :
 			games[counter].id = counter + 1;
 			games[counter].team1id = teams[j].id;
 			games[counter].team2id = teams[j+8].id;
 			games[counter].week = i + 1;
+			// baazi haye bargaasht:
 
 			games[counter + 120].id = counter + 1 + 120;
 			games[counter + 120].team1id = teams[j + 8].id;
@@ -41,6 +48,7 @@ void creatGamelist(void){
 			games[counter + 120].week = i + 1 + 15;
 			counter++;
 		}
+		//jahaye team haro baham avaz karde!!
 		for (int j = 1; j <= 7; j++) {
 			teamsSwap(&teams[j], &teams[8]);
 		}
@@ -48,12 +56,14 @@ void creatGamelist(void){
 			teamsSwap(&teams[j], &teams[8]);
 		}
 	}
+	//bayad save she tooye profile:
 	saveGamesProfile(games, 240);
 }
 void goalAssign(player_t *players, int index[2][11], int size,int type) {
 	int tedadDefa = 0;
 	int tedadHamle = 0;
 	int tedadMiane = 0;
+	//yek halghe k rooye bazikon ha micharkhad
 	for (int i = 0;i < 11;i++) {
 		if (index[1][i] == 1)
 			tedadHamle++;
@@ -101,9 +111,11 @@ void goalAssign(player_t *players, int index[2][11], int size,int type) {
 	}
 }
 //tabee playweek
+//bazi haye hafteye n om ra migooyad
 //n=hafte
 void playWeek(int n,player_t *players,int size, team_t *teams){
 	game_t *games;
+	//list bazi haye anjaam shode ya anjam nashode ra az profile migirad.
 	int m = getGames(&games);
 	game_t gameShouldPlay[8];
 	int k = 0;
