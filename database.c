@@ -338,7 +338,7 @@ int saveTeamsProfile(team_t *teams,int size){
 	return 1;	
 }
 int savePlayersProfile(player_t *players, int size){
-	bubblePlayers(players, size, playersID);
+	bubblePlayers(players, size, playerID);
 	//Open file
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/players";

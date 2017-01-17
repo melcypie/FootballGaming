@@ -12,3 +12,5 @@ void printGames(game_t *games, int size, team_t *teams);
 void printArrangment(arrangment_t *arrangments, int size);
 void teamsSwap(team_t *t1, team_t *t2);
 void playersSwap(player_t *t1, player_t *t2);
+void printPlayerIn(player_t *players, int size, int index[2][11], int type);
+void printNatijeWeek(int week);

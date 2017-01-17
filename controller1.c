@@ -21,7 +21,6 @@
 #define CTE 50
 #define KHATABAZE 80
 
-
 extern int index_p[2][11];
 
 void selectProfileTeam(){
@@ -35,6 +34,7 @@ void selectProfileTeam(){
 	
 	// in while ro inja gozashtm ke karbar ye adad az 1 ta 16 vareed kone< va age sheytuni krd mochesho begirm :3
 	while(1){
+		printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 		scanf("%d" , &teamNo);
 		flushBuffer();
 		if ( teamNo>16 || teamNo<1 ) {
@@ -46,13 +46,14 @@ void selectProfileTeam(){
 	saveTeamsProfile(teams ,16);
 }
 void start(){ //sakhte profile
-	//welcomeFootball();
+	welcomeFootball();
 	//hamintor ke kh malume, inja tabe ye checkProfil ro darim ke age 0 bud profile nadrim age 1 bud ke profile darim 		
 	if ( checkProfile()==0){
 		printf("azizm inja hich profili vujud nadare! :3\n");
 		printf("bara ye sakhte profile kalame ye 'new' ra vared namayid\n");
 		char input[10];
 		while(1) {
+			printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 			scanf("%4s" , input);
 			flushBuffer();
 			if ( strcmp ( input , "new")==0 ){
@@ -70,6 +71,7 @@ void start(){ //sakhte profile
 		printf("bara ye shuru e league jadid kalame ye 'new' ra vared namayin ya bara ye edame ye league ghabli kalame ye 'resume' ra vared namayin\n");
 		char input[10];
 		while(1){
+			printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 			scanf("%7s" , input);
 			flushBuffer();
 			if ( strcmp(input , "new") ==0 ){
@@ -91,11 +93,11 @@ void start(){ //sakhte profile
 void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , player_t *players1 ,int size1, player_t *players2 , int size2 ) {
 	for (int i=0 ;  i < size1 ; i++ ){
 		//mikhaym sum yani betore kolli nomre ye bazikonamuno be dast biarim! hamin tor ke malume amel haye ziadi ba zarib haye mokhtalef sum ro moshkhas mikonnd
-		players1[i].sum= players1[i].amadegi + players1[i].rouhiye/2 -players1[i].khastegi*2 + players1[i].skill;
+		players1[i].sum= players1[i].amadegi + players1[i].rouhiye/2 -players1[i].khastegi + players1[i].skill;
 	}
 	for (int j=0 ; j<size2 ; j++){
 		//sum e bazikon haye team2 ro hm be tore moshabe be dast miarim
-		players2[j].sum=players2[j].amadegi + players2[j].rouhiye/2 -players2[j].khastegi*2 + players2[j].skill;
+		players2[j].sum=players2[j].amadegi + players2[j].rouhiye/2 -players2[j].khastegi + players2[j].skill;
 	}
 	
 	//arrangment chidemane team ro moshakhas mikone yani mige chan ta hamle, modafe va miane dashte bashim
@@ -368,11 +370,11 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 			if ( players1[index_team1[0][i]].position == 2)
 				sumMianeTeam1 += players1[index_team1[0][i]].sum;
 			else if(players1[index_team1[0][i]].position==1)
-				sumDefaTeam1 += players1[index_team1[0][i]].sum * 9 /10 ;
+				sumMianeTeam1 += players1[index_team1[0][i]].sum * 9 /10 ;
 			else if(players1[index_team1[0][i]].position==3)
-				sumDefaTeam1 += players1[index_team1[0][i]].sum * 9 / 10;
+				sumMianeTeam1 += players1[index_team1[0][i]].sum * 9 / 10;
 			else if(players1[index_team1[0][i]].position==4)
-				sumDefaTeam1 += players1[index_team1[0][i]].sum /2;                     
+				sumMianeTeam1 += players1[index_team1[0][i]].sum /2;                     
 		}else if ( index_team1[1][i]==1 ){
 			if ( players1[index_team1[0][i]].position==1)
 				sumHamleTeam1 += players1[index_team1[0][i]].sum;
@@ -444,11 +446,11 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 			if ( players2[index_team2[0][i]].position==2)
 				sumMianeTeam2 += players2[index_team2[0][i]].sum;
 			else if(players2[index_team2[0][i]].position==1)
-				sumDefaTeam2 += players2[index_team2[0][i]].sum * 9 /10 ;
+				sumMianeTeam2 += players2[index_team2[0][i]].sum * 9 /10 ;
 			else if(players2[index_team2[0][i]].position==3)
-				sumDefaTeam2 += players2[index_team2[0][i]].sum * 9 / 10;
+				sumMianeTeam2 += players2[index_team2[0][i]].sum * 9 / 10;
 			else if(players2[index_team2[0][i]].position==4)
-				sumDefaTeam2 += players2[index_team2[0][i]].sum /2;                     
+				sumMianeTeam2 += players2[index_team2[0][i]].sum /2;                     
 		}else if ( index_team2[1][i]==1 ){
 			if ( players2[index_team2[0][i]].position==1)
 				sumHamleTeam2 += players2[index_team2[0][i]].sum;
@@ -504,12 +506,13 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	if ( sumHamleTeam1 > sumDefaTeam2){ 
 		*goal1=(sumHamleTeam1 - sumDefaTeam2) / CTE ;
 		for ( int i=0 ; i < *goal1 ; i++){
-
+			goalAssign(players1, index_team1,size1, 0);
 		}
 	}
 	if ( sumHamleTeam2 > sumDefaTeam1) {
 		*goal2 = (sumHamleTeam2 - sumDefaTeam1) / CTE ;
 		for ( int i = 0 ; i < *goal2 ; i++){
+			goalAssign(players2, index_team2,size2, 0);
 		}
 	}
 
@@ -529,11 +532,13 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 		
 	}
 	
-	team1-> zade += *goal1;
+	team1->zade += *goal1;
 	team1->khorde += *goal2;
 	team1->count++ ;
 	if ( *goal1 > *goal2 ) {
-		team1 ->score += 3;
+		team1->score += 3;
+		team1->borde++;
+		team2->bakhte++;
 	}
 	
 	team2->zade +=*goal2;
@@ -541,6 +546,8 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	team2->count++ ;
 	if (*goal2 > *goal1 ) {
 		team2->score += 3;
+		team2->borde++;
+		team1->bakhte++;
 	}
 	
 	
@@ -559,10 +566,10 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , player_t *players_c ,int size_c, player_t *players_p , int size_p ) {
 	
 	for (int i=0 ;  i < size_c ; i++ ){
-		players_c[i].sum= players_c[i].amadegi + players_c[i].rouhiye/2 -players_c[i].khastegi*2 + players_c[i].skill;
+		players_c[i].sum= players_c[i].amadegi + players_c[i].rouhiye/2 -players_c[i].khastegi + players_c[i].skill;
 	}
 	for (int j=0 ; j<size_p ; j++){
-		players_p[j].sum=players_p[j].amadegi + players_p[j].rouhiye/2 -players_p[j].khastegi*2 + players_p[j].skill;
+		players_p[j].sum=players_p[j].amadegi + players_p[j].rouhiye/2 -players_p[j].khastegi + players_p[j].skill;
 		if(players_p[j].sum < 0){
 			players_p[j].sum = 10;
 		}
@@ -716,11 +723,11 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 			if ( players_c[index_c[0][i]].position==2)
 				sumMianeTeam_c += players_c[index_c[0][i]].sum;
 			else if(players_c[index_c[0][i]].position==1)
-				sumDefaTeam_c += players_c[index_c[0][i]].sum * 9 /10 ;
+				sumMianeTeam_c += players_c[index_c[0][i]].sum * 9 /10 ;
 			else if(players_c[index_c[0][i]].position==3)
-				sumDefaTeam_c += players_c[index_c[0][i]].sum * 9 / 10;
+				sumMianeTeam_c += players_c[index_c[0][i]].sum * 9 / 10;
 			else if(players_c[index_c[0][i]].position==4)
-				sumDefaTeam_c += players_c[index_c[0][i]].sum /2;                     
+				sumMianeTeam_c += players_c[index_c[0][i]].sum /2;                     
 		}else if ( index_c[1][i]==1 ){
 			if ( players_c[index_c[0][i]].position==1)
 				sumHamleTeam_c += players_c[index_c[0][i]].sum;
@@ -790,11 +797,11 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 			if ( players_p[index_p[0][i] - players_p[0].id].position==2)
 				sumMianeTeam_p += players_p[index_p[0][i] - players_p[0].id].sum;
 			else if(players_p[index_p[0][i] - players_p[0].id].position==1)
-				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 /10 ;
+				sumMianeTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 /10 ;
 			else if(players_p[index_p[0][i] - players_p[0].id].position==3)
-				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 / 10;
+				sumMianeTeam_p += players_p[index_p[0][i] - players_p[0].id].sum * 9 / 10;
 			else if(players_p[index_p[0][i] - players_p[0].id].position==4)
-				sumDefaTeam_p += players_p[index_p[0][i] - players_p[0].id].sum /2;			
+				sumMianeTeam_p += players_p[index_p[0][i] - players_p[0].id].sum /2;			
 		}else if ( index_p[1][i]==1 ) {
 			if ( players_p[index_p[0][i] - players_p[0].id].position==1)
 				sumHamleTeam_p += players_p[index_p[0][i] - players_p[0].id].sum;
@@ -809,10 +816,10 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	
 	sumDefaTeam_p +=sumMianeTeam_p/2 + sumHamleTeam_p/5; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
 	sumHamleTeam_p +=sumMianeTeam_p/2 + sumDefaTeam_p/5;
-	//int team_pZaribKhata=randomNo(KHATABAZE,100);	
+	int team_pZaribKhata=randomNo(KHATABAZE,100);	
 
-	//sumHamleTeam_p = sumHamleTeam_p * team_pZaribKhata / 100;
-	//sumDefaTeam_p = sumDefaTeam_p * team_pZaribKhata / 100;
+	sumHamleTeam_p = sumHamleTeam_p * team_pZaribKhata / 100;
+	sumDefaTeam_p = sumDefaTeam_p * team_pZaribKhata / 100;
 	//updating....
 
 	for ( int i=0 ; i<11 ; i++){
@@ -856,13 +863,13 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		*goal_c = (sumHamleTeam_c - sumDefaTeam_p) / CTE ;
 		for ( int i=0 ; i < *goal_c ; i++){
 //printf("%d", i);
-//			goalAssign(players_c, index_c,size_c, 0);
+			goalAssign(players_c, index_c,size_c, 0);
 		}
 	}
 	if ( sumHamleTeam_p > sumDefaTeam_c) {
 		*goal_p=(sumHamleTeam_p - sumDefaTeam_c) / CTE ;
 		for ( int i=0 ; i<*goal_p ; i++){
-//			goalAssign(players_p, index_p , size_p, 1);
+			goalAssign(players_p, index_p , size_p, 1);
 		}		
 	}
 //printf("%s\n", "After");
@@ -886,6 +893,8 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	team_c->count++ ;
 	if ( *goal_c > *goal_p ) {
 		team_c ->score += 3;
+		team_c->borde++;
+		team_p->bakhte++;
 	}
 	
 	team_p-> zade+= *goal_p;
@@ -893,6 +902,8 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 	team_p->count++ ;
 	if (*goal_p > *goal_c ) {
 		team_p->score += 3;
+		team_p->borde++;
+		team_c->bakhte++;
 	}
 	
 	
@@ -900,6 +911,4 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		team_p->score += 1;
 		team_c->score += 1;	
 	}
-
-
 }

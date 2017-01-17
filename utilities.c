@@ -15,7 +15,7 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <string.h>
-
+#include "database.h"
 static int seed_count = 0;
 //Sort
 void teamsSwap(team_t *t1, team_t *t2) {
@@ -347,6 +347,26 @@ void printTeamPlayers(player_t *players, int size, team_t *teams, int id){
 	}
 	printf(BLUE "┗━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━┻━━━━┻━━━━━━━━━━┻━━━━━┻━━━━━━━┻━━━━━━━━┻━━━━━━━┻━━━━━━━━━┛\n" RESET);
 }
+void printPlayerIn(player_t *players, int size, int index[2][11], int type){
+	printf(BLUE "┏━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━┳━━━━┳━━━━━━━━━━┳━━━━━┳━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓\n" RESET);
+	printf(BLUE "┃" RESET "%4s" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%4s" BLUE "┃" RESET "%4s" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%5s" BLUE "┃" RESET "%7s" BLUE "┃" RESET "%8s" BLUE "┃" RESET "%7s" BLUE "┃" RESET "%9s" BLUE "┃" RESET "%18s" BLUE "┃" RESET "\n", "id", "Shomare","Name", "Sen", "goal", "position" , "skill", "amadegi", "khastegi", "rouhiye", "khoshunat", "Mogheiat Dar Zamin");
+	if(type == 0){
+		for(int i = 0; i < 11; i++){
+			printf(BLUE "┣━━━━╋━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━╋━━━━╋━━━━━━━━━━╋━━━━━╋━━━━━━━╋━━━━━━━━╋━━━━━━━╋━━━━━━━━━╋━━━━━━━━━━━━━━━━━━┫\n" RESET);
+			printf(BLUE "┃" RESET "%4d" BLUE "┃" RESET "%10d" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%4d" BLUE "┃" RESET "%4d" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%5d" BLUE "┃" RESET "%7d" BLUE "┃" RESET "%8d" BLUE "┃" RESET "%7d" BLUE "┃" RESET "%9d" BLUE "┃" RESET "%18s" BLUE "┃" RESET"\n", (players + index[0][i])->id, (players + index[0][i])->shomare ,(players + index[0][i])->name, (players + index[0][i])->sen, (players + index[0][i])->goal, ((players + index[0][i])->position == 1) ? "Hamle" : (((players + index[0][i])->position == 2) ? "Miane" : (((players + index[0][i])->position == 3) ? "Defa" : "DarvazeBan")), (players + index[0][i])->skill, (players + index[0][i])->amadegi, (players + index[0][i])->khastegi, (players + index[0][i])->rouhiye, (players + index[0][i])->khoshunat, index[1][i] == 1 ? "Hamle" : (index[0][i] == 2 ? "Miane" : (index[0][i] == 3 ? "Defa" : "DarvazeBan")));
+		}
+	}else{
+		for(int i = 0; i < 11; i++){
+			for(int j = 0; j < size; j++){
+				if(index[0][i] == players[j].id){
+					printf(BLUE "┣━━━━╋━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━╋━━━━╋━━━━━━━━━━╋━━━━━╋━━━━━━━╋━━━━━━━━╋━━━━━━━╋━━━━━━━━━╋━━━━━━━━━━━━━━━━━━┫\n" RESET);
+					printf(BLUE "┃" RESET "%4d" BLUE "┃" RESET "%10d" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%4d" BLUE "┃" RESET "%4d" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%5d" BLUE "┃" RESET "%7d" BLUE "┃" RESET "%8d" BLUE "┃" RESET "%7d" BLUE "┃" RESET "%9d" BLUE "┃" RESET "%18s" BLUE "┃" RESET"\n", (players + j)->id, (players + j)->shomare ,(players + j)->name, (players + j)->sen, (players + j)->goal, ((players + j)->position == 1) ? "Hamle" : (((players + j)->position == 2) ? "Miane" : (((players + j)->position == 3) ? "Defa" : "DarvazeBan")), (players + j)->skill, (players + j)->amadegi, (players + j)->khastegi, (players + j)->rouhiye, (players + j)->khoshunat, index[1][i] == 1 ? "Hamle" : (index[1][i] == 2 ? "Miane" : (index[1][i] == 3 ? "Defa" : "DarvazeBan")));			
+				}
+			}
+		}
+	}
+	printf(BLUE "┗━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━┻━━━━┻━━━━━━━━━━┻━━━━━┻━━━━━━━┻━━━━━━━━┻━━━━━━━┻━━━━━━━━━┻━━━━━━━━━━━━━━━━━━┛\n" RESET);
+}
 void printAllTeamsList(team_t *teams, int size){
 	enum teamField tf;
 	tf = teamID;
@@ -361,16 +381,16 @@ void printAllTeamsList(team_t *teams, int size){
 }
 void printLeagueData(team_t *teams, int size){
 	bubbleTeamsLeague(teams, 16);
-	printf(BLUE "┏━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━┳━━━━┳━━━━━━┳━━━━━┓\n" RESET);
-	printf(BLUE "┃" RESET "%4s" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%5s" BLUE "┃" RESET "%4s" BLUE "┃" RESET "%6s" BLUE "┃" RESET "%5s" BLUE "┃" RESET"\n", "id","Name", "Score", "Zade", "Khorde", "Tedad");
+	printf(BLUE "┏━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━┳━━━━┳━━━━━━┳━━━━━━━┳━━━━━┳━━━━┳━━━━━┳━━━━━━┓\n" RESET);
+	printf(BLUE "┃" RESET "%4s" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%5s" BLUE "┃" RESET "%4s" BLUE "┃" RESET "%6s" BLUE "┃" RESET "%7s" BLUE "┃" RESET "%5s" BLUE "┃" RESET "%4s" BLUE "┃" RESET "%5s" BLUE "┃" RESET "%6s" BLUE "┃" RESET"\n", "id","Name", "Score", "Zade", "Khorde", "Tafazol" ,"Tedad", "Bord", "Bakht", "Mosavi");
 	for(int i = 0; i < size; i++){
-		printf(BLUE "┣━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━╋━━━━╋━━━━━━╋━━━━━┫\n" RESET);
+		printf(BLUE "┣━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━╋━━━━╋━━━━━━╋━━━━━━━╋━━━━━╋━━━━╋━━━━━╋━━━━━━┫\n" RESET);
 		if((teams + i)->isPlayer == 0)
-			printf(BLUE "┃" RESET "%4d" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%5d" BLUE "┃" RESET "%4d" BLUE "┃" RESET "%6d" BLUE "┃" RESET "%5d" BLUE "┃" RESET "\n", (teams + i)->id, (teams + i)->name, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->count);
+			printf(BLUE "┃" RESET "%4d" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%5d" BLUE "┃" RESET "%4d" BLUE "┃" RESET "%6d" BLUE "┃" RESET "%7d" BLUE "┃" RESET "%5d" BLUE "┃" RESET "%4d" BLUE "┃" RESET "%5d" BLUE "┃" RESET "%6d" BLUE "┃" RESET"\n", (teams + i)->id, (teams + i)->name, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->zade - (teams + i)->khorde,(teams + i)->count, (teams + i)->borde, (teams + i)->bakhte, (teams + i)->count - ((teams + i)->borde + (teams + i)->bakhte));
 		else
-			printf(BLUE "┃" RED "%4d" BLUE "┃" RED "%20s" BLUE "┃" RED "%5d" BLUE "┃" RED "%4d" BLUE "┃" RED "%6d" BLUE "┃" RED "%5d" BLUE "┃" RESET "\n", (teams + i)->id, (teams + i)->name, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->count);
+			printf(BLUE "┃" RED "%4d" BLUE "┃" RED "%20s" BLUE "┃" RED "%5d" BLUE "┃" RED "%4d" BLUE "┃" RED "%6d" BLUE "┃" RED "%7d" BLUE "┃" RED "%5d" BLUE "┃" RED "%4d" BLUE "┃" RED "%5d" BLUE "┃" RED "%6d" BLUE "┃" RESET"\n", (teams + i)->id, (teams + i)->name, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->zade - (teams + i)->khorde,(teams + i)->count, (teams + i)->borde, (teams + i)->bakhte, (teams + i)->count - ((teams + i)->borde + (teams + i)->bakhte));
 	}
-	printf(BLUE "┗━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━┻━━━━━━┻━━━━━┛\n" RESET);
+	printf(BLUE "┗━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━┻━━━━┻━━━━━━┻━━━━━━━┻━━━━━┻━━━━┻━━━━━┻━━━━━━┛\n" RESET);
 }
 void printGames(game_t *games, int size, team_t *teams){
 	if(size == 0)
@@ -394,12 +414,6 @@ void printGames(game_t *games, int size, team_t *teams){
 	}
 	printf(BLUE "┗━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━┛\n" RESET);
 }
-void printGameGoals(){
-
-}
-void printWeekGames(){
-
-}
 void printArrangment(arrangment_t *arrangments, int size){
 	printf(BLUE "┏━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┓\n" RESET);
 	printf(BLUE "┃" RESET "%4s" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%10s" BLUE "┃" RESET "%10s" BLUE "┃" RESET"\n", "id","Defa", "Miane", "Hamle");
@@ -408,4 +422,21 @@ void printArrangment(arrangment_t *arrangments, int size){
 	printf(BLUE "┃" RESET "%4d" BLUE "┃" RESET "%10d" BLUE "┃" RESET "%10d" BLUE "┃" RESET "%10d" BLUE "┃" RESET"\n", i + 1, arrangments[i].defa ,arrangments[i].miane, arrangments[i].hamle);	
 	}
 	printf(BLUE "┗━━━━┻━━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━┛\n" RESET);
+}
+void printNatijeWeek(int week){
+	natayej_t *natayej;
+	int countNatayej = getNatayej(&natayej);
+	game_t *games;
+	int countGames = getGames(&games);
+	team_t teams[16];
+	getTeamsProfile(teams);
+	printf(BLUE "┏━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━┓\n" RESET);
+	printf(BLUE "┃" RESET "%4s" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%20s" BLUE "┃" RESET "%6s" BLUE "┃" RESET "%6s" BLUE "┃" RESET "\n", "id","Team 1", "Team 2", "Goal 1", "Goal 2");
+	for(int i =0; i < countNatayej ; i++){
+		if(games[natayej[i].gameid - 1].week == week){
+	printf(BLUE "┣━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━╋━━━━━━╋━━━━━━┫\n" RESET);
+	printf(BLUE "┃" RESET "%4d" BLUE "┃" "%s" "%20s" BLUE "┃" "%s" "%20s" BLUE "┃" RESET "%6d" BLUE "┃" RESET "%6d" BLUE "┃" RESET "\n", games[natayej[i].gameid - 1].id, (teams[games[natayej[i].gameid - 1].team1id - 1].isPlayer == 1 ? RED : RESET), teams[games[natayej[i].gameid - 1].team1id - 1].name, (teams[games[natayej[i].gameid - 1].team2id - 1].isPlayer == 1 ? RED : RESET),teams[games[natayej[i].gameid - 1].team2id - 1].name, natayej[i].team1goal, natayej[i].team2goal);	
+		}
+	}
+	printf(BLUE "┗━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━┻━━━━━━┻━━━━━━┛\n" RESET);
 }
