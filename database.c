@@ -29,15 +29,15 @@ team_t *getTeamsProfile(team_t *teams){
 	char destination[] = "Database/profile/teams";
 	FILE *fp = NULL;
 	fp = fopen(destination, "r");
-	if(fp == NULL){
+	if(fp == NULL){ //if failed to open file, exit with NULL
 		return NULL;
 	}
-	char data[100];
+	char data[100]; 
 	fgets(data,100,fp); //exclude first line
 	for(int i = 0;fgets(data,100,fp) != NULL;i++){ //save each line in data variable
-		char id[3], isPlayer[2], money[10], score[3], zade[4], khorde[4], count[3]; //some string to put data in
-		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, (teams + i)->name, isPlayer, money, score, zade, khorde, count); //scan data with : seprator
-		char *ptr = NULL;
+		char id[3], isPlayer[2], money[10], score[3], zade[4], khorde[4], count[3], borde[3], bakhte[3]; //some string to put data in before convert them to digits
+		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, (teams + i)->name, isPlayer, money, score, zade, khorde, count, borde, bakhte); //scan data with , seprator
+		char *ptr = NULL; 
 		(teams + i)->id = strtol(id,&ptr,10); //save id into struct
 		(teams + i)->isPlayer = strtol(isPlayer,&ptr,10); //save isPlayer into struct
 		(teams + i)->money = strtol(money,&ptr,10); //save money into struct
@@ -45,9 +45,11 @@ team_t *getTeamsProfile(team_t *teams){
 		(teams + i)->zade = strtol(zade,&ptr,10); //save goale zade into struct
 		(teams + i)->khorde = strtol(khorde,&ptr,10); //save goale khorde into struct
 		(teams + i)->count = strtol(count,&ptr,10); //save count into struct
+		(teams + i)->borde = strtol(borde,&ptr,10); //save borde into struct
+		(teams + i)->bakhte = strtol(bakhte,&ptr,10); //save bakhte into struct
 	}
-	fclose(fp);
-	fp = NULL;
+	fclose(fp); //close opened file
+	fp = NULL; //set pointer to NULL
 	return teams;
 }
 int getPlayersProfile(player_t **players){
@@ -55,20 +57,20 @@ int getPlayersProfile(player_t **players){
 	char destination[] = "Database/profile/players";
 	FILE *fp = NULL;
 	fp = fopen(destination, "r");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed to open file
 		return 0;
 	}
 	char data[200];
 	//count lines
 	int line;
 	for(line = 0; fgets(data,100,fp) != NULL; line++);
-	line--;
+	line--; //exclude the first line
 	*players = (player_t *)(calloc(line, sizeof(player_t))); //allocate the players in ram
-	rewind(fp);
+	rewind(fp); //rewind to the first of file
 	fgets(data,100,fp); //exclude first line
 	for(int i = 0;fgets(data,100,fp) != NULL;i++){ //save each line in data variable
 		char id[3], sen[3], shomare[3], teamid[3], goal[4], position[2], skill[4], amadegi[4], khastegi[4], rouhiye[4], khoshunat[4]; //some string to put data in
-		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, teamid, shomare, (*players + i)->name, sen, goal, position, skill, amadegi, khastegi, rouhiye, khoshunat); //scan data with : seprator
+		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, teamid, shomare, (*players + i)->name, sen, goal, position, skill, amadegi, khastegi, rouhiye, khoshunat); //scan data with , seprator
 		char *ptr = NULL;
 		(*players + i)->id = strtol(id,&ptr,10); //save id into struct
 		(*players + i)->teamid = strtol(teamid,&ptr,10); //save teamid into struct
@@ -82,9 +84,9 @@ int getPlayersProfile(player_t **players){
 		(*players + i)->rouhiye = strtol(rouhiye,&ptr,10); //save rouhiye into struct
 		(*players + i)->khoshunat = strtol(khoshunat,&ptr,10); //save khoshunat into struct
 	}
-	fclose(fp);
-	fp = NULL;
-	return line;
+	fclose(fp); //close file
+	fp = NULL; //set pointer to NULL
+	return line; //return the count of players
 }
 int createTeamsProfile(void){
 	team_t teams[16];
@@ -92,7 +94,7 @@ int createTeamsProfile(void){
 	char destination[] = "Database/teams.csv";
 	FILE *fp = NULL;
 	fp = fopen(destination, "r");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed to open file
 		return 0;
 	}
 	char data[100];
@@ -106,17 +108,19 @@ int createTeamsProfile(void){
 		(teams + i)->zade = 0; //save goale zade into struct
 		(teams + i)->khorde = 0; //save goale khorde into struct
 		(teams + i)->count = 0; //save count into struct
+		(teams + i)->borde = 0; //save borde into struct
+		(teams + i)->bakhte = 0; //save count into struct
 	}
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
-	return (saveTeamsProfile(teams,i));
+	return (saveTeamsProfile(teams,i)); //save structure into profile file
 }
 int createPlayersProfile(void){
 	team_t teams[16];
 	//Get teams from saved profile
-	getTeamsProfile(teams);
-	for(int i = 0; i < 16; i++){
-		for(int j = 0; (teams + i)->name[j] != 0; j++){ //Remove Space
+	getTeamsProfile(teams); 
+	for(int i = 0; i < 16; i++){ 
+		for(int j = 0; (teams + i)->name[j] != 0; j++){ //Remove Space frome Name of teams
 			if((teams + i)->name[j] == ' '){
 				(teams + i)->name[j] = (teams + i)->name[j + 1];
 				if((teams + i)->name[j + 1] != 0){
@@ -130,7 +134,7 @@ int createPlayersProfile(void){
 	char destination3[] = "Database/profile/players"; //Save players
 	FILE *fp = NULL;
 	fp = fopen(destination3, "w");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed to open file
 		return 0;
 	}
 	fprintf(fp, "%s\n", data);
@@ -191,7 +195,7 @@ int getGames(game_t **games){
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/games";
 	fp = fopen(destination, "r");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 f fialed to open file
 		return 0;
 	}
 	char data[100];
@@ -213,7 +217,7 @@ int getGames(game_t **games){
 		(*games + i - 1)->week = strtol(week,&ptr,10); //save week zade into struct
 		i++;
 	}
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return line;
 }
@@ -222,28 +226,29 @@ int getArrangments(arrangment_t **arrangments){
 	FILE *fp = NULL;
 	char destination[] = "Database/arrangment";
 	fp = fopen(destination, "r");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed to open file 
 		return 0;
 	}
 	char data[100];
 	//count lines
 	int line;
 	for(line = 0; fgets(data,100,fp) != NULL; line++);
-	line--;
+	line--; //exclude the first line
 	*arrangments = (arrangment_t *)(calloc(line, sizeof(arrangment_t))); //allocate the games in ram
-	rewind(fp);
+	rewind(fp); //rewind to first line
 	int i = 0;
 	fgets(data,100,fp); //exclude first line
 	while(fgets(data,100,fp) != NULL){ //save each line in data variable
 		char defa[2],miane[2],hamle[2]; //some string to put data in
 		sscanf(data, "%[^,],%[^,],%[^,]", defa, miane, hamle); //scan data with , seprator
 		char *ptr = NULL;
-		(*arrangments + i)->defa = strtol(defa,&ptr,10);
+		//save data in array of struct
+		(*arrangments + i)->defa = strtol(defa,&ptr,10); 
 		(*arrangments + i)->miane = strtol(miane,&ptr,10); 
 		(*arrangments + i)->hamle = strtol(hamle,&ptr,10); 
 		i++;
 	}
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return line;
 }
@@ -252,16 +257,16 @@ int getNatayej(natayej_t **natayej){
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/natayej";
 	fp = fopen(destination, "r");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed to open file
 		return 0;
 	}
 	char data[100];
 	//count lines
 	int line;
 	for(line = 0; fgets(data,100,fp) != NULL; line++);
-	line--;
+	line--; //exclude first line
 	*natayej = (natayej_t *)(calloc(line, sizeof(natayej_t))); //allocate the games in ram
-	rewind(fp);
+	rewind(fp); //rewind to first line
 	int i = 1;
 	fgets(data,100,fp); //exclude first line
 	while(fgets(data,100,fp) != NULL){ //save each line in data variable
@@ -273,7 +278,7 @@ int getNatayej(natayej_t **natayej){
 		(*natayej + i - 1)->team2goal = strtol(team2goal,&ptr,10); //save team2goal into struct
 		i++;
 	}
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return line;
 }
@@ -282,7 +287,7 @@ int saveAllNatayejProfile(natayej_t *natayej, int size){
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/natayej";
 	fp = fopen(destination, "w");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed
 		return 0;
 	}
 	char data[100] = "gameid,team1goal,team2goal"; //first row
@@ -291,7 +296,7 @@ int saveAllNatayejProfile(natayej_t *natayej, int size){
 		sprintf(data, "%d,%d,%d", (natayej + i)->gameid, (natayej + i)->team1goal, (natayej + i)->team2goal);
 	}
 	fprintf(fp, "%s\n", data); //save the last line
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return 1;
 }
@@ -300,7 +305,7 @@ int saveGamesProfile(game_t *games, int size){
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/games";
 	fp = fopen(destination, "w");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed
 		return 0;
 	}
 	char data[100] = "id,team1id,team2id,week"; //first row
@@ -309,34 +314,36 @@ int saveGamesProfile(game_t *games, int size){
 		sprintf(data, "%d,%d,%d,%d", (games + i)->id, (games + i)->team1id, (games + i)->team2id, (games + i)->week);
 	}
 	fprintf(fp, "%s\n", data); //save the last line
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return 1;
 }
 int saveTeamsProfile(team_t *teams,int size){
+	bubbleTeams(teams, size, teamID); //bublle teams first
 	//Open file
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/teams";
 	fp = fopen(destination, "w");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed
 		return 0;
 	}
-	char data[100] = "id,name,isPlayer,money,score,zade,khorde,count"; //first row
+	char data[100] = "id,name,isPlayer,money,score,zade,khorde,count,borde,bakhte"; //first row
 	for(int i = 0; i < size; i++){ //save each line in file
 		fprintf(fp, "%s\n", data);
-		sprintf(data, "%d,%s,%d,%d,%d,%d,%d,%d", (teams + i)->id, (teams + i)->name, (teams + i)->isPlayer, (teams + i)->money, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->count);
+		sprintf(data, "%d,%s,%d,%d,%d,%d,%d,%d,%d,%d", (teams + i)->id, (teams + i)->name, (teams + i)->isPlayer, (teams + i)->money, (teams + i)->score, (teams + i)->zade, (teams + i)->khorde, (teams + i)->count, (teams + i)->borde, (teams + i)->bakhte);
 	}
 	fprintf(fp, "%s\n", data); //save the last line
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return 1;	
 }
 int savePlayersProfile(player_t *players, int size){
+	bubblePlayers(players, size, playersID);
 	//Open file
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/players";
 	fp = fopen(destination, "w");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed
 		return 0;
 	}
 	char data[100] = "id,teamid,shomare,name,sen,goal,position,skill,amadegi,khastegi,rouhiye,khoshunat"; //first row
@@ -345,7 +352,7 @@ int savePlayersProfile(player_t *players, int size){
 		sprintf(data, "%d,%d,%d,%s,%d,%d,%d,%d,%d,%d,%d,%d", (players + i)->id, (players + i)->teamid, (players + i)->shomare, (players + i)->name, (players + i)->sen, (players + i)->goal, (players + i)->position, (players + i)->skill, (players + i)->amadegi, (players + i)->khastegi, (players + i)->rouhiye, (players + i)->khoshunat);
 	}
 	fprintf(fp, "%s\n", data); //save the last line
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return 1;	
 }
@@ -354,7 +361,7 @@ int addNatayejProfile(natayej_t *natayej, int size){
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/natayej";
 	fp = fopen(destination, "a");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed
 		return 0;
 	}
 	char data[100];
@@ -362,7 +369,7 @@ int addNatayejProfile(natayej_t *natayej, int size){
 		sprintf(data, "%d,%d,%d", (natayej + i)->gameid, (natayej + i)->team1goal, (natayej + i)->team2goal);
 		fprintf(fp, "%s\n", data);
 	}
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return 1;
 }
@@ -383,7 +390,7 @@ int getIndex(int index[2][11]){
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/index";
 	fp = fopen(destination, "r");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed
 		return 0;
 	}
 	int i = 0;
@@ -396,7 +403,7 @@ int getIndex(int index[2][11]){
 		index[1][i] = strtol(position,&ptr,10);
 		i++;
 	}
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return 1;
 }
@@ -405,7 +412,7 @@ int saveIndex(int index[2][11]){
 	FILE *fp = NULL;
 	char destination[] = "Database/profile/index";
 	fp = fopen(destination, "w");
-	if(fp == NULL){
+	if(fp == NULL){ //return 0 if failed
 		return 0;
 	}
 	char data[100];
@@ -413,7 +420,7 @@ int saveIndex(int index[2][11]){
 		sprintf(data, "%d,%d", index[0][i], index[1][i]);
 		fprintf(fp, "%s\n", data);
 	}
-	fclose(fp);
+	fclose(fp); //close file
 	fp = NULL;
 	return 1;
 }
