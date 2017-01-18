@@ -56,7 +56,7 @@ int main(){
 			int n = 1;
 			char s[100];
 			if(a[8] != 0)
-			sscanf(a, "%s %d", s, &n);
+				sscanf(a, "%s %d", s, &n);
 			procceed(n);
 			status();
 		}else if(strcmp(a,"table") == 0){

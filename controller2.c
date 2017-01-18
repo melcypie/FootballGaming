@@ -90,22 +90,17 @@ void goalAssign(player_t *players, int index[2][11], int size,int type) {
 		search = (baze - MianeRange) / 3;
 	}
 	int i = 0;
-//printf("Search:%d==Pos::%d\n", search, pos);
 	for (;search >= 0;i++) {
 		if (index[1][i] == pos)
 			search--;
 	}
 	if(type == 0){
-
 		players[index[0][i - 1]].goal++;
-//printf("%s\n", players[index[0][i - 1]].name);
 	}else {
 		int k = index[0][i - 1];
-//printf("index::%d\n", k);
 		for (int i = 0;i < size;i++){
 			if (players[i].id == k){
 				players[i].goal++;
-//printf("%s\n", players[i].name);
 			}
 		}
 	}
@@ -243,12 +238,12 @@ void procceed(int n) {
 	count3 = getGames(&games);
 	if(count == 0){
 		if(n > 30){
-			printf("Nmishe bishtar az 30 hafte ro bargozar kard");
+			printf("\tNmishe bishtar az 30 hafte ro bargozar kard");
 			return;
 		}
 	}else{
 		if(n + games[natayej[count - 1].gameid -1].week > 30){
-			printf("Nmishe bishtar az 30 hafte ro bargozar kard");
+			printf("\tNmishe bishtar az 30 hafte ro bargozar kard");
 			return;	
 		}
 	}
@@ -259,9 +254,11 @@ void procceed(int n) {
 			playWeek(i + 1, players, count1, teams);
 		else
 			playWeek(games[natayej[count - 1].gameid -1].week + i + 1, players, count1, teams);
-	}
-	saveTeamsProfile(teams, 16);
-	savePlayersProfile(players, count1);		
+		bubblePlayers(players, count1, playerID);
+		bubbleTeams(teams, 16, teamID);
+		saveTeamsProfile(teams, 16);
+		savePlayersProfile(players, count1);
+	}		
 }
 void lineup(void) {
 	int HaveSaved = 1;
@@ -285,7 +282,7 @@ void lineup(void) {
 	if(HaveSaved == 1){
 		printf("tamame bazikon hayat inha hasatand!!\n");
 		printTeamPlayers(players, count1, teams, k);
-		bubblePlayers(players_in, 11, playerID);
+		bubblePlayers(players, count1, playerID);
 		bubbleTeams(teams, 16, teamID);
 		for (int i = 0;i < 11;i++) {
 				players_in[i].id = players[index_p[0][i] - 1].id;
@@ -303,10 +300,11 @@ void lineup(void) {
 				players_in[i].teamid = players[index_p[0][i] - 1].teamid;
 
 		}
-		printf("bazikon haye tooye zamin inha hasatand!\n");
-		printTeamPlayers(players_in, 11, teams, k);
-		printf("mikhay Arrengemant ra avaz koni??\n");
-		printf("age mikhay bzan yes age nemikhay bzan no!\n");
+		printf("\tbazikon haye tooye zamin inha hasatand!\n");
+		//printTeamPlayers(players_in, 11, teams, k);
+		printPlayerIn(players_in, 11,index_p, 1);
+		printf("\tmikhay Arrengemant ra avaz koni??\n");
+		printf("\tage mikhay bzan yes age nemikhay bzan no!\n");
 	}
 	char s[5];
 	while (1) {
@@ -316,7 +314,7 @@ void lineup(void) {
 			flushBuffer();
 		}else{
 			clearPage();
-			printf("%s\n", "To arrangmenti Nadari, Bayad Ye arrangmenti vase teamet besazi\n");
+			printf("%s\n", "\tTo arrangmenti Nadari, Bayad Ye arrangmenti vase teamet besazi\n");
 			strcpy(s, "yes");
 		}
 		if (strcmp(s, "no") == 0) {
@@ -330,46 +328,46 @@ void lineup(void) {
 			int miane = 0;
 			int hamle = 0;
 			while (1) {
-				printf("arrangment haye dade shode ra mikhay?\n");
-				printf("age mikhay bzan yes age nemikhay bzan no!\n");
+				printf("\tarrangment haye dade shode ra mikhay?\n");
+				printf("\tage mikhay bzan yes age nemikhay bzan no!\n");
 				printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 				scanf("%4s", s);
 				flushBuffer();
 				int status = 0;
 				if (strcmp(s, "no") == 0) {
 					clearPage();
-					printf("3 ta adad be tartibe defa miane va hamle vared kon\n");
+					printf("\t3 ta adad be tartibe defa miane va hamle vared kon\n");
 					while (1) {
 						printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 						scanf("%d %d %d", &defa, &miane, &hamle);
 						flushBuffer();
 						if((defa+miane+hamle)!=10){
-							printf("riiidi ba in arrangmentet!!\n");
+							printf("\triiidi ba in arrangmentet!!\n");
 						}else{
 							status = 1;
 							break;
 						}
 					}
 				}else if (strcmp(s, "yes") == 0) {
-					printf("harkodam ra ke mikhahi shomarasho az jadval vared kon\n");
+					printf("\tharkodam ra ke mikhahi shomarasho az jadval vared kon\n");
 					int number = 1;
 					while (1) {
 						printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 						scanf("%d", &number);
+						flushBuffer();
 						if (number > count || number < 1) {
-							printf("chenin arrangmenti vojood nadarad");
-							printf("lotfan ye adade beine 1 ta %d vared konid\n", count);
+							printf("\tchenin arrangmenti vojood nadarad");
+							printf("\tlotfan ye adade beine 1 ta %d vared konid\n", count);
 						}else {
 							status = 1;
 							break;
-						}
-						flushBuffer();
+						}						
 					}
 					defa = arrangment[number - 1].defa;
 					miane = arrangment[number - 1].miane;
 					hamle = arrangment[number - 1].hamle;
 				}else {
-					printf("voroodi ghalat ast@@ dobare emtehan kon!!\n");
+					printf("\tvoroodi ghalat ast@@ dobare emtehan kon!!\n");
 				}
 				if(status)
 					break;
@@ -381,8 +379,7 @@ void lineup(void) {
 				if (players[i].teamid == k) {
 					size++;
 					status = 1;
-				}
-				else {
+				} else {
 					if (status == 1)
 						break;
 				}
@@ -411,9 +408,7 @@ void lineup(void) {
 			bubblePlayers(players_mine, size, playerSUM);
 			for (int k = size - 1; k >= 0 && counter2 == 0; k--) {
 				if (players_mine[k].position == 4) {
-//printf("%s:%d:%d",players_mine[k].name, players_mine[k].sum, k);
 					index_p[0][counter2] = players_mine[k].id;
-//printf("%d\n", players_mine[k].id);
 					index_p[1][counter2] = 4;
 					counter2++;
 				}
@@ -507,11 +502,10 @@ void lineup(void) {
 			}
 			break;
 		}else {
-			printf("voroodi ghalat ast@@ dobare emtehan kon\n");
+			printf("\tvoroodi ghalat ast@@ dobare emtehan kon\n");
 		}
 	}
-//clearPage();
-	printf("alaan in bazikon ha tooye zamin hastand!\n");
+	printf("\talaan in bazikon ha tooye zamin hastand!\n");
 	bubblePlayers(players, count1, playerID);
 	for (int i = 0;i < 11;i++) {
 		players_in[i].id = players[index_p[0][i] - 1].id;
@@ -529,8 +523,8 @@ void lineup(void) {
 		players_in[i].teamid = players[index_p[0][i] - 1].teamid;
 	}
 	printPlayerIn(players_in, 11,index_p, 1);
-	printf("mikhay bazikon haye tooye zamin ra avaz koni??\n");
-	printf("yes/no?\n");
+	printf("\tmikhay bazikon haye tooye zamin ra avaz koni??\n");
+	printf("\tyes/no?\n");
 	while (1) {
 		printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 		scanf("%s", s);
@@ -540,11 +534,11 @@ void lineup(void) {
 			return;
 		}else if (strcmp(s, "yes") == 0) {
 			printTeamPlayers(players, count1, teams, k);
-			printf("hala bazikon hato avaz kon\n");
-			printf("harvaght karet tamoom shod '-1' bezan!\n");
+			printf("\thala bazikon hato avaz kon\n");
+			printf("\tharvaght karet tamoom shod '-1' bezan!\n");
 			while (1) {
-				printf("kio ba ki mikhay avaz koni??\n");
-				printf("id baikone tooye zamino vared kon!\n");
+				printf("\tkio ba ki mikhay avaz koni??\n");
+				printf("\tid bazikone tooye zamino vared kon!\n");
 				int id1 = 0;
 				while (1) {
 					printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
@@ -558,21 +552,22 @@ void lineup(void) {
 							status = 1;
 					}
 					if (status == 0) {
-						printf("in bazikon dar zamin nist\n");
-						printf("bazikon haye daroon zamin ra entekhab kon\n");
-					}
-					else {
+						printf("\tin bazikon dar zamin nist\n");
+						printf("\tbazikon haye daroon zamin ra entekhab kon\n");
+					}else {
 						break;
 					}
 				}
-				printf("id nafare dovomo vared kon!\n");
+				printf("\tid nafare dovomo vared kon!\n");
 				int id2 = 0;
 				bubbleTeams(teams, 16, teamID);
+				bubblePlayers(players, count1, playerID);
 				while (1) {
+					printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 					scanf("%d", &id2);
 					flushBuffer();
 					if (teams[players[id2 - 1].teamid - 1].isPlayer == 0) {
-						printf("in bazikon male shoma nist!\n");
+						printf("\tin bazikon male shoma nist!\n");
 					}
 					else {
 						break;
@@ -590,9 +585,9 @@ void lineup(void) {
 					int k2 = 0;
 					for (int i = 0;i < 11;i++) {
 						if (index_p[0][i] == id1)
-							k1 = id1;
+							k1 = i;
 						else if (index_p[0][i] == id2)
-							k2 = id2;
+							k2 = i;
 					}
 					/*int temp = index_p[0][k1];
 					index_p[0][k1] = index_p[0][k2];
@@ -600,8 +595,7 @@ void lineup(void) {
 					index_p[0][k1] ^= index_p[0][k2];
 					index_p[0][k2] ^= index_p[0][k1];
 					index_p[0][k1] ^= index_p[0][k2];
-				}
-				else {
+				}else {
 					for (int i = 0;i < 11;i++) {
 						if (index_p[0][i] == id1)
 							index_p[0][i] = id2;
@@ -610,7 +604,7 @@ void lineup(void) {
 			}
 			saveIndex(index_p);
 		}else{
-			printf("Dasturet na motabare !\n");
+			printf("\tDasturet na motabare !\n");
 		}
 	}
 }

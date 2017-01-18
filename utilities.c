@@ -44,7 +44,12 @@ void teamsSwap(team_t *t1, team_t *t2) {
 	temp.zade = t1->zade;
 	t1->zade = t2->zade;
 	t2->zade = temp.zade;
-
+	temp.borde = t1->borde;
+	t1->borde = t2->borde;
+	t2->borde = temp.borde;	
+	temp.bakhte = t1->bakhte;
+	t1->bakhte = t2->bakhte;
+	t2->bakhte = temp.bakhte;
 }
 void playersSwap(player_t *t1, player_t *t2) {
 	player_t temp;

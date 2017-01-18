@@ -2,8 +2,8 @@
 * Author : Mahdi Alikhasi
 * Description: working with database. get data and save data.
 * Functions::
-*		getPlayersProfile: get the list of player from saved profile and put it into struct. argument: the address of pointer that will assign to the first player. return number of player that can get.
-*		getTeamsProfile : Get team list from saved Profile. return pointer to team_t (the first of array)
+*		getPlayersProfile: 
+*		getTeamsProfile : 
 *		createTeamsProfile: get the team list from default database and save it to profile directory.
 *		createPlayersProfile: get the default player list from default database and save it in the profile directory.
 *		saveTeamsProfile: Save current Teams data into profile. return 1 if succeed and 0 if not
@@ -35,8 +35,8 @@ team_t *getTeamsProfile(team_t *teams){
 	char data[100]; 
 	fgets(data,100,fp); //exclude first line
 	for(int i = 0;fgets(data,100,fp) != NULL;i++){ //save each line in data variable
-		char id[3], isPlayer[2], money[10], score[3], zade[4], khorde[4], count[3], borde[3], bakhte[3]; //some string to put data in before convert them to digits
-		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, (teams + i)->name, isPlayer, money, score, zade, khorde, count, borde, bakhte); //scan data with , seprator
+		char id[3], isPlayer[2], money[10], score[3], zade[4], khorde[4], count[3], bord[3], bakht[3]; //some string to put data in before convert them to digits
+		sscanf(data, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]", id, (teams + i)->name, isPlayer, money, score, zade, khorde, count, bord, bakht); //scan data with , seprator
 		char *ptr = NULL; 
 		(teams + i)->id = strtol(id,&ptr,10); //save id into struct
 		(teams + i)->isPlayer = strtol(isPlayer,&ptr,10); //save isPlayer into struct
@@ -45,8 +45,8 @@ team_t *getTeamsProfile(team_t *teams){
 		(teams + i)->zade = strtol(zade,&ptr,10); //save goale zade into struct
 		(teams + i)->khorde = strtol(khorde,&ptr,10); //save goale khorde into struct
 		(teams + i)->count = strtol(count,&ptr,10); //save count into struct
-		(teams + i)->borde = strtol(borde,&ptr,10); //save borde into struct
-		(teams + i)->bakhte = strtol(bakhte,&ptr,10); //save bakhte into struct
+		(teams + i)->borde = strtol(bord,&ptr,10); //save borde into struct
+		(teams + i)->bakhte = strtol(bakht,&ptr,10); //save bakhte into struct
 	}
 	fclose(fp); //close opened file
 	fp = NULL; //set pointer to NULL
@@ -158,7 +158,7 @@ int createPlayersProfile(void){
 		rewind(fp);
 		for(int j = 0;fgets(data,100,fp) != NULL;j++, player_id++){ //save each line in data variable
 			char sen[3], shomare[3], position[2]; //some string to put data in
-			sscanf(data, "%[^,],%[^,],%[^,],%[^,]", shomare, (players + j)->name, sen, position); //scan data with : seprator
+			sscanf(data, "%[^,],%[^,],%[^,],%[^,]", shomare, (players + j)->name, sen, position); //scan data with , seprator
 			char *ptr = NULL;
 			(players + j)->id = player_id; //save id into struct
 			(players + j)->teamid = (teams + i)->id; //save teamid into struct

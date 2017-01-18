@@ -2,10 +2,10 @@
 * Author : Pegah Khorasani
 * Description: 
 * Functions:: 
-		start: 2 halt bara ye bazi vujud dard, bazi az avval shuru shavd ya kheyr! in tabe shuru e bazi ra az 2 halat Ntekhab mikond
-		selectProfileTeam: karbar az 16 ta teame mujud yeki ra be delkhah Ntekhab miknd
-		palyGameCC: in tabe bazi ye 2 team dar computer ra moshakhas mikond
-		playGameCP: in tabe bazi ye 2 team karbar va computer ra moshakhas mikond  
+		start: 
+		selectProfileTeam: 
+		palyGameCC: 
+		playGameCP:  
 *		
 */
 //tamame comment ha marbut be khate payini hastnd :3
@@ -25,11 +25,11 @@ extern int index_p[2][11];
 
 void selectProfileTeam(){
 	clearPage();
-	printf("azizm ye team Ntekhab kon\n");
+	printf("\tazizm ye team Ntekhab kon\n");
 	team_t teams[16];
 	getTeamsProfile(teams);
 	printAllTeamsList(teams,16);
-	printf("azizm id ye team ro vared kon\n");
+	printf("\tazizm id ye team ro vared kon\n");
 	int teamNo = 18;
 	
 	// in while ro inja gozashtm ke karbar ye adad az 1 ta 16 vareed kone< va age sheytuni krd mochesho begirm :3
@@ -38,9 +38,9 @@ void selectProfileTeam(){
 		scanf("%d" , &teamNo);
 		flushBuffer();
 		if ( teamNo>16 || teamNo<1 ) {
-			printf("faght adade 1 ta 16 ra mishe vared krd\n");
+			printf("\tfaght adade 1 ta 16 ra mishe vared krd\n");
 		}else
-		break;	
+			break;	
 	}
 	teams[teamNo - 1].isPlayer=1; //Ntekhabe teame karbar
 	saveTeamsProfile(teams ,16);
@@ -49,8 +49,8 @@ void start(){ //sakhte profile
 	welcomeFootball();
 	//hamintor ke kh malume, inja tabe ye checkProfil ro darim ke age 0 bud profile nadrim age 1 bud ke profile darim 		
 	if ( checkProfile()==0){
-		printf("azizm inja hich profili vujud nadare! :3\n");
-		printf("bara ye sakhte profile kalame ye 'new' ra vared namayid\n");
+		printf("\tazizm inja hich profili vujud nadare! :3\n");
+		printf("\tbara ye sakhte profile kalame ye 'new' ra vared namayid\n");
 		char input[10];
 		while(1) {
 			printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
@@ -62,13 +62,13 @@ void start(){ //sakhte profile
 				lineup();
 				break;	
 			} else {
-				printf("azizm fght mituni 'new' ro vared koni\n");
+				printf("\tazizm fght mituni 'new' ro vared koni\n");
 			}
 		}
 	}else {
-		printf("azizm inja ye profile dari ^__^\n");
-		printf("mikhay ye profile jadid dashte bashi ya na?\n");
-		printf("bara ye shuru e league jadid kalame ye 'new' ra vared namayin ya bara ye edame ye league ghabli kalame ye 'resume' ra vared namayin\n");
+		printf("\tazizm inja ye profile dari ^__^\n");
+		printf("\tmikhay ye profile jadid dashte bashi ya na?\n");
+		printf("\tbara ye shuru e league jadid kalame ye 'new' ra vared namayin ya bara ye edame ye league ghabli kalame ye 'resume' ra vared namayin\n");
 		char input[10];
 		while(1){
 			printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
@@ -84,13 +84,14 @@ void start(){ //sakhte profile
 				getIndex(index_p);
 				break;
 			} else {
-				printf("azizm ya fght 'new' ro bezn ya 'resume'\n");	
+				printf("\tazizm ya fght 'new' ro bezn ya 'resume'\n");	
 			}
 		}
 	}	
 }
 
 void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , player_t *players1 ,int size1, player_t *players2 , int size2 ) {
+	*goal1 = *goal2 = 0;
 	for (int i=0 ;  i < size1 ; i++ ){
 		//mikhaym sum yani betore kolli nomre ye bazikonamuno be dast biarim! hamin tor ke malume amel haye ziadi ba zarib haye mokhtalef sum ro moshkhas mikonnd
 		players1[i].sum= players1[i].amadegi + players1[i].rouhiye/2 -players1[i].khastegi + players1[i].skill;
@@ -523,7 +524,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 			if(players1[i].rouhiye > 100)
 				players1[i].rouhiye=100;			
 		}
-	} else{
+	} else if(*goal2 > *goal1){
 		for ( int i=0 ; i < size2 ; i++){
 			players2[i].rouhiye+=10;
 			if(players2[i].rouhiye > 100)
@@ -535,15 +536,15 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	team1->zade += *goal1;
 	team1->khorde += *goal2;
 	team1->count++ ;
+	team2->zade +=*goal2;
+	team2->khorde +=*goal1;
+	team2->count++ ;
 	if ( *goal1 > *goal2 ) {
 		team1->score += 3;
 		team1->borde++;
 		team2->bakhte++;
 	}
 	
-	team2->zade +=*goal2;
-	team2->khorde +=*goal1;
-	team2->count++ ;
 	if (*goal2 > *goal1 ) {
 		team2->score += 3;
 		team2->borde++;
@@ -557,14 +558,11 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}
 	//345 345 update kone 3 emtiaz ezafe kone be teame bbarande tedad goala ye zade va khorde hm update kon va tedad bazia hm update kone
 }
-
-
-
 // p: karbar c:compuer
 //team_p : teami ke karbar bazi mikond
 //team_c : teami ke comuter bazi mikond
 void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , player_t *players_c ,int size_c, player_t *players_p , int size_p ) {
-	
+	*goal_p = *goal_c = 0;
 	for (int i=0 ;  i < size_c ; i++ ){
 		players_c[i].sum= players_c[i].amadegi + players_c[i].rouhiye/2 -players_c[i].khastegi + players_c[i].skill;
 	}
@@ -855,14 +853,10 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		sumDefaTeam_c = 0;
 	if(sumHamleTeam_c < 0)
 		sumHamleTeam_c = 0;
-//printf("%s\n", "Before");
 
-//printf("-- HaC %d::%d\n", sumHamleTeam_c , sumDefaTeam_p);
-//printf("-- HaP %d::%d\n", sumHamleTeam_p , sumDefaTeam_c);
 	if ( sumHamleTeam_c > sumDefaTeam_p){ 
 		*goal_c = (sumHamleTeam_c - sumDefaTeam_p) / CTE ;
 		for ( int i=0 ; i < *goal_c ; i++){
-//printf("%d", i);
 			goalAssign(players_c, index_c,size_c, 0);
 		}
 	}
@@ -872,7 +866,6 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 			goalAssign(players_p, index_p , size_p, 1);
 		}		
 	}
-//printf("%s\n", "After");
 	if ( *goal_c > *goal_p ) {
 		for ( int i=0 ; i<size_c ; i++){
 			players_c[i].rouhiye+=10;
@@ -887,23 +880,22 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		}		
 		
 	}
-//printf("%s\n", "AFTER AFTER");	
 	team_c->zade += *goal_c;
 	team_c->khorde += *goal_p;
-	team_c->count++ ;
-	if ( *goal_c > *goal_p ) {
-		team_c ->score += 3;
-		team_c->borde++;
-		team_p->bakhte++;
-	}
-	
-	team_p-> zade+= *goal_p;
+	team_c->count +=1;
+	team_p->zade += *goal_p;
 	team_p->khorde+= *goal_c;
 	team_p->count++ ;
+	if ( *goal_c > *goal_p ) {
+		team_c->score += 3;
+		team_c->borde +=1;
+		team_p->bakhte +=1;
+	}
+	
 	if (*goal_p > *goal_c ) {
 		team_p->score += 3;
-		team_p->borde++;
-		team_c->bakhte++;
+		team_p->borde +=1;
+		team_c->bakhte +=1;
 	}
 	
 	
