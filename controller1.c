@@ -503,7 +503,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	if(sumHamleTeam1 < 0)
 		sumHamleTeam1 = 0;
 		
-	// 123 123 yadm nis injasho chi kar krdm	
+	// baraye be dast avordne golamun sumhamle ro az defa kam mikonim va uno bar adade sabeti taghsim mikonim
 	if ( sumHamleTeam1 > sumDefaTeam2){ 
 		*goal1=(sumHamleTeam1 - sumDefaTeam2) / CTE ;
 		for ( int i=0 ; i < *goal1 ; i++){
@@ -518,6 +518,7 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 	}
 
 
+	//har teami har goli bezane ruhie ye kolle bazikonash ziad mishe
 	if ( *goal1 > *goal2 ) {
 		for ( int i=0 ; i < size1 ; i++){
 			players1[i].rouhiye+=10;
@@ -533,12 +534,15 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 		
 	}
 	
+	//tedad golhaye zade o khorde shde va hamchenin tedad bazi hhaye anjam shod ro hesab mikonim
 	team1->zade += *goal1;
 	team1->khorde += *goal2;
 	team1->count++ ;
 	team2->zade +=*goal2;
 	team2->khorde +=*goal1;
 	team2->count++ ;
+	
+	//har teami ke gol bezane 3 emtiaz behsh ezafe mishe
 	if ( *goal1 > *goal2 ) {
 		team1->score += 3;
 		team1->borde++;
@@ -551,18 +555,19 @@ void playGameCC ( team_t *team1 , team_t *team2 , int *goal1 , int *goal2 , play
 		team1->bakhte++;
 	}
 	
-	
+	//vaghti 2 team ba ham mosavi mikonn yek emtiaz be dat miarn
 	if (*goal1 == *goal2){
 		team2->score += 1;
 		team1->score += 1;	
 	}
-	//345 345 update kone 3 emtiaz ezafe kone be teame bbarande tedad goala ye zade va khorde hm update kon va tedad bazia hm update kone
 }
+
 // p: karbar c:compuer
 //team_p : teami ke karbar bazi mikond
 //team_c : teami ke comuter bazi mikond
 void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , player_t *players_c ,int size_c, player_t *players_p , int size_p ) {
 	*goal_p = *goal_c = 0;
+	//sum e bazikon haye computer va karbar ro be dast miarim
 	for (int i=0 ;  i < size_c ; i++ ){
 		players_c[i].sum= players_c[i].amadegi + players_c[i].rouhiye/2 -players_c[i].khastegi + players_c[i].skill;
 	}
@@ -738,7 +743,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		}		
 	}
 	
-	sumDefaTeam_c+=sumMianeTeam_c/2 + sumHamleTeam_c/5; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
+	sumDefaTeam_c+=sumMianeTeam_c/2 + sumHamleTeam_c/5; 
 	sumHamleTeam_c+=sumMianeTeam_c/2 + sumDefaTeam_c/5;
 	int team_cZaribKhata = randomNo(KHATABAZE,100);
 	
@@ -812,7 +817,7 @@ void playGameCP ( team_t *team_c , team_t *team_p , int *goal_c , int *goal_p , 
 		}	
 	}
 	
-	sumDefaTeam_p +=sumMianeTeam_p/2 + sumHamleTeam_p/5; //chon miane hich ahamiati tu goal nadare khodesh be tanhayi bhsh moteghayere sum  nemidim
+	sumDefaTeam_p +=sumMianeTeam_p/2 + sumHamleTeam_p/5; 
 	sumHamleTeam_p +=sumMianeTeam_p/2 + sumDefaTeam_p/5;
 	int team_pZaribKhata=randomNo(KHATABAZE,100);	
 
