@@ -48,7 +48,9 @@ int main(){
 				strcpy(a, "aghayegoal");
 			}
 		}
-		if (strcmp(a, "status") == 0) {
+		if(strcmp(a, "about") == 0){
+			about();
+		}else if (strcmp(a, "status") == 0) {
 			status();
 		}else if (strcmp(a, "exit") == 0) {
 			return (EXIT_SUCCESS);

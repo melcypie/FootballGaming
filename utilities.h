@@ -14,3 +14,4 @@ void teamsSwap(team_t *t1, team_t *t2);
 void playersSwap(player_t *t1, player_t *t2);
 void printPlayerIn(player_t *players, int size, int index[2][11], int type);
 void printNatijeWeek(int week);
+void about(void);

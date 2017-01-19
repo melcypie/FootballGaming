@@ -103,6 +103,10 @@ void playersSwap(player_t *t1, player_t *t2) {
 	t1->sum = t2->sum;
 	t2->sum = temp.sum;
 }
+void about(void){
+	clearPage();
+	printf("\tDarbare ye bazi:\n\t\tin bazio Mahdi Alikhasi, Pegah Khorasani va Leyli Nourbakhsh ( 3 daneshju ye sanati esfehan) neveshtn. Bashad ke rastegar ke dar har 2 donya shavand ^__^\n\tIn bazi vase in be vujud umade ta mosabeghate baziye football o shabih sazi kone, shoma ye team Ntekhab mikonin bad bazikon ha va areyeshe bazi o michinin va be tore koli say mikonin bazi o bebarin! Dar shekast dadne computer movafgh bashin :3\n\tHadafe in bazi  masaln gharare sargarmi bashe vali khob durugh chera!! Ma kario ke ostadane gerami behmun migan ro anjam midim!! Dg bebakhshid babte in rok budn :D\n\tTarikhe shuru code neveshtn be tore kh jeddi, 24 december bud. Taghsime vazayefe o in harfa! Ye chanta hm code neveshte budim o kh khoshhal budim ta ruzi ke jozEyate porozhe mese bala ye asemani nezel shod!! Asan nemikham behsh eshare konm kh bad bud  vali khob 18 januay be tore kamel tamum shodo bikhodi in hame esters keshidim tu tule dorane emtehanat!!\n\tVa dar nahayt tashakkor mikonm az shoma ke vaght gozashtin va in about ro khundin va be ma dars yad dadin (jeddi, joz ma 3 ta fght ye ostad va nahaytn TA ha dar behtrin halat in matn ro mikhunn XD ).  Omid varm hamegi movafgh bashim!!\n");
+}
 void bubblePlayers(player_t *players, int size, int type){
 	for(int i = 0; i < size; i++){
 		for(int j = 0; j < size - 1 - i; j++){
