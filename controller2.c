@@ -608,7 +608,9 @@ void lineup(void) {
 					printf(GREEN "\x1b[3mPlayer@Host:$ " RESET);
 					scanf("%d", &id2);
 					flushBuffer();
-					if (teams[players[id2 - 1].teamid - 1].isPlayer == 0) {
+					if(id2 > count1 || id2 < 0){
+						printf("\tAddade dorost vared kon :/\n");
+					}else if (teams[players[id2 - 1].teamid - 1].isPlayer == 0) {
 						printf("\tin bazikon male shoma nist!\n");
 					}
 					else {
@@ -628,15 +630,18 @@ void lineup(void) {
 					for (int i = 0;i < 11;i++) {
 						if (index_p[0][i] == id1)
 							k1 = i;
-						else if (index_p[0][i] == id2)
+						if (index_p[0][i] == id2)
 							k2 = i;
 					}
-					/*int temp = index_p[0][k1];
+					if(k1 == k2){
+						printf("\tMiduni dari chikar mikoni? ?!! Yani chi ke yeki ro mikhay ba khodesh taviz koni?!?!?\n");
+					}
+					int temp = index_p[0][k1];
 					index_p[0][k1] = index_p[0][k2];
-					index_p[0][k2] = temp;*/
-					index_p[0][k1] ^= index_p[0][k2];
+					index_p[0][k2] = temp;
+					/*index_p[0][k1] ^= index_p[0][k2];
 					index_p[0][k2] ^= index_p[0][k1];
-					index_p[0][k1] ^= index_p[0][k2];
+					index_p[0][k1] ^= index_p[0][k2];*/
 				}else {
 					for (int i = 0;i < 11;i++) {
 						if (index_p[0][i] == id1)
