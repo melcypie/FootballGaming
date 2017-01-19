@@ -4,3 +4,5 @@ void playWeek(int n, player_t *players, int size, team_t *teams);
 void status(void);
 void lineup(void);
 void procceed(int n);
+void aghayeGoal(void);
+void top10(void);

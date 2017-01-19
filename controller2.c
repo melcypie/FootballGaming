@@ -18,6 +18,48 @@ tabee goal assign mige ki goal zade va mogheeiatesh chi boode!
 #include "utilities.h"
 extern int index_p[2][11];
 
+void aghayeGoal(void){
+	natayej_t *natayej;
+	int natayejcount = getNatayej(&natayej);
+	if(natayejcount == 0){
+		printf("\tHanu bazi i anjam nashode, Hame ye bazi kona 0 goal zade an. Ishala az hafte haye bad aghaye goal ro bbin\n");
+		return;
+	}
+	player_t *players;
+	int count = getPlayersProfile(&players);
+	bubblePlayers(players, count, playerGOAL);
+	int k = 0;
+	int i;
+	for(i = count - 1; i >=0 ; i--){
+		if(i == count - 1)
+			k = players[i].goal;
+		else if(k != players[i].goal)
+			break;
+	}
+	int size = count - i -1;
+	team_t teams[16];
+	getTeamsProfile(teams);
+	printf("\tAghaye goale League::\n");
+	printAllPlayers(&players[count - size],size,teams);
+}
+void top10(void){
+	natayej_t *natayej;
+	int natayejcount = getNatayej(&natayej);
+	if(natayejcount == 0){
+		printf("\tHanu bazi i anjam nashode, vase hamin behtarin bazikona malum nistan. beza 2 ta bazi anjam beshe ta bbinim ki khobes\n");
+		return;
+	}
+	player_t *players;
+	int count = getPlayersProfile(&players);
+	for(int i = 0; i < count; i++){
+		players[i].sum= players[i].amadegi + players[i].rouhiye/2 -players[i].khastegi + players[i].skill;
+	}
+	bubblePlayers(players, count, playerSUM);
+	team_t teams[16];
+	getTeamsProfile(teams);
+	printf("\tIna behtarin bazikonaye in league hastan alan\n");
+	printAllPlayers(&players[count - 10], 10, teams);
+}
 void creatGamelist(void){
 	team_t teams[16];
 	getTeamsProfile(teams);//list team haro az profile migire

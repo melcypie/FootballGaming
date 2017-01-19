@@ -2,10 +2,20 @@
 * Author : Mahdi Alikhasi
 * Description: some utilities that will need in the program like clearing page, printing data and so on
 * Functions::
-*		clearPage: clear the entire page using shell built in functions
-*		welcomeFootball: play a playload txet
-*		randomNo : arguman f and l. make a random number between f and l
-*		flushBuffer: clear input buffer
+*		clearPage: 
+*		welcomeFootball: 
+*		randomNo : 
+*		flushBuffer:
+*		teamsSwap:
+*		playersSwap :
+*		bubblePlayers :
+*		bubbleTeams :
+*		bubbleTeamsLeague :
+*		printAllPlayers :
+*		printTeamPlayers :
+*		printPlayerIn :
+*		printAllTeamsList
+*		printLeagueData
 */
 #include "dataStruct.h"
 #include <stdlib.h>
@@ -17,7 +27,7 @@
 #include <string.h>
 #include "database.h"
 static int seed_count = 0;
-//Sort
+
 void teamsSwap(team_t *t1, team_t *t2) {
 	team_t temp;
 	temp.count = t1->count;

@@ -26,7 +26,7 @@ int main(){
 	while(1){
 		{ //Print a valid code list and wait for user to put code
 			printf("\n\n\n\033[%d;0H\x1b[3m", w.ws_row); //go to end of screen with italic
-			printf("\t%s", "status lineup table procceed help about exit"); //print valid codes
+			printf("\t%s", "status lineup table procceed aghayegoal top10 help about exit"); //print valid codes
 			printf("\033[3A\n"); //go two lines Up
 			printf(GREEN "Player@Host:$ " RESET); //wait to get code
 		}
@@ -44,6 +44,8 @@ int main(){
 				strcpy(a, "lineup");
 			}else if(last == 't'){
 				strcpy(a, "table");
+			}else if(last == 'a'){
+				strcpy(a, "aghayegoal");
 			}
 		}
 		if (strcmp(a, "status") == 0) {
@@ -63,6 +65,10 @@ int main(){
 			team_t teams[16];
 			getTeamsProfile(teams);
 			printLeagueData(teams, 16);
+		}else if(strcmp(a,"aghayegoal") == 0){
+			aghayeGoal();
+		}else if(strcmp(a,"top10") == 0){
+			top10();
 		}else {
 			printf("\tdastoor na motabar ast !! \n");
 			printf("\tdobare vared kon!!\n");
@@ -90,6 +96,11 @@ int main(){
 				printf("%s", "\tManzuret in bud :: ");
 				printf("%s\n", "table");
 				last = 't';
+				printf("%s\n", "\tAge Are benevis damn");
+			}else if(strncmp(a, "a", 1) == 0){
+				printf("%s", "\tManzuret in bud :: ");
+				printf("%s\n", "aghayegoal");
+				last = 'a';
 				printf("%s\n", "\tAge Are benevis damn");
 			}else{
 				last = ' ';

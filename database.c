@@ -4,17 +4,20 @@
 * Functions::
 *		getPlayersProfile: 
 *		getTeamsProfile : 
-*		createTeamsProfile: get the team list from default database and save it to profile directory.
-*		createPlayersProfile: get the default player list from default database and save it in the profile directory.
-*		saveTeamsProfile: Save current Teams data into profile. return 1 if succeed and 0 if not
-*		savePlayersProfile: Save current players data into profile. return 1 if succeed and 0 if not
-*		getGames : get the game list. Arguman pointer to pointer. return number of games if succeed. 0 if not
-*		saveGamesProfile : Save games list into profile. return 1 if succeed or 0 if not.
-*		getNatayej : get the natayej list. Arguman pointer to pointer. return number of natayej if succeed. 0 if not
-*		saveAllNatayejProfile : Save the Natayej list into profile. return 1 if succeed or 0 if not
-*		addNatayejProfile : apppend an aaray of natayej to the end of Natayej file on profile directory
-*		removeEmptyFile: Remove the 'empty' file from profile directory
-*		createProfile : if there is not a profile file on profile directory, create one.
+*		createTeamsProfile: 
+*		createPlayersProfile: 
+*		saveTeamsProfile: 
+*		savePlayersProfile: 
+*		getGames : 
+*		saveGamesProfile : 
+*		getNatayej : 
+*		saveAllNatayejProfile : 
+*		addNatayejProfile : 
+*		removeEmptyFile: 
+*		createProfile : 
+*		getArrangments :
+*		getIndex :
+*		saveIndex :
 */
 #include "dataStruct.h"
 #include <stdio.h>
